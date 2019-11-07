@@ -1,17 +1,21 @@
 <div class="login">
+    <div class="triangle-up"></div>
     <h2 class="login-header">Log in</h2>
     <form [formGroup]="loginForm" class="login-container" (ngSubmit)="login()">
-        <p [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }">
-                <mat-form-field appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input matInput placeholder="Placeholder">
-                </mat-form-field>
+        <p>
+            <mat-form-field class="input_field" appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="Username">
+            </mat-form-field>
         </p>
         <div *ngIf="isSubmitted && formControls.email.errors" class="help-block">
             <div *ngIf="formControls.email.errors.required">Email is required</div>
         </div>
-        <p [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
-            <input type="password" placeholder="Password" formControlName="password">
+        <p>
+            <mat-form-field class="input_field" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Password">
+            </mat-form-field>
         </p>
         <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
             <div *ngIf="formControls.password.errors.required">Password is required</div>
@@ -20,10 +24,5 @@
             <input type="submit" value="Log in">
         </p>
     </form>
+    <div class="triangle-down"></div>
 </div>
-
-<mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
