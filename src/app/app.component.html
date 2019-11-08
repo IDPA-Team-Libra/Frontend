@@ -1,28 +1,17 @@
-<button mat-button [matMenuTriggerFor]="aboveMenu">Above</button>
-<mat-menu #aboveMenu="matMenu" yPosition="above">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
+<nb-layout>
+    <nb-layout-header fixed>
+        <ul>
+            <li><button [nbContextMenu]="user_items" size="medium" nbButton hero status="primary">User</button></li>
+            <li><button [nbContextMenu]="market_items" size="medium" nbButton hero status="primary">Market</button></li>
+            <li><button [nbContextMenu]="portfolio_items" size="medium" nbButton hero status="primary">Portfolio</button></li>
+        </ul>
+    </nb-layout-header>
+    <nb-layout-column>
+        <router-outlet>
+        </router-outlet>
+    </nb-layout-column>
+    <nb-layout-footer fixed>
+        <!-- Insert footer here -->
+    </nb-layout-footer>
 
-<button mat-button [matMenuTriggerFor]="belowMenu">Below</button>
-<mat-menu #belowMenu="matMenu" yPosition="below">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
-
-<button mat-button [matMenuTriggerFor]="beforeMenu">Before</button>
-<mat-menu #beforeMenu="matMenu" xPosition="before">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
-
-
-<button mat-button [matMenuTriggerFor]="afterMenu">After</button>
-<mat-menu #afterMenu="matMenu" xPosition="after">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
-
-<router-outlet>
-
-</router-outlet>
+</nb-layout>

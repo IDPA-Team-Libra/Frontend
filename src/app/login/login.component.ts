@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,9 +6,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  username;
+  password;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  loginUser() {
+    console.log(this.username);
+    console.log(this.password);
+  }
 }

@@ -10,6 +10,8 @@ import { MarketComponent } from './market/market.component';
 import { HistoryComponent } from './history/history.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ProfileComponent } from './profile/profile.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { NbThemeModule, NbCardModule, NbTabsetModule, NbInputModule, NbLayoutModule,NbAlertModule,NbMenuModule,NbDialogModule,NbContextMenuModule,NbButtonModule} from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -20,10 +22,11 @@ import {
   MatDatepickerModule,
   MatMenuModule,
 } from '@angular/material';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { TermsComponent } from './terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MarketComponent,
     HistoryComponent,
     PortfolioComponent,
-    ProfileComponent
+    ProfileComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,8 +52,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCheckboxModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatMenuModule
+    NbMenuModule.forRoot(),
+    MatMenuModule, InputTextModule,
+    NbCardModule,
+    NbInputModule, NbTabsetModule, NbThemeModule.forRoot({ name: 'dark' }), NbLayoutModule, NbEvaIconsModule,
+    NbAlertModule,NbDialogModule.forRoot(),
+    NbContextMenuModule,
+    NbButtonModule
   ],
+  entryComponents: [TermsComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
