@@ -1,1 +1,45 @@
-<p>profile works!</p>
+<nb-card>
+    <nb-card-body>
+        <nb-tabset>
+            <nb-tab tabTitle="Nutzer informationen">
+                <p>List of <strong>users</strong>.</p>
+            </nb-tab>
+            <nb-tab tabTitle="Markt Informationen">
+                <nb-card>
+                    <nb-card-body>
+                        <table [nbTreeGrid]="data" equalColumnsWidth>
+                            <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+                            <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+                            <ng-container nbTreeGridColumnDef="symbol">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Symbol</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">
+                                    <nb-tree-grid-row-toggle [expanded]="row.expanded" *ngIf="row.data.kind === 'dir'">
+                                    </nb-tree-grid-row-toggle>
+                                    {{row.data.symbol}}
+                                </td>
+                            </ng-container>
+                            <ng-container nbTreeGridColumnDef="company" [hideOn]="600">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Unternehmung</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.company}}</td>
+                            </ng-container>
+                            <ng-container nbTreeGridColumnDef="amount" [hideOn]="1000">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Anzahl</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.amount}}</td>
+                            </ng-container>
+                            <ng-container nbTreeGridColumnDef="totalValue" [showOn]="1200">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Totaler Wert</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.totalValue || '-'}}</td>
+                            </ng-container>
+                        </table>
+                    </nb-card-body>
+
+                </nb-card>
+            </nb-tab>
+            <nb-tab tabTitle="Transaktionen">
+                <p>List of <strong>transactions</strong>.</p>
+            </nb-tab>
+        </nb-tabset>
+    </nb-card-body>
+</nb-card>
+
+<app-pie-chart></app-pie-chart>

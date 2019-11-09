@@ -11,7 +11,7 @@ import { HistoryComponent } from './history/history.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { NbThemeModule, NbCardModule, NbTabsetModule, NbInputModule, NbLayoutModule,NbAlertModule,NbMenuModule,NbDialogModule,NbContextMenuModule,NbButtonModule} from '@nebular/theme';
+import { NbThemeModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -27,6 +27,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { TermsComponent } from './terms/terms.component';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { FsIconComponent } from './fs-icon/fs-icon.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { TermsComponent } from './terms/terms.component';
     HistoryComponent,
     PortfolioComponent,
     ProfileComponent,
-    TermsComponent
+    TermsComponent,
+    PieChartComponent,
+    FsIconComponent
   ],
   imports: [
     BrowserModule,
@@ -55,10 +59,11 @@ import { TermsComponent } from './terms/terms.component';
     NbMenuModule.forRoot(),
     MatMenuModule, InputTextModule,
     NbCardModule,
-    NbInputModule, NbTabsetModule, NbThemeModule.forRoot({ name: 'dark' }), NbLayoutModule, NbEvaIconsModule,
-    NbAlertModule,NbDialogModule.forRoot(),
+    NbInputModule, NbTabsetModule, NbThemeModule.forRoot({ name: 'dark' }), NbLayoutModule, NbEvaIconsModule, NbIconModule,
+    NbAlertModule, NbDialogModule.forRoot(),
     NbContextMenuModule,
-    NbButtonModule
+    NbButtonModule,
+    NbTreeGridModule, NbActionsModule
   ],
   entryComponents: [TermsComponent],
   providers: [],
