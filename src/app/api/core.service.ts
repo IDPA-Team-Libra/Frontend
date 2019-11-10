@@ -16,6 +16,12 @@ export class CoreService {
     }
     return this.httpClient.post(this.apiURL + "user/login", userPostData);
   }
-  public registerUser() {
+  public registerUser(user: User) {
+    var userPostData = {
+      username: user.username,
+      password: user.password,
+      email: user.email,
+    }
+    return this.httpClient.post(this.apiURL + "user/register", userPostData);
   }
 }

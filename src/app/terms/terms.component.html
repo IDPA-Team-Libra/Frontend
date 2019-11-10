@@ -1,6 +1,7 @@
 <nb-card>
-        <nb-card-body>
-          Mit diesem Click, bestätigen, sie die Nutzerbidinungen dieser Website.
-        </nb-card-body>
-        <button nbButton onclick="registerUser()">AGB's beschtätigen</button>
+    <nb-card-body>
+        Mit dieser Bestätigung, bestätigen Sie unserer Cookie-Policiy, Terms of Service sowie unsere Privacy-Policy.
+    </nb-card-body>
+    <button nbButton (click)="accepted()">Obiges Akzeptieren</button>
+    <button nbButton (click)="denied()">Obiges nicht Akzeptieren</button>
 </nb-card>

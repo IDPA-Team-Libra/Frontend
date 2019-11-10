@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    var user = new User(this.username, this.password);
+    var user = new User(this.username, this.password, "");
     this.coreService.loginUser(user).toPromise().then((data: any) => {
       var dat = data;
       console.log(dat);

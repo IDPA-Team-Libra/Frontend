@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NbDialogService, NbDialogRef } from '@nebular/theme';
 
 @Component({
   selector: 'app-terms',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TermsComponent implements OnInit {
 
-  constructor() { }
+  constructor(protected dialogRef: NbDialogRef<TermsComponent>) {
+
+  }
 
   ngOnInit() {
   }
 
+  denied() {
+    window.location.href = "/register";
+  }
+
+  accepted() {
+    this.dialogRef.close();
+  }
 }
