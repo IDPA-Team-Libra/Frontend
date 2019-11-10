@@ -10,7 +10,9 @@ import { MarketComponent } from './market/market.component';
 import { HistoryComponent } from './history/history.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
+import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
+import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -19,6 +21,9 @@ const routes: Routes = [
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'policy/cookie', component: CookiepolicyComponent },
+  { path: 'policy/privacy', component: PrivacypolicyComponent },
+  { path: 'policy/termsofservice', component: TermsofserviceComponent },
   { path: '**', redirectTo: "" },
 ];
 

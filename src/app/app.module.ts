@@ -11,6 +11,9 @@ import { HistoryComponent } from './history/history.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { HttpClientModule } from '@angular/common/http';
+
+import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { NbThemeModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
@@ -29,6 +32,51 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { TermsComponent } from './terms/terms.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { FsIconComponent } from './fs-icon/fs-icon.component';
+import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
+import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
+import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
+import { CookieService } from "ngx-cookie-service";
+
+const cookieConfig: NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'localhost'// it is recommended to set your domain, for cookies to work properly
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out',
+  layout: 'my-custom-layout',
+  layouts: {
+    "my-custom-layout": '{{messagelink}}{{compliance}}'
+  },
+  elements: {
+    messagelink: `
+    <span id="cookieconsent:desc" class="cc-message">{{message}} 
+      <a aria-label="learn more about cookies" tabindex="0" class="cc-link" href="{{cookiePolicyHref}}" target="_blank">{{cookiePolicyLink}}</a>, 
+      <a aria-label="learn more about our privacy policy" tabindex="1" class="cc-link" href="{{privacyPolicyHref}}" target="_blank">{{privacyPolicyLink}}</a> and our 
+      <a aria-label="learn more about our terms of service" tabindex="2" class="cc-link" href="{{tosHref}}" target="_blank">{{tosLink}}</a>
+    </span>
+    `,
+  },
+  content: {
+    message: 'By using our site, you acknowledge that you have read and understand our ',
+
+    cookiePolicyLink: 'Cookie Policy',
+    cookiePolicyHref: '/policy/cookie',
+
+    privacyPolicyLink: 'Privacy Policy',
+    privacyPolicyHref: '/policy/privacy',
+
+    tosLink: 'Terms of Service',
+    tosHref: '/policy/termsofservice',
+  }
+};
 
 @NgModule({
   declarations: [
@@ -42,7 +90,10 @@ import { FsIconComponent } from './fs-icon/fs-icon.component';
     ProfileComponent,
     TermsComponent,
     PieChartComponent,
-    FsIconComponent
+    FsIconComponent,
+    PrivacypolicyComponent,
+    TermsofserviceComponent,
+    CookiepolicyComponent
   ],
   imports: [
     BrowserModule,
@@ -63,10 +114,12 @@ import { FsIconComponent } from './fs-icon/fs-icon.component';
     NbAlertModule, NbDialogModule.forRoot(),
     NbContextMenuModule,
     NbButtonModule,
-    NbTreeGridModule, NbActionsModule
+    NbTreeGridModule, NbActionsModule,
+    NgcCookieConsentModule.forRoot(cookieConfig),
+    HttpClientModule
   ],
   entryComponents: [TermsComponent],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

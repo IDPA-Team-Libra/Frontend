@@ -7,16 +7,16 @@
     <div class="login-container">
         <div class="form-group">
             <label for="email">Username</label>
-            <input nbInput type="text" class="form-control" required="true" id="username" placeholder="Email Address" [(ngModel)]="username">
+            <input nbInput type="text" class="form-control" required="true" id="username" placeholder="Username" [(ngModel)]="username">
         </div>
         <label for="password">Password</label>
-                <button mat-button matPrefix mat-icon-button onclick="register_switchPassword()">
+        <button mat-button matPrefix mat-icon-button onclick="register_switchPassword()">
                     <i class="material-icons" id="password_lock">
                                 lock_open
                                 </i>
                     </button>
-                <input class="register_form_field" type="text" nbInput class="form-control" required="true" id="password" placeholder="Password" [(ngModel)]="password">
-                <br />        <input type="submit" value="Log in" (click)="loginUser()">
+        <input class="register_form_field" type="text" nbInput class="form-control" required="true" id="password" placeholder="Password" [(ngModel)]="password">
+        <br /> <input type="submit" value="Log in" (click)="loginUser()">
     </div>
     <hr />
     <div class="triangle-down"></div>
@@ -24,6 +24,6 @@
 
 <div id="modal div">
     <nb-alert status="success" hidden closable (close)="onClose()">
-            You have been successfully authenticated!
+        You have been successfully authenticated!
     </nb-alert>
 </div>
