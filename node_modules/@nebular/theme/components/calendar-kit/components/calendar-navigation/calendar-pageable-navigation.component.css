@@ -1,0 +1,1 @@
+:host{display:flex;align-items:center;justify-content:space-between}[dir=ltr] :host .prev-month{margin-left:auto;margin-right:0.4rem}[dir=rtl] :host .prev-month{margin-left:0.4rem;margin-right:auto}[dir=ltr] :host .next-month{margin-left:0.4rem;margin-right:auto}[dir=rtl] :host .next-month{margin-left:auto;margin-right:0.4rem}nb-calendar-navigation{margin:0 0.5rem}
