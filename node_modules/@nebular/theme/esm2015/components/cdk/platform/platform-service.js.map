@@ -1,0 +1,1 @@
+{"version":3,"file":"platform-service.js","sourceRoot":"","sources":["../../../../../../../.ng_build/theme/components/cdk/platform/platform-service.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,MAAM,uBAAuB,CAAC;AAEjD,MAAM,OAAO,UAAW,SAAQ,QAAQ;CAAG","sourcesContent":["import { Platform } from '@angular/cdk/platform';\n\nexport class NbPlatform extends Platform {}\n"]}
