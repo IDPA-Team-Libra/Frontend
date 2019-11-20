@@ -6,22 +6,24 @@
         <div class="register-container">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input class="register_form_field" type="text" class="form-control" nbInput required="true" id="username" placeholder="Username" [(ngModel)]="username">
+                <input class="register_form_field" type="text" class="form-control" nbInput required="true"
+                    id="username" placeholder="Username" [(ngModel)]="username">
             </div>
             <br />
             <div class="form-group">
                 <label for="email">Email</label>
-                <input class="register_form_field"type="text" class="form-control" nbInput required="true" id="email" placeholder="Email Address" [(ngModel)]="email">
+                <input class="register_form_field" type="text" class="form-control" nbInput required="true" id="email"
+                    placeholder="Email Address" [(ngModel)]="email">
             </div>
             <div class="form-group">
-
                 <label for="password">Password</label>
                 <button mat-button matPrefix mat-icon-button onclick="register_switchPassword()">
                     <i class="material-icons" id="password_lock">
-                                lock_open
-                                </i>
-                    </button>
-                <input class="register_form_field" type="text" nbInput class="form-control" required="true" id="password" placeholder="Password" [(ngModel)]="password">
+                        lock
+                    </i>
+                </button>
+                <input class="register_form_field" type="password" nbInput class="form-control" required="true"
+                    id="password" placeholder="Password" [(ngModel)]="password">
             </div>
             <br />
             <input type="submit" value="Register" (click)="openWithBackdrop()">

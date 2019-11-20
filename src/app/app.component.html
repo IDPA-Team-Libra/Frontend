@@ -1,9 +1,13 @@
 <nb-layout>
     <nb-layout-header fixed>
         <ul>
-            <li><button [nbContextMenu]="user_items" size="medium" nbButton hero status="primary">User</button></li>
-            <li><button [nbContextMenu]="market_items" size="medium" nbButton hero status="primary">Market</button></li>
-            <li><button [nbContextMenu]="portfolio_items" size="medium" nbButton hero status="primary">Portfolio</button></li>
+            <li><button [nbContextMenu]=" user_items" size="medium" nbButton hero status="primary">User</button>
+            </li>
+            <li><button [nbContextMenu]="market_items" size="medium" nbButton hero status="primary">Market</button>
+            </li>
+            <li><button [nbContextMenu]="portfolio_items" size="medium" nbButton hero
+                    status="primary">Portfolio</button>
+            </li>
             <li><a href="/login" size="medium" nbButton hero status="primary">Login</a></li>
             <li><a href="/register" size="medium" nbButton hero status="primary">Register</a></li>
         </ul>

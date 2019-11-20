@@ -3,6 +3,7 @@ import { NbMenuModule } from '@nebular/theme';
 import { NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import { NgcCookieConsentService } from 'ngx-cookieconsent';
 import { Subscription } from 'rxjs';
+import { StockService } from "./api/stock.service";
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -57,6 +58,7 @@ export class AppComponent {
       (event: NgcNoCookieLawEvent) => {
         // you can use this.ccService.getConfig() to do stuff...
       });
+
   }
 
   ngOnDestroy() {

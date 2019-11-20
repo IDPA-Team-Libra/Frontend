@@ -16,6 +16,7 @@ export class CoreService {
     }
     return this.httpClient.post(this.apiURL + "user/login", userPostData);
   }
+
   public registerUser(user: User) {
     var userPostData = {
       username: user.username,
