@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
-import * as d3 from "d3";
+import { CoreService } from "../api/core.service";
 interface TreeNode<T> {
   data: T;
   children?: TreeNode<T>[];
@@ -20,7 +20,7 @@ interface FSEntry {
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() {
+  constructor(private coreService: CoreService) {
   }
 
   defaultColumns = ['symbol', 'company', 'amount', 'totalValue'];
@@ -39,9 +39,18 @@ export class ProfileComponent implements OnInit {
   ];
 
 
-  ngOnInit() {
-  }
-  
+  profile;
 
+  ngOnInit() {
+    var user = this.coreService.getUserInformation()
+    console.log(user)
+    this.profile = user;;
+    if (user == undefined) {
+      console.log("Error");
+    } else {
+      console.log(user)
+      this.profile = user;
+    }
+  }
 }
 

@@ -26,11 +26,13 @@ export class LoginComponent implements OnInit {
       if (dat != undefined) {
         var message = dat.response;
         console.log(message);
-        if (message == "1") {
+        if (message == "Success") {
           var tokenName = dat.tokenName;
           var token = dat.token;
           var expires = dat.expires;
           this.cookieService.set(tokenName, token, expires);
+          this.cookieService.set("user", dat.user);
+          this.cookieService.set("authenticated", "true");
         }
       }
     }).catch(err => {

@@ -41,3 +41,7 @@ button[nbTreeGridRowToggle] {
         width: 23%;
     }
 }
+
+#column_header:first-letter {
+    text-transform: capitalize !important;
+}

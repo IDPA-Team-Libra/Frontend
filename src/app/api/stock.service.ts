@@ -15,4 +15,8 @@ export class StockService {
     var data = this.httpClient.get(this.apiURL + "stock/all").toPromise();
     return data;
   }
+
+  public filter_stocks(stock) {
+    return false;
+  }
 }

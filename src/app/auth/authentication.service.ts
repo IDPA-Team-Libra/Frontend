@@ -5,9 +5,13 @@ import { CookieService } from "ngx-cookie-service";
 })
 export class AuthenticationService {
 
-  constructor() { }
-
+  constructor(private cookieService: CookieService) { }
+  //TODO implement a proper method of validating the user
   public isAuthenticated() {
-    return true;
+    var authenticated = this.cookieService.get("authenticated");
+    if (authenticated == "true") {
+      return true;
+    }
+    return false;
   }
 }

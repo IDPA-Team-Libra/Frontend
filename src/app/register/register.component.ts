@@ -1,3 +1,4 @@
+import { NotifierService } from './../nofitication/notifier.service';
 import { Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { TermsComponent } from '../terms/terms.component';
@@ -25,7 +26,7 @@ export class RegisterComponent implements OnInit {
     this.open(true);
   }
 
-  constructor(private dialogService: NbDialogService, private coreService: CoreService, private cookieService: CookieService) { }
+  constructor(private dialogService: NbDialogService, private coreService: CoreService, private notifierService: NotifierService, private cookieService: CookieService) { }
 
   ngOnInit() {
   }
@@ -35,21 +36,15 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     var user = new User(this.username, this.password, this.email);
-    this.coreService.registerUser(user).toPromise().then((data: any) => {
-      var dat = data;
-      console.log(dat);
-      if (dat != undefined) {
-        var message = dat.response;
-        console.log(message);
-        if (message == "1") {
-          var tokenName = dat.tokenName;
-          var token = dat.token;
-          var expires = dat.expires;
-          this.cookieService.set(tokenName, token, expires);
-        }
-      }
-    }).catch(err => {
-      console.log(err);
-    });
+    var registration_result = this.coreService.registerUser(user);
+    if (registration_result == true) {
+      this.notifierService.displayNotification("Ihr Konto wurde erstellt", "success","Registrierung Erfolgreich").onClose.subscribe(function () {
+        window.location.href = "/profile"
+      });
+    } else {
+      this.notifierService.displayNotification(registration_result, "danger","Registrierung Fehlgeschlagen").onClose.subscribe(function () {
+        location.reload();
+      });
+    }
   }
 }

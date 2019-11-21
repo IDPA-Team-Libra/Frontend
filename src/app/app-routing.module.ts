@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { AuthGuardService } from './guards/auth-guard.service';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -15,11 +15,11 @@ import { TermsofserviceComponent } from './termsofservice/termsofservice.compone
 import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuardService] },
   { path: 'market', component: MarketComponent },
-  { path: 'history', component: HistoryComponent },
-  { path: 'portfolio', component: PortfolioComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'history', component: HistoryComponent, canActivate: [AuthGuardService] },
+  { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuardService] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'register', component: RegisterComponent },
   { path: 'policy/cookie', component: CookiepolicyComponent },
   { path: 'policy/privacy', component: PrivacypolicyComponent },

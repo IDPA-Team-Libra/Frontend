@@ -1,9 +1,12 @@
+import { LogoutService } from './ut/logout.service';
 import { Component } from '@angular/core';
 import { NbMenuModule } from '@nebular/theme';
 import { NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import { NgcCookieConsentService } from 'ngx-cookieconsent';
 import { Subscription } from 'rxjs';
 import { StockService } from "./api/stock.service";
+import { AuthenticationService } from "./auth/authentication.service";
+
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -25,9 +28,15 @@ export class AppComponent {
   private revokeChoiceSubscription: Subscription;
   private noCookieLawSubscription: Subscription;
 
-  constructor(private ccService: NgcCookieConsentService) { }
+  constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService
+  ) { }
+
+  logout(){
+    this.logoutService.clearCookie();
+  }
 
   ngOnInit() {
+
     // subscribe to cookieconsent observables to react to main events
     this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(
       () => {
@@ -72,7 +81,11 @@ export class AppComponent {
   }
 
 
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
 
+  isAuthed = false;
   title = 'libra-frontend';
 
   user_items = [

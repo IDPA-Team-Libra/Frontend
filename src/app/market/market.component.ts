@@ -67,7 +67,6 @@ export class MarketComponent implements OnInit {
       console.log(err);
     });
   }
-
   ngOnInit() {
 
   }
