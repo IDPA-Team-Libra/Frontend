@@ -15,7 +15,7 @@ import { TermsofserviceComponent } from './termsofservice/termsofservice.compone
 import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuardService] },
+  { path: 'login', component: LoginComponent },
   { path: 'market', component: MarketComponent },
   { path: 'history', component: HistoryComponent, canActivate: [AuthGuardService] },
   { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuardService] },

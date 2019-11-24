@@ -10,5 +10,6 @@ export class LogoutService {
   //! clear all data, that is no longer free to be on the users computer.
   clearCookie() {
     this.cookieService.deleteAll();
+    window.location.href = "/"
   }
 }
