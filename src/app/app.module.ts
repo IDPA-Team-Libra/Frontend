@@ -38,6 +38,7 @@ import { TermsofserviceComponent } from './termsofservice/termsofservice.compone
 import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
 import { CookieService } from "ngx-cookie-service";
 import { MessageComponent } from './message/message.component';
+import { StockprofileComponent } from './stockprofile/stockprofile.component';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -96,7 +97,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     PrivacypolicyComponent,
     TermsofserviceComponent,
     CookiepolicyComponent,
-    MessageComponent
+    MessageComponent,
+    StockprofileComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +123,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     NgcCookieConsentModule.forRoot(cookieConfig),
     HttpClientModule
   ],
-  entryComponents: [TermsComponent,MessageComponent],
+  entryComponents: [TermsComponent,MessageComponent,StockprofileComponent],
   providers: [CookieService, AuthGuardService],
   bootstrap: [AppComponent]
 })

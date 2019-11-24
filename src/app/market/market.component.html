@@ -10,17 +10,18 @@
                     {{customColumn}}
                 </th>
                 <td nbTreeGridCell *nbTreeGridCellDef="let row">
-                    <span class="main_row_cell">{{row.data[customColumn]}}
-                    </span>
+                    <div id="stock_selection" (click)="displayStockInformation()">
+                        <span class="main_row_cell">{{row.data[customColumn]}}
+                            </span>
+                    </div>
                 </td>
             </ng-container>
-            <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column"
-                [showOn]="getShowOn(index)">
+            <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column" [showOn]="getShowOn(index)">
                 <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
                     <span id="column_header">{{column}}
                     </span>
                 </th>
-                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
+                <td nbTreeGridCell *nbTreeGridCellDef=" let row ">{{row.data[column] || '-'}}</td>
             </ng-container>
         </table>
     </nb-card-body>

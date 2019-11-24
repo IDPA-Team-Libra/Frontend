@@ -3,7 +3,9 @@ import { StockService } from "../api/stock.service";
 import { Stock } from "../api/stock";
 import { element } from 'protractor';
 import { NbFocusKeyManagerFactoryService } from '@nebular/theme/components/cdk/a11y/focus-key-manager';
+import { StockprofileComponent } from "../stockprofile/stockprofile.component";
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
+import { NbDialogService } from '@nebular/theme';
 
 interface TreeNode<T> {
   data: T;
@@ -50,7 +52,7 @@ export class MarketComponent implements OnInit {
     return minWithForMultipleColumns + (nextColumnStep * index);
   }
 
-  constructor(private stockService: StockService, private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>) {
+  constructor(private stockService: StockService, private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>, private dialogService: NbDialogService) {
     const returned_data = stockService.loadStockdData();
     returned_data.then((dat: any) => {
       if (dat != undefined) {
@@ -69,6 +71,13 @@ export class MarketComponent implements OnInit {
   }
   ngOnInit() {
 
+  }
+
+  displayStockInformation() {
+    var hasBackdrop = true;
+    var closeOnBackdropClick = true;
+    const dialogRef = this.dialogService.open(StockprofileComponent, { hasBackdrop, closeOnBackdropClick });
+    dialogRef.onClose.subscribe(_ => { });
   }
 }
 
