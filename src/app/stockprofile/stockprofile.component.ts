@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AuthenticationService } from "../auth/authentication.service";
 @Component({
   selector: 'app-stockprofile',
   templateUrl: './stockprofile.component.html',
@@ -7,12 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockprofileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
-  stockSymbol;
+  stockSymbol = "";
+  symbolPrice;
 
-  
   ngOnInit() {
+  }
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
   }
 
 }

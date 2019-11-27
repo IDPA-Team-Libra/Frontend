@@ -69,14 +69,22 @@ export class MarketComponent implements OnInit {
       console.log(err);
     });
   }
+
   ngOnInit() {
 
   }
 
-  displayStockInformation() {
+  displayStockInformation(symbol) {
+    var receavedSymbol = symbol.data.symbol;
+    var symbolPrice = symbol.data.price;
     var hasBackdrop = true;
     var closeOnBackdropClick = true;
-    const dialogRef = this.dialogService.open(StockprofileComponent, { hasBackdrop, closeOnBackdropClick });
+    const dialogRef = this.dialogService.open(StockprofileComponent, {
+      hasBackdrop, closeOnBackdropClick, context: {
+        stockSymbol: receavedSymbol,
+        symbolPrice: symbolPrice,
+      }
+    });
     dialogRef.onClose.subscribe(_ => { });
   }
 }

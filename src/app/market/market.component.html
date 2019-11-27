@@ -10,13 +10,14 @@
                     {{customColumn}}
                 </th>
                 <td nbTreeGridCell *nbTreeGridCellDef="let row">
-                    <div id="stock_selection" (click)="displayStockInformation()">
+                    <div id="stock_selection" (click)="displayStockInformation(row)">
                         <span class="main_row_cell">{{row.data[customColumn]}}
-                            </span>
+                        </span>
                     </div>
                 </td>
             </ng-container>
-            <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column" [showOn]="getShowOn(index)">
+            <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column"
+                [showOn]="getShowOn(index)">
                 <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
                     <span id="column_header">{{column}}
                     </span>
