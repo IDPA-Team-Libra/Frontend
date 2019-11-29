@@ -38,11 +38,11 @@ export class RegisterComponent implements OnInit {
     var user = new User(this.username, this.password, this.email);
     var registration_result = this.coreService.registerUser(user);
     if (registration_result == true) {
-      this.notifierService.displayNotification("Ihr Konto wurde erstellt", "success","Registrierung Erfolgreich").onClose.subscribe(function () {
+      this.notifierService.displayNotification("Ihr Konto wurde erstellt", "success", "Registrierung Erfolgreich").onClose.subscribe(function () {
         window.location.href = "/profile"
       });
     } else {
-      this.notifierService.displayNotification(registration_result, "danger","Registrierung Fehlgeschlagen").onClose.subscribe(function () {
+      this.notifierService.displayNotification(registration_result, "danger", "Registrierung Fehlgeschlagen").onClose.subscribe(function () {
         location.reload();
       });
     }

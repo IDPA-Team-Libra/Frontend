@@ -10,8 +10,12 @@
                     <h1>
                         {{stockSymbol}}
                     </h1>
+                    <br />
+                    Momentaner Preis: {{symbolPrice}}
                     <div>
-                        <input type="text" min="0" max="100" nbInput fullWidth shape="round" placeholder="Round">
+                        <br />
+                        <input type="number" onchange="updateTotalValue($this)" id="" min="0" max="100" nbInput fullWidth shape="round"
+                            placeholder="Anzahl">
                     </div>
                 </div>
             </nb-tab>

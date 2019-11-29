@@ -13,9 +13,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './guards/auth-guard.service';
-
+// ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbCalendarModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -121,9 +121,9 @@ const cookieConfig: NgcCookieConsentConfig = {
     NbButtonModule,
     NbTreeGridModule, NbActionsModule,
     NgcCookieConsentModule.forRoot(cookieConfig),
-    HttpClientModule
+    HttpClientModule, NbCalendarModule
   ],
-  entryComponents: [TermsComponent,MessageComponent,StockprofileComponent],
+  entryComponents: [TermsComponent, MessageComponent, StockprofileComponent],
   providers: [CookieService, AuthGuardService],
   bootstrap: [AppComponent]
 })

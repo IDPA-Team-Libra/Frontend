@@ -12,6 +12,11 @@ export class StockprofileComponent implements OnInit {
   stockSymbol = "";
   symbolPrice;
 
+
+  updateTotalValue(value){
+    
+  }
+
   ngOnInit() {
   }
   isAuthenticated() {

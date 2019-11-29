@@ -36,10 +36,11 @@ export class CoreService {
             var token = dat.token;
             var expires = dat.expires;
             var user = dat.user;
+            console.log(user);
             this.cookieService.set(tokenName, token, expires);
             this.cookieService.set("user", user);
             this.cookieService.set("authenticated", "true");
-          }else{
+          } else {
             return message;
           }
         }
@@ -52,9 +53,9 @@ export class CoreService {
 
   public getUserInformation() {
     var user_json = this.cookieService.get("user");
-    console.log(user_json);
     try {
       var user_object = JSON.parse(user_json);
+      console.log(user_json);
       return user_object;
     } catch (error) {
       return undefined;

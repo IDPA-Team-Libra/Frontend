@@ -42,9 +42,8 @@ export class ProfileComponent implements OnInit {
   profile;
 
   ngOnInit() {
-    var user = this.coreService.getUserInformation()
-    console.log(user)
-    this.profile = user;;
+    var user = this.coreService.getUserInformation();
+    this.profile = user;
     if (user == undefined) {
       console.log("Error");
     } else {
