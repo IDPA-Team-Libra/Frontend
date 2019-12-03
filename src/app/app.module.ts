@@ -1,3 +1,4 @@
+import { UserService } from './api/user.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './guards/auth-guard.service';
 // ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbCalendarModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbCalendarModule, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -121,10 +122,10 @@ const cookieConfig: NgcCookieConsentConfig = {
     NbButtonModule,
     NbTreeGridModule, NbActionsModule,
     NgcCookieConsentModule.forRoot(cookieConfig),
-    HttpClientModule, NbCalendarModule
+    HttpClientModule, NbCalendarModule, NbCheckboxModule
   ],
   entryComponents: [TermsComponent, MessageComponent, StockprofileComponent],
-  providers: [CookieService, AuthGuardService],
+  providers: [CookieService, AuthGuardService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

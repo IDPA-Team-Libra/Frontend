@@ -1,25 +1,53 @@
 <nb-card>
+    <nb-card-header>
+        <div>
+            {{stockSymbol}} | {{stockName}}
+        </div>
+    </nb-card-header>
     <nb-card-body>
         <nb-tabset>
             <nb-tab tabTitle="Informationen">
+                <iframe frameBorder='0' scrolling='no' width='800' height='420' src='http://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=71424F24416D49649D7155C2D04F7040&symbol=AAPL&days=365&width=800&height=420'>
+                </iframe>
             </nb-tab>
-            <nb-tab tabTitle="News">
+            <nb-tab tabTitle="News ">
             </nb-tab>
-            <nb-tab tabTitle="Kaufen">
-                <div class="dialogWrapper">
+            <nb-tab tabTitle="Kaufen ">
+                <div class="dialogWrapper ">
                     <h1>
                         {{stockSymbol}}
                     </h1>
-                    <br />
-                    Momentaner Preis: {{symbolPrice}}
+                    <br /> Momentaner Preis: {{symbolPrice}}
                     <div>
                         <br />
-                        <input type="number" onchange="updateTotalValue($this)" id="" min="0" max="100" nbInput fullWidth shape="round"
-                            placeholder="Anzahl">
+                        <input type="number" (keyup)="updateTotalValue($event)" min="0" max="100" nbInput fullWidth shape="round" placeholder="Anzahl ">
+                        <br />
+                        <label>
+                            Totaler Transaktionswert: <b>{{totalTransactionValue}}</b> CHF
+                        </label>
+                        <br />
+                        <div>
+                            <nb-checkbox (checkedChange)="toggle($event)">Delayed Buy</nb-checkbox>
+                            <ng-template [ngIf]="isChecked()">
+                                <br />
+                                <br />
+                                <div>
+                                    <label>
+                                        Zusätzliche Kosten: 50CHF
+                                    </label>
+                                    <br />
+                                    <br />
+                                    <nb-calendar [date]="date" (dateChange)="handleDateChange($event)"></nb-calendar>
+                                </div>
+                            </ng-template>
+                        </div>
+                        <br />
+                        <br />
+                        <input type="submit" class="buy_button" (click)="buyStock()" nbButton value="Buy" />
                     </div>
                 </div>
             </nb-tab>
-            <nb-tab tabTitle="Verkaufen">
+            <nb-tab tabTitle="Verkaufen ">
             </nb-tab>
         </nb-tabset>
     </nb-card-body>

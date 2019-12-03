@@ -77,12 +77,14 @@ export class MarketComponent implements OnInit {
   displayStockInformation(symbol) {
     var receavedSymbol = symbol.data.symbol;
     var symbolPrice = symbol.data.price;
+    var stockName = symbol.data.company;
     var hasBackdrop = true;
     var closeOnBackdropClick = true;
     const dialogRef = this.dialogService.open(StockprofileComponent, {
       hasBackdrop, closeOnBackdropClick, context: {
         stockSymbol: receavedSymbol,
         symbolPrice: symbolPrice,
+        stockName: stockName,
       }
     });
     dialogRef.onClose.subscribe(_ => { });

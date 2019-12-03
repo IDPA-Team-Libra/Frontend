@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Item, DataService } from '../data.service';
 import * as d3 from 'd3';
 
 @Component({
@@ -17,11 +16,7 @@ export class PieChartComponent implements OnInit {
   // Drawing containers
   private svg: any; private mainContainer: any;
   // Data
-  dataSource: Item[];
 
-  constructor(private service: DataService) {
-    this.dataSource = this.service.getData();
-  }
 
   ngOnInit() {
     window.addEventListener('resize', this.resize.bind(this));
@@ -47,7 +42,6 @@ export class PieChartComponent implements OnInit {
   private drawSlices() {
     this.slices = this.mainContainer.selectAll('path')
       .remove().exit()
-      .data(this.pie(this.dataSource))
       .enter().append('g').append('path')
       .attr('d', this.arc);
     this.slices
@@ -65,5 +59,5 @@ export class PieChartComponent implements OnInit {
   }
 
 
-  
+
 }
