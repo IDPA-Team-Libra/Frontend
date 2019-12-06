@@ -10,7 +10,6 @@ export class TransactionService {
 
   public sendTransaction(transaction) {
     transaction = this.buildRequestBody(transaction);
-    console.log();
     var transactionRequestBody = this.convertTransaction(transaction, "buy");
     var response = this.httpClient.post(this.apiURL + "transaction/buy", transactionRequestBody).toPromise();
     return response;
@@ -25,7 +24,7 @@ export class TransactionService {
   }
 
   private convertTransaction(transaction, operation) {
-    var transactionBody = {
+    const transactionBody = {
       operation: operation,
       username: transaction.username,
       authToken: transaction.userAuthKey,

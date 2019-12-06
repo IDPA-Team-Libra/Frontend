@@ -52,7 +52,6 @@ export class StockprofileComponent implements OnInit {
     }
     var response = this.transactionService.sendTransaction(trans);
     response.then((data: any) => {
-      var responseMessage = data;
       var state = data["state"];
       var message = data["message"];
       var title = data["title"];
@@ -61,8 +60,9 @@ export class StockprofileComponent implements OnInit {
           this.notifierService.displayNotification(message, "warning", title);
           break;
         case "Success":
-          this.notifierService.displayNotification(message, "success", title);
-          location.reload();
+          this.notifierService.displayNotification(message, "success", title).onClose.subscribe(v => {
+            location.reload();
+          });
           break;
         default:
           break;
@@ -75,6 +75,7 @@ export class StockprofileComponent implements OnInit {
   isChecked() {
     return this.checked;
   }
+
   date = new Date();
 
   handleDateChange(event) {

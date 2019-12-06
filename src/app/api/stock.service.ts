@@ -10,15 +10,16 @@ export class StockService {
   apiURL: string = 'http://localhost:3440/';
   constructor(private httpClient: HttpClient) { }
   receavedData = undefined;
+
   public setData(data) {
     this.receavedData = data;
   }
+
   public loadStockdData() {
     var data;
     if (this.receavedData == undefined) {
       data = this.httpClient.get(this.apiURL + "stock/all").toPromise();
       this.receavedData = data;
-      console.log("Testing");
     } else {
       data = this.receavedData;
     }

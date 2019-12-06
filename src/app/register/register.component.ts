@@ -36,15 +36,45 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     var user = new User(this.username, this.password, this.email);
-    var registration_result = this.coreService.registerUser(user);
-    if (registration_result == true) {
-      this.notifierService.displayNotification("Ihr Konto wurde erstellt", "success", "Registrierung Erfolgreich").onClose.subscribe(function () {
-        window.location.href = "/profile"
-      });
-    } else {
-      this.notifierService.displayNotification(registration_result, "danger", "Registrierung Fehlgeschlagen").onClose.subscribe(function () {
-        location.reload();
-      });
-    }
+    var promis = this.coreService.registerUser(user);
+    promis.then((data: any) => {
+      var dat = data;
+      if (dat !== undefined) {
+        var message = dat.response;
+        if (dat.response === undefined) {
+          this.failure(dat);
+          return;
+        }
+        if (message === 'Success') {
+          var tokenName = dat.tokenName;
+          var token = dat.token;
+          var expires = dat.expires;
+          var user = dat.user;
+          this.cookieService.set(tokenName, token, expires);
+          this.cookieService.set("user", user);
+          this.cookieService.set("authenticated", "true");
+          this.success();
+          return;
+        } else {
+          this.failure(message);
+        }
+      } else {
+        this.failure(dat);
+      }
+    }).catch(err => {
+      this.failure("Bitte erneut versuchen");
+    });
   }
+
+  success() {
+    this.notifierService.displayNotification("Ihr Konto wurde erstellt", "success", "Registrierung Erfolgreich").onClose.subscribe(function () {
+      window.location.href = "/profile"
+    });
+  }
+  failure(message) {
+    this.notifierService.displayNotification(message, "danger", "Registrierung Fehlgeschlagen").onClose.subscribe(function () {
+      location.reload();
+    });
+  }
+
 }
