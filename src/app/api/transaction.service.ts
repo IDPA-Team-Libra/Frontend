@@ -15,6 +15,14 @@ export class TransactionService {
     return response;
   }
 
+  public requestTransactions(username) {
+    var user = {
+      username: username,
+    };
+    var response = this.httpClient.post(this.apiURL + "transaction/all", user).toPromise();
+    return response;
+  }
+
   private buildRequestBody(transaction) {
     var username = this.userService.getUsername();
     var token = this.userService.getAuthToken();

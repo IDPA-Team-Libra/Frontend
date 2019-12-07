@@ -1,6 +1,6 @@
 import { LogoutService } from './ut/logout.service';
 import { Component } from '@angular/core';
-import { NbMenuModule } from '@nebular/theme';
+import { NbMenuModule, NbThemeService } from '@nebular/theme';
 import { NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import { NgcCookieConsentService } from 'ngx-cookieconsent';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,7 @@ import {
   MatRippleModule,
   MatIconModule
 } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,15 +29,22 @@ export class AppComponent {
   private revokeChoiceSubscription: Subscription;
   private noCookieLawSubscription: Subscription;
 
-  constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService
-  ) { }
+  constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService, public themeService: NbThemeService, private cookieService: CookieService) { }
 
-  logout(){
+  logout() {
     this.logoutService.clearCookie();
   }
 
   ngOnInit() {
-
+    var mode = this.cookieService.get("colorTheme");
+    if (mode == "") {
+      this.cookieService.set("colorTheme", "default");
+      mode = "default";
+    }
+    this.themeService.changeTheme(mode);
+    if (mode == "dark") {
+      this.darkMode = true;
+    }
     // subscribe to cookieconsent observables to react to main events
     this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(
       () => {
@@ -70,6 +78,8 @@ export class AppComponent {
 
   }
 
+
+
   ngOnDestroy() {
     // unsubscribe to cookieconsent observables to prevent memory leaks
     this.popupOpenSubscription.unsubscribe();
@@ -78,6 +88,18 @@ export class AppComponent {
     this.statusChangeSubscription.unsubscribe();
     this.revokeChoiceSubscription.unsubscribe();
     this.noCookieLawSubscription.unsubscribe();
+  }
+
+  darkMode = false;
+  changeColorMode() {
+    var mode = ""
+    if (this.darkMode == false) {
+      mode = "dark";
+    } else {
+      mode = "default";
+    }
+    this.themeService.changeTheme(mode);
+    this.cookieService.set("colorTheme", mode);
   }
 
 
@@ -107,7 +129,7 @@ export class AppComponent {
     {
       title: 'Logout',
       icon: 'unlock-outline',
-      link: ["/logout"],
+      link: ["<script>this.logoutService.clearCookie()</script>"],
     },
   ];
 
@@ -137,7 +159,7 @@ export class AppComponent {
     {
       title: 'Portfolio',
       icon: 'person-outline',
-      link: ["/portfolio"],
+      link: ["/profile"],
     },
     {
       title: 'Change Password',

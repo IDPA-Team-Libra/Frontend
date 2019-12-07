@@ -9,13 +9,15 @@
             <label for="email">Username</label>
             <input nbInput type="text" class="form-control" required="true" id="username" placeholder="Username" [(ngModel)]="username">
         </div>
-        <label for="password">Password</label>
-        <button mat-button matPrefix mat-icon-button onclick="register_switchPassword()">
+        <div class="form-group">
+            <label for="password">Password</label>
+            <button mat-button matPrefix mat-icon-button onclick="register_switchPassword()">
                     <i class="material-icons" id="password_lock">
-                                lock
-                                </i>
-                    </button>
-        <input class="register_form_field" type="password" nbInput class="form-control" required="true" id="password" placeholder="Password" [(ngModel)]="password">
+                        lock
+                    </i>
+                </button>
+            <input nbInput class="register_form_field" type="password" class="form-control" required="true" id="password" placeholder="Password" [(ngModel)]="password">
+        </div>
         <br /> <input type="submit" value="Log in" (click)="loginUser()">
     </div>
     <hr />

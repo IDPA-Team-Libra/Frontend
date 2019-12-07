@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './guards/auth-guard.service';
 // ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbCalendarModule, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbToggleModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -116,7 +116,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     NbMenuModule.forRoot(),
     MatMenuModule, InputTextModule,
     NbCardModule,
-    NbInputModule, NbTabsetModule, NbThemeModule.forRoot({ name: 'dark' }), NbLayoutModule, NbEvaIconsModule, NbIconModule,
+    NbToggleModule,
+    NbInputModule, NbTabsetModule, NbThemeModule.forRoot({ name: 'default' }), NbLayoutModule, NbEvaIconsModule, NbIconModule,
     NbAlertModule, NbDialogModule.forRoot(),
     NbContextMenuModule,
     NbButtonModule,
@@ -125,7 +126,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     HttpClientModule, NbCalendarModule, NbCheckboxModule
   ],
   entryComponents: [TermsComponent, MessageComponent, StockprofileComponent],
-  providers: [CookieService, AuthGuardService, UserService],
+  providers: [CookieService, AuthGuardService, UserService, NbThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

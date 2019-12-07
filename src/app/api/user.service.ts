@@ -15,6 +15,8 @@ export class UserService {
     return obj.username;
   }
 
+ 
+
   public getAuthToken() {
     return this.cookieService.get("auth_token");
   }

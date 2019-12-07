@@ -1,7 +1,7 @@
 <nb-layout>
     <nb-layout-header fixed>
         <ul>
-            <li><button [nbContextMenu]=" user_items" size="medium" nbButton hero status="primary">User</button>
+            <li><button [nbContextMenu]="user_items" size="medium" nbButton hero status="primary">User</button>
             </li>
             <li><button [nbContextMenu]="market_items" size="medium" nbButton hero status="primary">Market</button>
             </li>
@@ -15,6 +15,9 @@
                 <li><a href="/register" size="medium" nbButton hero status="primary">Register</a></li>
             </ng-template>
         </ul>
+        <div class="left_side_toggle">
+            <nb-toggle [(ngModel)]="darkMode" (click)="changeColorMode()">Dark-Mode</nb-toggle>
+        </div>
     </nb-layout-header>
     <nb-layout-column>
         <router-outlet>

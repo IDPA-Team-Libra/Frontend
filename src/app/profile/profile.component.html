@@ -18,15 +18,15 @@
                                     {{row.data.symbol}}
                                 </td>
                             </ng-container>
-                            <ng-container nbTreeGridColumnDef="company" [hideOn]="600">
+                            <ng-container nbTreeGridColumnDef="company" [hideOn]="1000">
                                 <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Unternehmung</th>
                                 <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.company}}</td>
                             </ng-container>
-                            <ng-container nbTreeGridColumnDef="amount" [hideOn]="1000">
+                            <ng-container nbTreeGridColumnDef="amount" [hideOn]="800">
                                 <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Anzahl</th>
                                 <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.amount}}</td>
                             </ng-container>
-                            <ng-container nbTreeGridColumnDef="totalValue" [showOn]="1200">
+                            <ng-container nbTreeGridColumnDef="totalValue">
                                 <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Totaler Wert</th>
                                 <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.totalValue || '-'}}</td>
                             </ng-container>
@@ -35,7 +35,40 @@
                 </nb-card>
             </nb-tab>
             <nb-tab tabTitle="Transaktionen">
-                <p>List of <strong>transactions</strong>.</p>
+                <nb-card>
+                    <nb-card-body>
+                        <table [nbTreeGrid]="transactionData" equalColumnsWidth>
+                            <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allTransactionColumns"></tr>
+                            <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allTransactionColumns"></tr>
+                            <ng-container nbTreeGridColumnDef="action">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Action</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">
+                                    {{row.data.action}}
+                                </td>
+                            </ng-container>
+                            <ng-container nbTreeGridColumnDef="description" [hideOn]="800">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Beschreibung</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.description}}</td>
+                            </ng-container>
+                            <ng-container nbTreeGridColumnDef="date" [hideOn]="1000">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Datum</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.date}}</td>
+                            </ng-container>
+                            <ng-container nbTreeGridColumnDef="value" [hideOn]="1000">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Wert</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.value}}</td>
+                            </ng-container>
+                            <ng-container nbTreeGridColumnDef="amount" [hideOn]="1000">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Anzahl</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.amount}}</td>
+                            </ng-container>
+                            <ng-container nbTreeGridColumnDef="totalValue">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Totaler Wert</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.totalValue || '-'}}</td>
+                            </ng-container>
+                        </table>
+                    </nb-card-body>
+                </nb-card>
             </nb-tab>
         </nb-tabset>
     </nb-card-body>

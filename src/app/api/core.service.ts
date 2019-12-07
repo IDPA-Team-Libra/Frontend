@@ -29,12 +29,15 @@ export class CoreService {
     return this.httpClient.post(this.apiURL + "user/register", userPostData).toPromise();
   }
 
+  public GetUserTransactions() {
+    var transactions = this.cookieService.get("transactions");
+    return JSON.parse(transactions);
+  }
 
   public getUserInformation() {
     var user_json = this.cookieService.get("user");
     try {
       var user_object = JSON.parse(user_json);
-      console.log(user_json);
       return user_object;
     } catch (error) {
       return undefined;

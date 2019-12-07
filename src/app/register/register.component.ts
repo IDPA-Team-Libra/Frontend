@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
   }
 
   openDialog() {
+    
   }
 
   registerUser() {
