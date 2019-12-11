@@ -8,11 +8,21 @@ export class TransactionService {
   apiURL: string = 'http://localhost:3440/';
   constructor(private httpClient: HttpClient, private userService: UserService) { }
 
-  public sendTransaction(transaction) {
+  public sendBuyTransaction(transaction) {
     transaction = this.buildRequestBody(transaction);
     var transactionRequestBody = this.convertTransaction(transaction, "buy");
-    var response = this.httpClient.post(this.apiURL + "transaction/buy", transactionRequestBody).toPromise();
+    return this.sendTransactionToServer(transactionRequestBody, "transaction/buy");
+  }
+
+  public sendTransactionToServer(transactionObject, location) {
+    var response = this.httpClient.post(this.apiURL + location, transactionObject).toPromise();
     return response;
+  }
+
+  public sendDelayedBuyTransaction(transaction) {
+    transaction = this.buildRequestBody(transaction);
+    var transactionRequestBody = this.convertTransaction(transaction, "buy");
+    return this.sendTransactionToServer(transactionRequestBody, "transaction/buy/delayed");
   }
 
   public requestTransactions(username) {
@@ -32,7 +42,8 @@ export class TransactionService {
   }
 
   private convertTransaction(transaction, operation) {
-    const transactionBody = {
+
+    var transactionBody = {
       operation: operation,
       username: transaction.username,
       authToken: transaction.userAuthKey,
@@ -41,6 +52,14 @@ export class TransactionService {
       expectedStockPrice: transaction.expectedStockPrice,
       amount: transaction.amount,
     };
+    if (transaction.date) {
+      var date = transaction.date;
+      var strDate = 'Y-m-d'
+        .replace('Y', date.getFullYear())
+        .replace('m', date.getMonth() + 1)
+        .replace('d', date.getDate());
+      transactionBody["date"] = strDate;
+    }
     return transactionBody;
   }
 }

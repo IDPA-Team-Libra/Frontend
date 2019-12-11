@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   username;
   password;
   email;
+  account_start_balance;
 
   public open(hasBackdrop: boolean) {
     const dialogRef = this.dialogService.open(TermsComponent, { hasBackdrop });
@@ -32,12 +33,12 @@ export class RegisterComponent implements OnInit {
   }
 
   openDialog() {
-    
+
   }
 
   registerUser() {
     var user = new User(this.username, this.password, this.email);
-    var promis = this.coreService.registerUser(user);
+    var promis = this.coreService.registerUser(user, this.account_start_balance);
     promis.then((data: any) => {
       var dat = data;
       if (dat !== undefined) {
@@ -66,6 +67,14 @@ export class RegisterComponent implements OnInit {
       this.failure("Bitte erneut versuchen");
     });
   }
+
+  updateStartBalance(event) {
+    var balance = Number(event.target.value);
+    if (balance > 0 && balance < 100000000) {
+      this.account_start_balance = event.target.value;
+    }
+  }
+
 
   success() {
     this.notifierService.displayNotification("Ihr Konto wurde erstellt", "success", "Registrierung Erfolgreich").onClose.subscribe(function () {

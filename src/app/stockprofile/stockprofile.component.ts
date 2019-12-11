@@ -47,10 +47,38 @@ export class StockprofileComponent implements OnInit {
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice, this.stockCount);
     if (this.date_set) {
       trans.date = this.date;
+      this.handleDelayedTransaction(trans);
     } else {
-      trans.date = new Date();
+      this.handleBuyTransaction(trans);
     }
-    var response = this.transactionService.sendTransaction(trans);
+
+  }
+
+  handleDelayedTransaction(trans) {
+    var response = this.transactionService.sendDelayedBuyTransaction(trans);
+    response.then((data: any) => {
+      var state = data["state"];
+      var message = data["message"];
+      var title = data["title"];
+      switch (state) {
+        case "Failed":
+          this.notifierService.displayNotification(message, "warning", title);
+          break;
+        case "Success":
+          this.notifierService.displayNotification(message, "success", title).onClose.subscribe(v => {
+            location.reload();
+          });
+          break;
+        default:
+          break;
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+  handleBuyTransaction(trans) {
+    var response = this.transactionService.sendBuyTransaction(trans);
     response.then((data: any) => {
       var state = data["state"];
       var message = data["message"];

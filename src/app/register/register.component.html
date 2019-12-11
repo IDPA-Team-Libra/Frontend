@@ -26,6 +26,14 @@
                     id="password" placeholder="Password" [(ngModel)]="password">
             </div>
             <br />
+            <br />
+            <div class="form-group">
+                <label for="accountStartBalance">Account Balance </label>
+                <input type="number" [value]="account_start_balance" (keyup)="updateStartBalance($event)"
+                    id="accountStartBalance" min="0" max="100000000" nbInput fullWidth shape="round"
+                    placeholder="Betrag ">
+            </div>
+            <br />
             <input type="submit" value="Register" (click)="openWithBackdrop()">
         </div>
         <hr />
