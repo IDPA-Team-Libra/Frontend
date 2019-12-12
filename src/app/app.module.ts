@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './guards/auth-guard.service';
 // ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbToggleModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbToggleModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -40,6 +40,7 @@ import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
 import { CookieService } from "ngx-cookie-service";
 import { MessageComponent } from './message/message.component';
 import { StockprofileComponent } from './stockprofile/stockprofile.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -99,7 +100,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     TermsofserviceComponent,
     CookiepolicyComponent,
     MessageComponent,
-    StockprofileComponent
+    StockprofileComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +125,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     NbButtonModule,
     NbTreeGridModule, NbActionsModule,
     NgcCookieConsentModule.forRoot(cookieConfig),
-    HttpClientModule, NbCalendarModule, NbCheckboxModule
+    HttpClientModule, NbCalendarModule, NbCheckboxModule,
+    NbAccordionModule
   ],
   entryComponents: [TermsComponent, MessageComponent, StockprofileComponent],
   providers: [CookieService, AuthGuardService, UserService, NbThemeService],
