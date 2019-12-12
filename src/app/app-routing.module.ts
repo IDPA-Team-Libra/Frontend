@@ -13,6 +13,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
 import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -24,6 +26,7 @@ const routes: Routes = [
   { path: 'policy/cookie', component: CookiepolicyComponent },
   { path: 'policy/privacy', component: PrivacypolicyComponent },
   { path: 'policy/termsofservice', component: TermsofserviceComponent },
+  { path: 'statistics', component: StatisticsComponent },
   { path: '**', redirectTo: "" },
 ];
 

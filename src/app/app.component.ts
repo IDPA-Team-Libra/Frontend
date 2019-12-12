@@ -162,6 +162,11 @@ export class AppComponent {
       link: ["/profile"],
     },
     {
+      title: 'Statistics',
+      icon: 'trending_up',
+      link: ["/statistics"]
+    },
+    {
       title: 'Change Password',
       icon: 'lock-outline',
       link: [],
