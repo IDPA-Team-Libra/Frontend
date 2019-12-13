@@ -14,6 +14,7 @@ import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component'
 import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
 import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { PerformanceLineChartComponent } from './performance-line-chart/performance-line-chart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'policy/privacy', component: PrivacypolicyComponent },
   { path: 'policy/termsofservice', component: TermsofserviceComponent },
   { path: 'statistics', component: StatisticsComponent },
+  { path: 'performance', component: PerformanceLineChartComponent},
   { path: '**', redirectTo: "" },
 ];
 

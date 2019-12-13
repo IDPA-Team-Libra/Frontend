@@ -1,7 +1,7 @@
 import { TransactionService } from './../api/transaction.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from "../auth/authentication.service";
-import { NotifierService } from './../nofitication/notifier.service';
+import { NotifierService } from './../notification/notifier.service';
 import { Transaction } from '../api/transaction';
 import { json } from 'd3';
 @Component({

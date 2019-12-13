@@ -163,7 +163,7 @@ export class AppComponent {
     },
     {
       title: 'Statistics',
-      icon: 'trending_up',
+      icon: 'trending-up',
       link: ["/statistics"]
     },
     {

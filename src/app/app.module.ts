@@ -41,6 +41,8 @@ import { CookieService } from "ngx-cookie-service";
 import { MessageComponent } from './message/message.component';
 import { StockprofileComponent } from './stockprofile/stockprofile.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { ChartsComponent } from './charts/charts.component';
+import { PerformanceLineChartComponent } from './performance-line-chart/performance-line-chart.component';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -101,7 +103,9 @@ const cookieConfig: NgcCookieConsentConfig = {
     CookiepolicyComponent,
     MessageComponent,
     StockprofileComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    ChartsComponent,
+    PerformanceLineChartComponent
   ],
   imports: [
     BrowserModule,

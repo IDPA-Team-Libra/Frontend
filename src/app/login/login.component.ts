@@ -1,4 +1,4 @@
-import { NotifierService } from './../nofitication/notifier.service';
+import { NotifierService } from './../notification/notifier.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreService } from "../api/core.service";
 import { User } from "../api/user";

@@ -1,3 +1,7 @@
+<script src="node_modules/chart.js/dist/Chart.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+
+
 <nb-card>
     <nb-card-body>
         <!-- accordion -->
@@ -6,7 +10,10 @@
             <nb-accordion-item>
                 <nb-accordion-item-header>Performance</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                    your performance:
+                    <p>your performance:</p>
+                    <div class="chart-container" ng-show="graph.visible">
+                        <div ng-include=''></div>
+                    </div>
                 </nb-accordion-item-body>
             </nb-accordion-item>
 

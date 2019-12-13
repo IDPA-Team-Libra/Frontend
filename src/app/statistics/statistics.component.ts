@@ -20,4 +20,9 @@ export class StatisticsComponent implements OnInit{
     getCash(){}
 
     getMarketValue(){}
+
+    public performanceChartOption = {
+        scaleShowVerticalLines: false,
+        responsive: true
+    }
  }

@@ -9,19 +9,19 @@ import { element } from 'protractor';
 export class StockService {
   apiURL: string = 'http://localhost:3440/';
   constructor(private httpClient: HttpClient) { }
-  receavedData = undefined;
+  receivedData = undefined;
 
   public setData(data) {
-    this.receavedData = data;
+    this.receivedData = data;
   }
 
   public loadStockdData() {
     var data;
-    if (this.receavedData == undefined) {
+    if (this.receivedData == undefined) {
       data = this.httpClient.get(this.apiURL + "stock/all").toPromise();
-      this.receavedData = data;
+      this.receivedData = data;
     } else {
-      data = this.receavedData;
+      data = this.receivedData;
     }
     return data;
   }

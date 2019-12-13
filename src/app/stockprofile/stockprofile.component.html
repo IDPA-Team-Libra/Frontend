@@ -6,10 +6,14 @@
     </nb-card-header>
     <nb-card-body>
         <nb-tabset>
-            <nb-tab tabTitle="Informationen">
-                <iframe frameBorder='0' scrolling='no' width='800' height='420' src='http://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=71424F24416D49649D7155C2D04F7040&symbol=AAPL&days=365&width=800&height=420'>
-                </iframe>
+            <nb-tab tabTitle="Information">
+                    <iframe frameBorder='0' scrolling='no' width='800' height='420' src='http://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=71424F24416D49649D7155C2D04F7040&symbol=AAPL&days=365&width=800&height=420'>
+                    </iframe>
             </nb-tab>
+            <nb-tab tabTitle="Analyse">
+                    <iframe frameBorder='0' scrolling='no' width='800' height='420' src='http://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=71424F24416D49649D7155C2D04F7040&symbol=AAPL&days=365&width=800&height=420'>
+                    </iframe>
+                </nb-tab>
             <nb-tab tabTitle="News ">
             </nb-tab>
             <nb-tab tabTitle="Kaufen ">
@@ -17,13 +21,13 @@
                     <h1>
                         {{stockSymbol}}
                     </h1>
-                    <br /> Momentaner Preis: {{symbolPrice}}
+                    <br /> Momentaner Kurs: {{symbolPrice}}
                     <div>
                         <br />
                         <input type="number" (keyup)="updateTotalValue($event)" min="0" max="100" nbInput fullWidth shape="round" placeholder="Anzahl ">
                         <br />
                         <label>
-                            Totaler Transaktionswert: <b>{{totalTransactionValue}}</b> CHF
+                            Total Transaktionswert: <b>{{totalTransactionValue}}</b> CHF
                         </label>
                         <br />
                         <div>
