@@ -1,3 +1,4 @@
+Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refreshData()"></nb-icon>
 <nb-card>
     <nb-card-body>
         <nb-tabset>
@@ -12,23 +13,36 @@
                             <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
                             <ng-container nbTreeGridColumnDef="symbol">
                                 <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Symbol</th>
-                                <td nbTreeGridCell *nbTreeGridCellDef="let row">
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row" (click)="displayStockInformation(row)">
                                     <nb-tree-grid-row-toggle [expanded]="row.expanded" *ngIf="row.data.kind === 'dir'">
                                     </nb-tree-grid-row-toggle>
-                                    {{row.data.symbol}}
+                                    <div *ngIf="row.data.type == 'child'">
+                                        -
+                                    </div>
+                                    <div *ngIf="row.data.type == 'root'">
+                                        {{row.data.symbol}}
+                                    </div>
                                 </td>
                             </ng-container>
                             <ng-container nbTreeGridColumnDef="company" [hideOn]="1000">
                                 <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Unternehmung</th>
-                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.company}}</td>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">
+                                    <div *ngIf="row.data.type == 'child'">
+                                        -
+                                    </div>
+                                    <div *ngIf="row.data.type == 'root'">
+                                        {{row.data.company}}
+                                    </div>
+                                </td>
                             </ng-container>
                             <ng-container nbTreeGridColumnDef="amount" [hideOn]="800">
                                 <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Anzahl</th>
-                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.amount}}</td>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row"><i>{{row.data.amount}}</i></td>
                             </ng-container>
                             <ng-container nbTreeGridColumnDef="totalValue">
                                 <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Totaler Wert</th>
-                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.totalValue || '-'}}</td>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row"><i>{{row.data.totalValue}}</i>
+                                </td>
                             </ng-container>
                         </table>
                     </nb-card-body>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'app-portfolio',
@@ -12,4 +13,5 @@ export class PortfolioComponent implements OnInit {
   ngOnInit() {
   }
 
+  
 }

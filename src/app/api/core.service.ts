@@ -30,10 +30,7 @@ export class CoreService {
     return this.httpClient.post(this.apiURL + "user/register", userPostData).toPromise();
   }
 
-  public GetUserTransactions() {
-    var transactions = this.cookieService.get("transactions");
-    return JSON.parse(transactions);
-  }
+
 
   public getUserInformation() {
     var user_json = this.cookieService.get("user");

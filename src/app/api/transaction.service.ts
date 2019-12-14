@@ -25,14 +25,6 @@ export class TransactionService {
     return this.sendTransactionToServer(transactionRequestBody, "transaction/buy/delayed");
   }
 
-  public requestTransactions(username) {
-    var user = {
-      username: username,
-    };
-    var response = this.httpClient.post(this.apiURL + "transaction/all", user).toPromise();
-    return response;
-  }
-
   private buildRequestBody(transaction) {
     var username = this.userService.getUsername();
     var token = this.userService.getAuthToken();
@@ -41,8 +33,13 @@ export class TransactionService {
     return transaction
   }
 
-  private convertTransaction(transaction, operation) {
+  public sendSellTransaction(transaction) {
+    transaction = this.buildRequestBody(transaction);
+    var transactionRequestBody = this.convertTransaction(transaction, "sell");
+    return this.sendTransactionToServer(transactionRequestBody, "transaction/sell");
+  }
 
+  private convertTransaction(transaction, operation) {
     var transactionBody = {
       operation: operation,
       username: transaction.username,

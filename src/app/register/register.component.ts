@@ -5,7 +5,7 @@ import { TermsComponent } from '../terms/terms.component';
 import { CoreService } from "../api/core.service";
 import { User } from "../api/user";
 import { CookieService } from "ngx-cookie-service";
-
+import { UserService } from "../api/user.service";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
     this.open(true);
   }
 
-  constructor(private dialogService: NbDialogService, private coreService: CoreService, private notifierService: NotifierService, private cookieService: CookieService) { }
+  constructor(private userService: UserService, private dialogService: NbDialogService, private coreService: CoreService, private notifierService: NotifierService, private cookieService: CookieService) { }
 
   ngOnInit() {
   }
@@ -55,6 +55,7 @@ export class RegisterComponent implements OnInit {
           this.cookieService.set(tokenName, token, expires);
           this.cookieService.set("user", user);
           this.cookieService.set("authenticated", "true");
+          this.userService.purgeMetadata();
           this.success();
           return;
         } else {
@@ -83,7 +84,6 @@ export class RegisterComponent implements OnInit {
   }
   failure(message) {
     this.notifierService.displayNotification(message, "danger", "Registrierung Fehlgeschlagen").onClose.subscribe(function () {
-      location.reload();
     });
   }
 
