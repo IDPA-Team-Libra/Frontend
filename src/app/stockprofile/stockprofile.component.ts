@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from "../auth/authentication.service";
 import { NotifierService } from './../notification/notifier.service';
 import { Transaction } from '../api/transaction';
-import { json } from 'd3';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UserService } from "../api/user.service";
+import { json, tickStep } from 'd3';
 @Component({
   selector: 'app-stockprofile',
   templateUrl: './stockprofile.component.html',
@@ -11,15 +13,33 @@ import { json } from 'd3';
 })
 export class StockprofileComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService, private notifierService: NotifierService, private transactionService: TransactionService) { }
+  constructor(private userService: UserService, private sanitizer: DomSanitizer, private authService: AuthenticationService, private notifierService: NotifierService, private transactionService: TransactionService) { }
 
   stockSymbol = "";
   symbolPrice;
   totalTransactionValue = 0;
   stockCount = 0;
+  fixedStockCount = 0;
   checked = false;
   date_set = false;
   stockName = "";
+  stockAPIString: any;
+  operation;
+
+  showContent(tab) {
+    if (tab == "buy") {
+      if (this.operation == "buy") {
+        return true;
+      }
+      return false;
+    }
+    if (tab == "sell") {
+      if (this.operation == "sell") {
+        return true;
+      }
+      return false;
+    }
+  }
 
   updateTotalValue(event) {
     var val = event.target.value;
@@ -36,7 +56,11 @@ export class StockprofileComponent implements OnInit {
     }
   }
 
+  getSafeUrl(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+  }
   ngOnInit() {
+    this.stockAPIString = this.getSafeUrl("http://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=71424F24416D49649D7155C2D04F7040&symbol=" + this.stockSymbol + "&days=365&width=800&height=420");
   }
 
   isAuthenticated() {
@@ -44,6 +68,9 @@ export class StockprofileComponent implements OnInit {
   }
 
   buyStock() {
+    if (this.isAuthenticated() == false) {
+      this.notifierService.displayNotification("Sie müssen sich zuerst einloggen", "warning", "Nicht Authentifiziert");
+    }
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice, this.stockCount);
     if (this.date_set) {
       trans.date = this.date;
@@ -51,53 +78,51 @@ export class StockprofileComponent implements OnInit {
     } else {
       this.handleBuyTransaction(trans);
     }
+    this.userService.purgeMetadata();
+  }
 
+  sellStock() {
+    if (this.isAuthenticated() == false) {
+      this.notifierService.displayNotification("Sie müssen sich zuerst einloggen", "warning", "Nicht Authentifiziert");
+    }
+    if (this.fixedStockCount < this.stockCount) {
+      this.notifierService.displayNotification("Sie können nicht mehr Aktien verkaufen als sie haben", "warning", "Verkauf fehlgeschlagen");
+    }
+    var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice.toString(), this.stockCount);
+    this.handleTransactionResponse(this.transactionService.sendSellTransaction(trans));
+  }
+
+  handleTransactionResponse(response) {
+    response.then((data: any) => {
+      var state = data["state"];
+      var message = data["message"];
+      var title = data["title"];
+      switch (state) {
+        case "Failed":
+          this.notifierService.displayNotification(message, "warning", title);
+          break;
+        case "Success":
+          this.userService.purgeMetadata();
+          this.notifierService.displayNotification(message, "success", title).onClose.subscribe(v => {
+            location.reload();
+          });
+          break;
+        default:
+          break;
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   handleDelayedTransaction(trans) {
     var response = this.transactionService.sendDelayedBuyTransaction(trans);
-    response.then((data: any) => {
-      var state = data["state"];
-      var message = data["message"];
-      var title = data["title"];
-      switch (state) {
-        case "Failed":
-          this.notifierService.displayNotification(message, "warning", title);
-          break;
-        case "Success":
-          this.notifierService.displayNotification(message, "success", title).onClose.subscribe(v => {
-            location.reload();
-          });
-          break;
-        default:
-          break;
-      }
-    }).catch(err => {
-      console.log(err);
-    });
+    this.handleTransactionResponse(response);
   }
 
   handleBuyTransaction(trans) {
     var response = this.transactionService.sendBuyTransaction(trans);
-    response.then((data: any) => {
-      var state = data["state"];
-      var message = data["message"];
-      var title = data["title"];
-      switch (state) {
-        case "Failed":
-          this.notifierService.displayNotification(message, "warning", title);
-          break;
-        case "Success":
-          this.notifierService.displayNotification(message, "success", title).onClose.subscribe(v => {
-            location.reload();
-          });
-          break;
-        default:
-          break;
-      }
-    }).catch(err => {
-      console.log(err);
-    });
+    this.handleTransactionResponse(response);
   }
 
   isChecked() {

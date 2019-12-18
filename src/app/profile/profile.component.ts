@@ -2,13 +2,19 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { CoreService } from "../api/core.service";
 import { TransactionService } from './../api/transaction.service';
-import { symbol } from 'd3';
+import { NbDialogService } from '@nebular/theme';
+import { StockprofileComponent } from "../stockprofile/stockprofile.component";
+import { UserService } from "../api/user.service";
+import { symbol, map } from 'd3';
+import { setTimeout } from 'timers';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 interface TreeNode<T> {
   data: T;
   children?: TreeNode<T>[];
   expanded?: boolean;
+  type: string;
 }
-
+import $ from "jquery";
 interface PortfolioEntry {
   symbol: string;
   company: string;
@@ -33,7 +39,7 @@ interface TransactionEntry {
 
 export class ProfileComponent implements OnInit {
 
-  constructor(private coreService: CoreService, private transactionService: TransactionService) {
+  constructor(private userService: UserService, private coreService: CoreService, private transactionService: TransactionService, private dialogService: NbDialogService) {
   }
 
   defaultColumns = ['symbol', 'company', 'amount', 'totalValue'];
@@ -46,39 +52,110 @@ export class ProfileComponent implements OnInit {
   transactionData: TreeNode<TransactionEntry>[] = [
   ];
 
-
   profile;
   //TODO add children to data, when more than one transaction with the same stockname has been performed
   ngOnInit() {
-    var user = this.coreService.getUserInformation();
-    if (user == undefined) {
-      console.log("Error");
-    } else {
-      console.log(user);
-      this.loadPortfolio(user);
-      this.loadTransactionData();
-    }
+    this.loadPortfolio();
+    this.loadTransactionData();
   }
 
-  loadPortfolio(user) {
-    var stocks
-      = user.portfolio.items;
+  displayStockInformation(symbol) {
+    if (symbol.data.type == "root" || symbol.data.symbol == "-") {
+      return;
+    }
+    var receivedSymbol = symbol.data.symbol;
+    var stockName = symbol.data.company;
+    var hasBackdrop = true;
+    var closeOnBackdropClick = true;
+    const dialogRef = this.dialogService.open(StockprofileComponent, {
+      hasBackdrop, closeOnBackdropClick, context: {
+        stockSymbol: receivedSymbol,
+        symbolPrice: (symbol.data.totalValue / symbol.data.amount),
+        stockName: stockName,
+        operation: "sell",
+        fixedStockCount: symbol.data.amount,
+      }
+    });
+    dialogRef.onClose.subscribe(_ => { });
+  }
+
+  loadPortfolio() {
+    this.data = [];
+    var stocks = this.userService.getPortfolioItems();
+    if (stocks == null) {
+      return;
+    }
+    stocks = this.summarizePortfolio(stocks);
     stocks.forEach(stock => {
-      var stock_el = { data: { symbol: stock.StockName, amount: stock.Quantity, company: stock.CompanyName, totalValue: stock.TotalBuyPrice } };
-      this.data.push(stock_el);
+      stock.data.totalValue = Number((stock.data.totalValue).toFixed(7));
+      this.data.push(stock);
     });
   }
 
   loadTransactionData() {
-    var transactions = this.coreService.GetUserTransactions();
-    console.log(transactions);
+    this.transactionData = [];
+    var transactions = this.userService.GetUserTransactions();
     transactions.forEach(val => {
       this.transactionData.push(val);
-      console.log(val);
     });
+  }
+
+  summarizePortfolio(portfolioItems) {
+    var stockArray = [];
+    var stockMap = new Map();
+    portfolioItems.forEach(item => {
+      if (stockMap.has(item.StockName)) {
+        var stockIndex = stockMap.get(item.StockName);
+        var element = stockArray[stockIndex];
+        element.data.amount += item.Quantity;
+        element.data.totalValue += (item.CurrentPrice * item.Quantity);
+        var entry = { data: { symbol: item.StockName, company: item.CompanyName, amount: item.Quantity, totalValue: (item.CurrentPrice * item.Quantity), type: "child" }, children: [] };
+        element.children.push(entry);
+        stockArray[stockIndex] = element;
+      } else {
+        stockMap.set(item.StockName, stockArray.length);
+        var element: any = { data: { symbol: item.StockName, company: item.CompanyName, amount: item.Quantity, totalValue: (item.CurrentPrice * item.Quantity), type: "root" }, children: [] };
+        element.children.push({ data: { symbol: item.StockName, company: item.CompanyName, amount: item.Quantity, totalValue: (item.CurrentPrice * item.Quantity), type: "child" }, children: [] });
+        stockArray.push(element);
+      }
+    });
+    for (const index in stockArray) {
+      var array = stockArray[index];
+      // seperate current from the next with an empty row
+      array.children.push({ data: { symbol: "", company: "", amount: "", totalValue: "", type: "" }, children: [] });
+    }
+    return stockArray;
   }
 
   defaultTransactionColumns = ["action", "date", "value", "description", "totalValue", "amount"];
   allTransactionColumns = [...this.defaultTransactionColumns];
+
+  refreshData() {
+    var element = $("#refreshButton");
+    this.userService.purgeMetadata();
+    this.animateIcon(element);
+    setTimeout(() => {
+      this.loadPortfolio();
+      this.loadTransactionData();
+    }, 1000);
+  }
+
+  animateIcon(element) {
+    element.toggleClass("full");
+    setTimeout(() => {
+      element.css("color", "yellow");
+      setTimeout(() => {
+        element.css("color", "green");
+        setTimeout(() => {
+          element.css("color", "white");
+        }, 500);
+      }, 700);
+    }, 0);
+  }
+
+  rotate(element, degree) {
+    return element.css('transform', 'rotate(' + degree + ')').delay(300);
+  }
+
 }
 

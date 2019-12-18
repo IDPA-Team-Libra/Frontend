@@ -14,9 +14,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './guards/auth-guard.service';
+import { LZStringModule, LZStringService } from 'ng-lz-string';
 // ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbToggleModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -43,7 +44,8 @@ import { StockprofileComponent } from './stockprofile/stockprofile.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ChartsComponent } from './charts/charts.component';
 import { PerformanceLineChartComponent } from './performance-line-chart/performance-line-chart.component';
-
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import { ChartsModule } from 'ng2-charts';
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
     domain: 'localhost'// it is recommended to set your domain, for cookies to work properly
@@ -108,12 +110,14 @@ const cookieConfig: NgcCookieConsentConfig = {
     PerformanceLineChartComponent
   ],
   imports: [
+    StorageServiceModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    LZStringModule,
     MatRippleModule,
     MatIconModule,
     MatCheckboxModule,
@@ -123,6 +127,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     MatMenuModule, InputTextModule,
     NbCardModule,
     NbToggleModule,
+    NbTooltipModule,
+    ChartsModule,
     NbInputModule, NbTabsetModule, NbThemeModule.forRoot({ name: 'default' }), NbLayoutModule, NbEvaIconsModule, NbIconModule,
     NbAlertModule, NbDialogModule.forRoot(),
     NbContextMenuModule,
@@ -133,7 +139,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     NbAccordionModule
   ],
   entryComponents: [TermsComponent, MessageComponent, StockprofileComponent],
-  providers: [CookieService, AuthGuardService, UserService, NbThemeService],
+  providers: [CookieService, AuthGuardService, UserService, NbThemeService, LZStringService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

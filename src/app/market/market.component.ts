@@ -85,6 +85,7 @@ export class MarketComponent implements OnInit {
         stockSymbol: receivedSymbol,
         symbolPrice: symbolPrice,
         stockName: stockName,
+        operation: "buy",
       }
     });
     dialogRef.onClose.subscribe(_ => { });

@@ -1,21 +1,67 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { CookieService } from "ngx-cookie-service";
+import { HttpClient } from '@angular/common/http';
+import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { LZStringService } from 'ng-lz-string';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private cookieService: CookieService) {
+  constructor(@Inject(SESSION_STORAGE) private storageService: StorageService, private httpClient: HttpClient, private cookieService: CookieService, private compressionService: LZStringService) {
 
   }
+
   public getUsername() {
     var user = this.cookieService.get("user");
     var obj = JSON.parse(user);
     return obj.username;
   }
 
- 
+  purging = false;
+
+  public purgeMetadata() {
+    this.reloadMetaData();
+  }
+
+
+  public getPortfolioItems() {
+    var portfolioData = this.compressionService.decompress(this.storageService.get("portfolio"));
+    var portObj;
+    portObj = JSON.parse(portfolioData);
+    return portObj;
+  }
+
+  reloadMetaData() {
+    var body = {
+      username: this.getUsername(),
+      auth: this.getAuthToken(),
+    };
+    var apiURL = 'http://localhost:3440/';
+    this.httpClient.post(apiURL + "portfolio/get", body).toPromise().then((val: any) => {
+      this.storageService.set("portfolio", this.compressionService.compress(val.items));
+      this.storageService.set("transactions", this.compressionService.compress(val.transactions));
+    });
+  }
+
+
+  buildTransactions(val) {
+    var array = [];
+    for (const index in val) {
+      var transaction = val[index];
+      var transaction_el = { data: { action: transaction.action, date: transaction.date, value: transaction.value, description: transaction.description, totalValue: Number(transaction.amount) * Number(transaction.value), amount: transaction.amount } };
+      array.push(transaction_el);
+    }
+    return array;
+  }
+
+  public GetUserTransactions() {
+    var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
+    var portObj;
+    portObj = JSON.parse(transactionData);
+    return this.buildTransactions(portObj);
+  }
 
   public getAuthToken() {
     return this.cookieService.get("auth_token");
