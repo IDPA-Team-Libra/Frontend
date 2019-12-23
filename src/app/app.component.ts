@@ -6,6 +6,7 @@ import { NgcCookieConsentService } from 'ngx-cookieconsent';
 import { Subscription } from 'rxjs';
 import { StockService } from "./api/stock.service";
 import { AuthenticationService } from "./auth/authentication.service";
+import {NotifierService} from "./notification/notifier.service";
 
 import {
   MatButtonModule,
@@ -29,7 +30,7 @@ export class AppComponent {
   private revokeChoiceSubscription: Subscription;
   private noCookieLawSubscription: Subscription;
 
-  constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService, public themeService: NbThemeService, private cookieService: CookieService) { }
+  constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService, public themeService: NbThemeService, private cookieService: CookieService, private notifierService: NotifierService) { }
 
   logout() {
     this.logoutService.clearCookie();
@@ -75,7 +76,15 @@ export class AppComponent {
       (event: NgcNoCookieLawEvent) => {
         // you can use this.ccService.getConfig() to do stuff...
       });
-
+    var error_message = this.cookieService.get("error");
+    if(error_message.length < 1){
+        error_message = null;
+    }
+    console.log(error_message);
+    if(error_message != null){
+        this.notifierService.displayNotification(error_message,"warning","Ein Fehler ist aufgetretten");
+        this.cookieService.delete("error");
+    }
   }
 
 

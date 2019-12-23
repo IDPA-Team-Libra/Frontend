@@ -23,6 +23,7 @@ interface FSEntry {
   styleUrls: ['./market.component.scss']
 })
 export class MarketComponent implements OnInit {
+
   customColumn = 'symbol';
   defaultColumns = ['company', 'price'];
   allColumns = [this.customColumn, ...this.defaultColumns];
