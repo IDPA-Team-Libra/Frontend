@@ -3,18 +3,22 @@ import { CookieService } from "ngx-cookie-service";
 import { HttpClient } from '@angular/common/http';
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { LZStringService } from 'ng-lz-string';
+import { LogoutService } from '../ut/logout.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(@Inject(SESSION_STORAGE) private storageService: StorageService, private httpClient: HttpClient, private cookieService: CookieService, private compressionService: LZStringService) {
+  constructor(@Inject(SESSION_STORAGE) private storageService: StorageService, private httpClient: HttpClient, private cookieService: CookieService, private compressionService: LZStringService, private logoutService: LogoutService) {
 
   }
 
   public getUsername() {
     var user = this.cookieService.get("user");
+	if(user.length < 1){
+		return null;
+	}
     var obj = JSON.parse(user);
     return obj.username;
   }
@@ -36,15 +40,25 @@ export class UserService {
   reloadMetaData() {
     var body = {
       username: this.getUsername(),
-      auth: this.getAuthToken(),
+      accessToken: this.getAuthToken(),
     };
     var apiURL = 'http://localhost:3440/';
     this.httpClient.post(apiURL + "portfolio/get", body).toPromise().then((val: any) => {
+        if(val.message == "Invalid Token"){
+            this.setErrorTokenAndClear();
+        }
       this.storageService.set("portfolio", this.compressionService.compress(val.items));
       this.storageService.set("transactions", this.compressionService.compress(val.transactions));
     });
   }
 
+
+
+  setErrorTokenAndClear(){
+    this.logoutService.clearCookie();
+    this.cookieService.set("error","Leider konnten sie nicht durch den Server Authentifiziert werden. Bitte loggen Sie sich erneut ein und versuchen Sie die vorherige Aktion erneut");
+    window.location.href ="/"
+  }
 
   buildTransactions(val) {
     var array = [];

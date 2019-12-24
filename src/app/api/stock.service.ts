@@ -6,6 +6,7 @@ import { element } from 'protractor';
   providedIn: 'root'
 })
 
+//TODO add localstorage and store market info for a time.
 export class StockService {
   apiURL: string = 'http://localhost:3440/';
   constructor(private httpClient: HttpClient) { }
