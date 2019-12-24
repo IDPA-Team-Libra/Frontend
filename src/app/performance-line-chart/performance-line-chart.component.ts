@@ -12,7 +12,7 @@ export class PerformanceLineChartComponent implements OnInit {
   constructor() { }
 
   lineChartData: ChartDataSets[] = [
-    { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
+    { data: [9, 5, 2, 6, 8, 10.5], label: 'Portfolio Return' },
   ];
 
   lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
@@ -23,8 +23,8 @@ export class PerformanceLineChartComponent implements OnInit {
 
   lineChartColors: Color[] = [
     {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,255,0,0.28)',
+      borderColor: 'rgba(174, 176, 175)',
+      backgroundColor: 'rgba(196, 221, 255)',
     },
   ];
 

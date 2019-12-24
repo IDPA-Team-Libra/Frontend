@@ -100,6 +100,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  getNumberOfTrades(){
+    return 
+  }
+
   summarizePortfolio(portfolioItems) {
     var stockArray = [];
     var stockMap = new Map();

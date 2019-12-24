@@ -10,26 +10,31 @@
             <nb-accordion-item>
                 <nb-accordion-item-header>Performance</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                    <p>your performance:</p>
                     <div class="chart-container" ng-show="graph.visible">
-                        <div ng-include="'../'"></div>
+                        <app-performance-line-chart></app-performance-line-chart>
                     </div>
                 </nb-accordion-item-body>
             </nb-accordion-item>
 
             <!-- Cash -->
             <nb-accordion-item>
-                <nb-accordion-item-header>Cash</nb-accordion-item-header>
+                <nb-accordion-item-header>Allocation</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                    Cash:
+                        <div class="chart-container" ng-show="graph.visible">
+                                <app-allocation-doughnut-chart></app-allocation-doughnut-chart>
+                            </div>
                 </nb-accordion-item-body>
             </nb-accordion-item>
 
             <!-- Market Value -->
             <nb-accordion-item>
-                <nb-accordion-item-header>Market Value</nb-accordion-item-header>
+                <nb-accordion-item-header>Overview</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                    market value:
+                    Cash Balance:
+                    Portfolio Value:
+                    Trades made:
+                    Overall return:
+                    
                 </nb-accordion-item-body>
             </nb-accordion-item>
         </nb-accordion>
