@@ -46,6 +46,8 @@ import { ChartsComponent } from './charts/charts.component';
 import { PerformanceLineChartComponent } from './performance-line-chart/performance-line-chart.component';
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { ChartsModule } from 'ng2-charts';
+import { AllocationChartComponent } from './allocation-doughnut-chart/allocation-doughnut-chart.component';
+
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
     domain: 'localhost'// it is recommended to set your domain, for cookies to work properly
@@ -107,7 +109,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     StockprofileComponent,
     StatisticsComponent,
     ChartsComponent,
-    PerformanceLineChartComponent
+    PerformanceLineChartComponent,
+    AllocationChartComponent,
   ],
   imports: [
     StorageServiceModule,

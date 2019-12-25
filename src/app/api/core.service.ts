@@ -30,8 +30,6 @@ export class CoreService {
     return this.httpClient.post(this.apiURL + "user/register", userPostData).toPromise();
   }
 
-
-
   public getUserInformation() {
     var user_json = this.cookieService.get("user");
     try {

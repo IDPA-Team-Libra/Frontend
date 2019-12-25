@@ -15,6 +15,7 @@ import { TermsofserviceComponent } from './termsofservice/termsofservice.compone
 import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { PerformanceLineChartComponent } from './performance-line-chart/performance-line-chart.component';
+import { AllocationChartComponent } from './allocation-doughnut-chart/allocation-doughnut-chart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'policy/termsofservice', component: TermsofserviceComponent },
   { path: 'statistics', component: StatisticsComponent },
   { path: 'performance', component: PerformanceLineChartComponent},
+  { path: 'allocation', component: AllocationChartComponent},
   { path: '**', redirectTo: "" },
 ];
 

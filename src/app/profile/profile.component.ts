@@ -110,6 +110,10 @@ portfolioListUrl;
 	this.transactionHistoryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
 
+  getNumberOfTrades(){
+    return 
+  }
+
   summarizePortfolio(portfolioItems) {
     var stockArray = [];
     var stockMap = new Map();
