@@ -53,6 +53,7 @@ export class ProfileComponent implements OnInit {
 
   transactionData: TreeNode<TransactionEntry>[] = [
   ];
+
 transactionHistoryUrl;
 portfolioListUrl;
   profile;
@@ -158,7 +159,7 @@ changePassword(){
 		this.userService.changePassword(new_password_value).then((val: any) =>{
 			if(val == "Das Passwort wurde geändert"){
 				this.showDefaultIcon("Das Passwort wurde geändert","success","Passwort geändert");
-			}else if(vall == null){
+			}else if(val == null){
 				//TODO: check if user was authenticated
 			}else{
 				this.showDefaultIcon(val,"warning","Passwort wurde nicht");

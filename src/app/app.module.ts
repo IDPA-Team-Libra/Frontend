@@ -17,7 +17,7 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { LZStringModule, LZStringService } from 'ng-lz-string';
 // ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbToastrModule,NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbListModule,NbToastrModule,NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -116,6 +116,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     StorageServiceModule,
 	    NbToastrModule.forRoot(),
     BrowserModule,
+    NbListModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule,
     MatButtonModule,

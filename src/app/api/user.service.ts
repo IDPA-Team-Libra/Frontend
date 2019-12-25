@@ -16,9 +16,9 @@ export class UserService {
 
   public getUsername() {
     var user = this.cookieService.get("user");
-	if(user.length < 1){
-		return null;
-	}
+    if (user.length < 1) {
+      return null;
+    }
     var obj = JSON.parse(user);
     return obj.username;
   }
@@ -44,28 +44,35 @@ export class UserService {
     };
     var apiURL = 'http://localhost:3440/';
     this.httpClient.post(apiURL + "portfolio/get", body).toPromise().then((val: any) => {
-        if(val.message == "Invalid Token"){
-            this.setErrorTokenAndClear();
-        }
+      if (val.message == "Invalid Token") {
+        this.setErrorTokenAndClear();
+      }
       this.storageService.set("portfolio", this.compressionService.compress(val.items));
       this.storageService.set("transactions", this.compressionService.compress(val.transactions));
     });
   }
 
-  changePassword(new_password){
-	  var body = {
-		  authToken: this.getAuthToken(),
-		  username: this.getUsername(),
-		  newPassword: new_password,
-	  };
+  changePassword(new_password) {
+    var body = {
+      authToken: this.getAuthToken(),
+      username: this.getUsername(),
+      newPassword: new_password,
+    };
     var apiURL = 'http://localhost:3440/';
     return this.httpClient.post(apiURL + "user/changePassword", body).toPromise();
   }
 
-  setErrorTokenAndClear(){
+  setErrorTokenAndClear() {
     this.logoutService.clearCookie();
-    this.cookieService.set("error","Leider konnten sie nicht durch den Server Authentifiziert werden. Bitte loggen Sie sich erneut ein und versuchen Sie die vorherige Aktion erneut");
-    window.location.href ="/"
+    this.cookieService.set("error", "Leider konnten sie nicht durch den Server Authentifiziert werden. Bitte loggen Sie sich erneut ein und versuchen Sie die vorherige Aktion erneut");
+    window.location.href = "/"
+  }
+
+
+  getNews(symbol, accessToken) {
+    var url = "https://newsapi.org/v2/everything?q=" + symbol + "&sortBy=popularity&apiKey=" + accessToken;
+	  console.log(url);
+    return this.httpClient.get(url).toPromise();
   }
 
   buildTransactions(val) {

@@ -59,13 +59,37 @@ export class StockprofileComponent implements OnInit {
   getSafeUrl(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url)
   }
+
   ngOnInit() {
     this.stockAPIString = this.getSafeUrl("http://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=71424F24416D49649D7155C2D04F7040&symbol=" + this.stockSymbol + "&days=365&width=800&height=420");
+    this.queryNews();
   }
+
 
   isAuthenticated() {
     return this.authService.isAuthenticated();
   }
+
+
+  API_KEY = "8d2f4c3636a9499ea138b0efc1aadf17";
+
+  queryNews() {
+    this.userService.getNews(this.stockSymbol, this.API_KEY).then((val: any) => {
+      if (val.status == "ok") {
+        val.articles.forEach(article => {
+          this.news_urls.push(article.url);
+          this.news_titles.push(article.title);
+        });
+      }
+    });
+  }
+
+  openLink(index) {
+    window.open(this.news_urls[index])
+  }
+
+  news_urls = [];
+  news_titles = [];
 
   buyStock() {
     if (this.isAuthenticated() == false) {
