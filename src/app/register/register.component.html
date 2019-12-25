@@ -7,13 +7,14 @@
             <div class="form-group">
                 <label for="username">Username</label>
                 <input class="register_form_field" type="text" class="form-control" nbInput required="true"
-                    id="username" placeholder="Username" [(ngModel)]="username">
+                    id="username" placeholder="Username" [(ngModel)]="username"
+					 required minlength="5">
             </div>
             <br />
             <div class="form-group">
                 <label for="email">Email</label>
                 <input class="register_form_field" type="text" class="form-control" nbInput required="true" id="email"
-                    placeholder="Email Address" [(ngModel)]="email">
+                    placeholder="Email Address" [(ngModel)]="email" ngModel email>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

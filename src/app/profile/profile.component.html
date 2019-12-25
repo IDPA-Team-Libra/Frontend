@@ -6,6 +6,7 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
                 <p>List of <strong>users</strong>.</p>
             </nb-tab>
             <nb-tab tabTitle="Markt Informationen">
+				<a [href]="portfolioListUrl" download="portfolio.txt">Portfoliostand herunterladen</a>
                 <nb-card>
                     <nb-card-body>
                         <table [nbTreeGrid]="data" equalColumnsWidth>
@@ -49,6 +50,7 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
                 </nb-card>
             </nb-tab>
             <nb-tab tabTitle="Transaktionen">
+				<a [href]="transactionHistoryUrl" download="transactionHistory.txt">Transaktionen herunterladen</a>
                 <nb-card>
                     <nb-card-body>
                         <table [nbTreeGrid]="transactionData" equalColumnsWidth>

@@ -17,7 +17,7 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { LZStringModule, LZStringService } from 'ng-lz-string';
 // ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbToastrModule,NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -66,9 +66,9 @@ const cookieConfig: NgcCookieConsentConfig = {
   },
   elements: {
     messagelink: `
-    <span id="cookieconsent:desc" class="cc-message">{{message}} 
-      <a aria-label="learn more about cookies" tabindex="0" class="cc-link" href="{{cookiePolicyHref}}" target="_blank">{{cookiePolicyLink}}</a>, 
-      <a aria-label="learn more about our privacy policy" tabindex="1" class="cc-link" href="{{privacyPolicyHref}}" target="_blank">{{privacyPolicyLink}}</a> and our 
+    <span id="cookieconsent:desc" class="cc-message">{{message}}
+      <a aria-label="learn more about cookies" tabindex="0" class="cc-link" href="{{cookiePolicyHref}}" target="_blank">{{cookiePolicyLink}}</a>,
+      <a aria-label="learn more about our privacy policy" tabindex="1" class="cc-link" href="{{privacyPolicyHref}}" target="_blank">{{privacyPolicyLink}}</a> and our
       <a aria-label="learn more about our terms of service" tabindex="2" class="cc-link" href="{{tosHref}}" target="_blank">{{tosLink}}</a>
     </span>
     `,
@@ -111,6 +111,7 @@ const cookieConfig: NgcCookieConsentConfig = {
   ],
   imports: [
     StorageServiceModule,
+	    NbToastrModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule,

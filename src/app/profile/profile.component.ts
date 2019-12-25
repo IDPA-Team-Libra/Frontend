@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { CoreService } from "../api/core.service";
+import { DomSanitizer } from '@angular/platform-browser';
 import { TransactionService } from './../api/transaction.service';
 import { NbDialogService } from '@nebular/theme';
 import { StockprofileComponent } from "../stockprofile/stockprofile.component";
@@ -39,7 +40,7 @@ interface TransactionEntry {
 
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private coreService: CoreService, private transactionService: TransactionService, private dialogService: NbDialogService) {
+  constructor(private userService: UserService, private coreService: CoreService, private transactionService: TransactionService, private dialogService: NbDialogService, private sanitizer: DomSanitizer) {
   }
 
   defaultColumns = ['symbol', 'company', 'amount', 'totalValue'];
@@ -51,9 +52,10 @@ export class ProfileComponent implements OnInit {
 
   transactionData: TreeNode<TransactionEntry>[] = [
   ];
-
+transactionHistoryUrl;
+portfolioListUrl;
   profile;
-  //TODO add children to data, when more than one transaction with the same stockname has been performed
+
   ngOnInit() {
     this.loadPortfolio();
     this.loadTransactionData();
@@ -85,6 +87,9 @@ export class ProfileComponent implements OnInit {
     if (stocks == null) {
       return;
     }
+	var json_stock_list_obj = JSON.stringify(stocks);
+	const blob = new Blob([json_stock_list_obj],{ type: 'application/octet-stream' });
+	this.portfolioListUrl= this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     stocks = this.summarizePortfolio(stocks);
     stocks.forEach(stock => {
       stock.data.totalValue = Number((stock.data.totalValue).toFixed(7));
@@ -95,9 +100,14 @@ export class ProfileComponent implements OnInit {
   loadTransactionData() {
     this.transactionData = [];
     var transactions = this.userService.GetUserTransactions();
+	var transactionArray = [];
     transactions.forEach(val => {
       this.transactionData.push(val);
+	  transactionArray.push(val);
     });
+	var json_transaction_string = JSON.stringify(transactionArray);
+	const blob = new Blob([json_transaction_string],{ type: 'application/octet-stream' });
+	this.transactionHistoryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
 
   summarizePortfolio(portfolioItems) {
@@ -121,7 +131,6 @@ export class ProfileComponent implements OnInit {
     });
     for (const index in stockArray) {
       var array = stockArray[index];
-      // seperate current from the next with an empty row
       array.children.push({ data: { symbol: "", company: "", amount: "", totalValue: "", type: "" }, children: [] });
     }
     return stockArray;
@@ -158,4 +167,3 @@ export class ProfileComponent implements OnInit {
   }
 
 }
-
