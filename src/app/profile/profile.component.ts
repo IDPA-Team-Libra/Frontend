@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { CoreService } from "../api/core.service";
 import { DomSanitizer } from '@angular/platform-browser';
+import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { TransactionService } from './../api/transaction.service';
 import { NbDialogService } from '@nebular/theme';
 import { StockprofileComponent } from "../stockprofile/stockprofile.component";
@@ -40,7 +41,7 @@ interface TransactionEntry {
 
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private coreService: CoreService, private transactionService: TransactionService, private dialogService: NbDialogService, private sanitizer: DomSanitizer) {
+  constructor(private userService: UserService, private coreService: CoreService, private transactionService: TransactionService, private dialogService: NbDialogService, private sanitizer: DomSanitizer, private toastrService: NbToastrService) {
   }
 
   defaultColumns = ['symbol', 'company', 'amount', 'totalValue'];
@@ -111,7 +112,7 @@ portfolioListUrl;
   }
 
   getNumberOfTrades(){
-    return 
+    return
   }
 
   summarizePortfolio(portfolioItems) {
@@ -139,6 +140,41 @@ portfolioListUrl;
     }
     return stockArray;
   }
+
+newPassword;
+
+	ValidatePassword(password){
+		var res = password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!_.@#\$%\^&\*])(?=.{8,})");
+		if(res != null){
+			return true;
+		}
+		this.showDefaultIcon("Ihr Passwort muss zwischen 7 und 500 Zeichen lang sein.\nEbenfalls muss eine Ziffer sowie ein Sondernzeichen [@#$%^&] enthalten sein","danger","Ungültiges Passwort")
+		return false;
+	}
+
+changePassword(){
+	var new_password_value = this.newPassword;
+	if(this.ValidatePassword(new_password_value) == true){
+		this.userService.changePassword(new_password_value).then((val: any) =>{
+			if(val == "Das Passwort wurde geändert"){
+				this.showDefaultIcon("Das Passwort wurde geändert","success","Passwort geändert");
+			}else if(vall == null){
+				//TODO: check if user was authenticated
+			}else{
+				this.showDefaultIcon(val,"warning","Passwort wurde nicht");
+			}
+		});
+	}
+}
+
+	showDefaultIcon(message, status, title) {
+		var destroyByClick = true
+		var preventDuplicates = true
+		//doesn't destroy by time, but only by click
+		var duration = 0;
+    	this.toastrService.show(title,message,{status,destroyByClick,preventDuplicates,duration});
+  	}
+
 
   defaultTransactionColumns = ["action", "date", "value", "description", "totalValue", "amount"];
   allTransactionColumns = [...this.defaultTransactionColumns];

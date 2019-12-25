@@ -52,7 +52,15 @@ export class UserService {
     });
   }
 
-
+  changePassword(new_password){
+	  var body = {
+		  authToken: this.getAuthToken(),
+		  username: this.getUsername(),
+		  newPassword: new_password,
+	  };
+    var apiURL = 'http://localhost:3440/';
+    return this.httpClient.post(apiURL + "user/changePassword", body).toPromise();
+  }
 
   setErrorTokenAndClear(){
     this.logoutService.clearCookie();

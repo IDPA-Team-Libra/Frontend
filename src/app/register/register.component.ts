@@ -57,9 +57,8 @@ export class RegisterComponent implements OnInit {
 	}
 
 	ValidatePassword(password){
-		var paswd =  "/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/";
-		if(password.toString().match(paswd)){
-			console.log("MATCH")
+		var res = password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!_.@#\$%\^&\*])(?=.{8,})");
+		if(res != null){
 			return true;
 		}
 		this.showDefaultIcon("Ihr Passwort muss zwischen 7 und 500 Zeichen lang sein.\nEbenfalls muss eine Ziffer sowie ein Sondernzeichen [@#$%^&] enthalten sein","danger","Ungültiges Passwort")
@@ -71,7 +70,7 @@ export class RegisterComponent implements OnInit {
 		var preventDuplicates = true
 		//doesn't destroy by time, but only by click
 		var duration = 0;
-    	this.toastrService.show(title,message,{status},{destroyByClick},{preventDuplicates},{duration});
+    	this.toastrService.show(title,message,{status,destroyByClick,preventDuplicates,duration});
   	}
 
   registerUser() {
