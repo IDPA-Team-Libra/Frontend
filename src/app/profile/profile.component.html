@@ -3,9 +3,26 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
     <nb-card-body>
         <nb-tabset>
             <nb-tab tabTitle="Nutzer informationen">
+					<b>TODO: CHANGE THIS DESIGN ONLY PROOF OF CONCEPT</b>
+					<br />
+				<b>Passwort ändern</b><div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <button mat-button matPrefix mat-icon-button onclick="register_switchPassword()">
+                    <i class="material-icons" id="password_lock">
+                        lock
+                    </i>
+                </button>
+                <input class="register_form_field" type="password" nbInput class="form-control" required="true"
+                    id="password" placeholder="Password" [(ngModel)]="newPassword">
+			</div><br />
+					<input type="submit" (click)="changePassword()" />
+				</div>
                 <p>List of <strong>users</strong>.</p>
             </nb-tab>
             <nb-tab tabTitle="Portfolio">
+            <nb-tab tabTitle="Markt Informationen">
+				<a [href]="portfolioListUrl" download="portfolio.txt">Portfoliostand herunterladen</a>
                 <nb-card>
                     <nb-card-body>
                         <table [nbTreeGrid]="data" equalColumnsWidth>
@@ -49,6 +66,7 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
                 </nb-card>
             </nb-tab>
             <nb-tab tabTitle="Transaktionen">
+				<a [href]="transactionHistoryUrl" download="transactionHistory.txt">Transaktionen herunterladen</a>
                 <nb-card>
                     <nb-card-body>
                         <table [nbTreeGrid]="transactionData" equalColumnsWidth>

@@ -153,16 +153,6 @@ export class AppComponent {
       icon: 'bar-chart-2-outline',
       link: ["/market"],
     },
-    {
-      title: 'Privacy Policy',
-      icon: { icon: 'checkmark-outline', pack: 'eva' },
-      link: [],
-    },
-    {
-      title: 'Logout',
-      icon: 'unlock-outline',
-      link: [],
-    },
   ];
   portfolio_items = [
     {
@@ -174,21 +164,6 @@ export class AppComponent {
       title: 'Statistics',
       icon: 'trending-up',
       link: ["/statistics"]
-    },
-    {
-      title: 'Change Password',
-      icon: 'lock-outline',
-      link: [],
-    },
-    {
-      title: 'Privacy Policy',
-      icon: { icon: 'checkmark-outline', pack: 'eva' },
-      link: [],
-    },
-    {
-      title: 'Logout',
-      icon: 'unlock-outline',
-      link: [],
     },
   ];
 }

@@ -24,6 +24,16 @@
                 </iframe>
             </nb-tab>
             <nb-tab tabTitle="News ">
+                <nb-card [size]="'medium'">
+                    <nb-list>
+                        <nb-list-item *ngFor="let title of news_titles;let i = index">
+                            <div (click)=openLink(i)>
+                                {{title}}
+                            </div>
+                        </nb-list-item>
+                    </nb-list>
+                </nb-card>
+                <b>Powered by newsapi.org</b>
             </nb-tab>
             <nb-tab tabTitle="Kaufen " *ngIf="showContent('buy')">
                 <div class="dialogWrapper" *ngIf="isAuthenticated()">
