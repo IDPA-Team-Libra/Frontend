@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { UserService } from "../api/user.service";
 
 @Component({
     selector: 'app-statistics',
@@ -11,15 +12,27 @@ import { NbDialogService } from '@nebular/theme';
 
 export class StatisticsComponent implements OnInit{
 
+    constructor(private userService: UserService){}
+
     ngOnInit() {}
 
-    loadStatistics(){}
 
-    getPerformance(){}
+    getPerformance(){
+        // ROI = ((Cv - COI) / COI) * 100
+        // Rp = NP / P 
+    }
 
-    getCash(){}
+    getCash(){
+        // return balance
+        var portfolioitems = this.userService.getPortfolioItems()
+        console.log(portfolioitems)
+        console.log(portfolioitems[0])
+        return "drei"
+    }
 
-    getMarketValue(){}
+    getMarketValue(){
+        // return current value from cookie
+    }
 
     public performanceChartOption = {
         scaleShowVerticalLines: false,

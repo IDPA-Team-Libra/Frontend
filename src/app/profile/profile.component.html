@@ -5,7 +5,7 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
             <nb-tab tabTitle="Nutzer informationen">
                 <p>List of <strong>users</strong>.</p>
             </nb-tab>
-            <nb-tab tabTitle="Markt Informationen">
+            <nb-tab tabTitle="Portfolio">
                 <nb-card>
                     <nb-card-body>
                         <table [nbTreeGrid]="data" equalColumnsWidth>
@@ -25,7 +25,7 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
                                 </td>
                             </ng-container>
                             <ng-container nbTreeGridColumnDef="company" [hideOn]="1000">
-                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Unternehmung</th>
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Titel</th>
                                 <td nbTreeGridCell *nbTreeGridCellDef="let row">
                                     <div *ngIf="row.data.type == 'child'">
                                         -
@@ -40,7 +40,7 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
                                 <td nbTreeGridCell *nbTreeGridCellDef="let row"><i>{{row.data.amount}}</i></td>
                             </ng-container>
                             <ng-container nbTreeGridColumnDef="totalValue">
-                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Totaler Wert</th>
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Positionsgrösse USD</th>
                                 <td nbTreeGridCell *nbTreeGridCellDef="let row"><i>{{row.data.totalValue}}</i>
                                 </td>
                             </ng-container>
