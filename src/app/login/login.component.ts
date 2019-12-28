@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     var user = new User(this.username, this.password, "");
     this.coreService.loginUser(user).toPromise().then((data: any) => {
       var dat = data;
-      console.log(dat)
+      console.log(dat.user)
       if (dat != undefined) {
         var message = dat.response;
         if (message == "Success") {
