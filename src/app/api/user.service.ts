@@ -23,6 +23,45 @@ export class UserService {
     return obj.username;
   }
 
+
+	public updateBalanceAndValue(value){
+		var currentBalance = this.getUserBalance();
+		var currentValue = this.getUserTotalStockValue();
+		currentBalance -= value;
+		currentValue += value;
+		this.updateValues(currentBalance,currentValue);
+	}
+
+	updateValues(newBalance,newTotalValue){
+		var user = this.cookieService.get("user");
+		if (user.length < 1) {
+		  return null;
+		}
+		var obj = JSON.parse(user);
+		obj.portfolio.currentValue = newTotalValue;
+		obj.portfolio.currentBalance = newBalance;
+		this.cookieService.set("user",JSON.stringify(obj));
+	}
+
+	public getUserBalance(){
+		var user = this.cookieService.get("user");
+		if (user.length < 1) {
+		  return null;
+		}
+		var obj = JSON.parse(user);
+		console.log(obj);
+		return obj.portfolio.currentBalance;
+	}
+
+	public getUserTotalStockValue(){
+		var user = this.cookieService.get("user");
+		if (user.length < 1) {
+		  return null;
+		}
+		var obj = JSON.parse(user);
+		return obj.portfolio.currentValue;
+	}
+
   purging = false;
 
   public purgeMetadata() {
@@ -44,6 +83,7 @@ export class UserService {
     };
     var apiURL = 'http://localhost:3440/';
     this.httpClient.post(apiURL + "portfolio/get", body).toPromise().then((val: any) => {
+		console.log(val);
       if (val.message == "Invalid Token") {
         this.setErrorTokenAndClear();
       }

@@ -24,7 +24,6 @@ export class AuthenticationService {
       username: this.userService.getUsername(),
       accessToken: this.userService.getAuthToken()
     };
-
     var apiURL = 'http://localhost:3440/';
     var val = await this.httpClient.post(apiURL + "authenticate/token", body).toPromise().then((val: any) => {
 		try{

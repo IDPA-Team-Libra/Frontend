@@ -42,6 +42,7 @@ interface TransactionEntry {
 export class ProfileComponent implements OnInit {
 
   constructor(private userService: UserService, private coreService: CoreService, private transactionService: TransactionService, private dialogService: NbDialogService, private sanitizer: DomSanitizer, private toastrService: NbToastrService) {
+  
   }
 
   defaultColumns = ['symbol', 'company', 'amount', 'totalValue'];
@@ -54,14 +55,24 @@ export class ProfileComponent implements OnInit {
   transactionData: TreeNode<TransactionEntry>[] = [
   ];
 
-transactionHistoryUrl;
-portfolioListUrl;
+  tabs;
+
+  transactionHistoryUrl;
+  portfolioListUrl;
   profile;
 
   ngOnInit() {
     this.loadPortfolio();
     this.loadTransactionData();
+    this.currentBalance = this.userService.getUserBalance();
+    this.currentValue = this.userService.getUserTotalStockValue();
+    this.username = this.userService.getUsername();
+    this.tabs = $("nb-tab");
+    console.log(this.tabs);
   }
+
+  currentBalance;
+  currentValue;
 
   displayStockInformation(symbol) {
     if (symbol.data.type == "root" || symbol.data.symbol == "-") {
@@ -89,9 +100,9 @@ portfolioListUrl;
     if (stocks == null) {
       return;
     }
-	var json_stock_list_obj = JSON.stringify(stocks);
-	const blob = new Blob([json_stock_list_obj],{ type: 'application/octet-stream' });
-	this.portfolioListUrl= this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    var json_stock_list_obj = JSON.stringify(stocks);
+    const blob = new Blob([json_stock_list_obj], { type: 'application/octet-stream' });
+    this.portfolioListUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     stocks = this.summarizePortfolio(stocks);
     stocks.forEach(stock => {
       stock.data.totalValue = Number((stock.data.totalValue).toFixed(7));
@@ -102,17 +113,17 @@ portfolioListUrl;
   loadTransactionData() {
     this.transactionData = [];
     var transactions = this.userService.GetUserTransactions();
-	var transactionArray = [];
+    var transactionArray = [];
     transactions.forEach(val => {
       this.transactionData.push(val);
-	  transactionArray.push(val);
+      transactionArray.push(val);
     });
-	var json_transaction_string = JSON.stringify(transactionArray);
-	const blob = new Blob([json_transaction_string],{ type: 'application/octet-stream' });
-	this.transactionHistoryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    var json_transaction_string = JSON.stringify(transactionArray);
+    const blob = new Blob([json_transaction_string], { type: 'application/octet-stream' });
+    this.transactionHistoryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
 
-  getNumberOfTrades(){
+  getNumberOfTrades() {
     return
   }
 
@@ -142,40 +153,42 @@ portfolioListUrl;
     return stockArray;
   }
 
-newPassword;
+  newPassword;
 
-	ValidatePassword(password){
-		var res = password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!_.@#\$%\^&\*])(?=.{8,})");
-		if(res != null){
-			return true;
-		}
-		this.showDefaultIcon("Ihr Passwort muss zwischen 7 und 500 Zeichen lang sein.\nEbenfalls muss eine Ziffer sowie ein Sondernzeichen [@#$%^&] enthalten sein","danger","Ungültiges Passwort")
-		return false;
-	}
+  ValidatePassword(password) {
+    var res = password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!_.@#\$%\^&\*])(?=.{8,})");
+    if (res != null) {
+      return true;
+    }
+    this.showDefaultIcon("Ihr Passwort muss zwischen 7 und 500 Zeichen lang sein.\nEbenfalls muss eine Ziffer sowie ein Sondernzeichen [@#$%^&] enthalten sein", "danger", "Ungültiges Passwort")
+    return false;
+  }
 
-changePassword(){
-	var new_password_value = this.newPassword;
-	if(this.ValidatePassword(new_password_value) == true){
-		this.userService.changePassword(new_password_value).then((val: any) =>{
-			if(val == "Das Passwort wurde geändert"){
-				this.showDefaultIcon("Das Passwort wurde geändert","success","Passwort geändert");
-			}else if(val == null){
-				//TODO: check if user was authenticated
-			}else{
-				this.showDefaultIcon(val,"warning","Passwort wurde nicht");
-			}
-		});
-	}
-}
+  changePassword() {
+    var new_password_value = this.newPassword;
+    if (this.ValidatePassword(new_password_value) == true) {
+      this.userService.changePassword(new_password_value).then((val: any) => {
+        if (val == "Das Passwort wurde geändert") {
+          this.showDefaultIcon("Das Passwort wurde geändert", "success", "Passwort geändert");
+        } else if (val == null) {
+          //TODO: check if user was authenticated
+        } else {
+          this.showDefaultIcon(val, "warning", "Passwort wurde nicht");
+        }
+      });
+    }
+  }
 
-	showDefaultIcon(message, status, title) {
-		var destroyByClick = true
-		var preventDuplicates = true
-		//doesn't destroy by time, but only by click
-		var duration = 0;
-    	this.toastrService.show(title,message,{status,destroyByClick,preventDuplicates,duration});
-  	}
+  showDefaultIcon(message, status, title) {
+    var destroyByClick = true
+    var preventDuplicates = true
+    //doesn't destroy by time, but only by click
+    var duration = 0;
+    this.toastrService.show(title, message, { status, destroyByClick, preventDuplicates, duration });
+  }
 
+
+  username;
 
   defaultTransactionColumns = ["action", "date", "value", "description", "totalValue", "amount"];
   allTransactionColumns = [...this.defaultTransactionColumns];

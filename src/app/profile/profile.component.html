@@ -3,11 +3,12 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
     <nb-card-body>
         <nb-tabset>
             <nb-tab tabTitle="Nutzer informationen">
-					<b>TODO: CHANGE THIS DESIGN ONLY PROOF OF CONCEPT</b>
-					<br />
-				<b>Passwort ändern</b><div>
+                    <b>Username:</b> {{username}} <br />
+                    <br />
+                    <br />
+				<b>Passwort ändern</b><div><br/>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Passwort</label>
                 <button mat-button matPrefix mat-icon-button onclick="register_switchPassword()">
                     <i class="material-icons" id="password_lock">
                         lock
@@ -17,8 +18,12 @@ Nutzerdaten neu laden: <nb-icon icon="refresh" id="refreshButton" (click)="refre
                     id="password" placeholder="Password" [(ngModel)]="newPassword">
 			</div><br />
 					<input type="submit" (click)="changePassword()" />
-				</div>
-                <p>List of <strong>users</strong>.</p>
+                </div>
+                <br />
+                <br />
+				Balance: {{currentBalance}}
+				<br />
+				Total-Value: {{currentValue}}
             </nb-tab>
             <nb-tab tabTitle="Markt Informationen">
 				<a [href]="portfolioListUrl" download="portfolio.txt">Portfoliostand herunterladen</a>

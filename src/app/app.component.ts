@@ -1,11 +1,11 @@
 import { LogoutService } from './ut/logout.service';
 import { Component } from '@angular/core';
-import { NbMenuModule, NbThemeService } from '@nebular/theme';
+import { NbThemeService } from '@nebular/theme';
 import { NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import { NgcCookieConsentService } from 'ngx-cookieconsent';
 import { Subscription } from 'rxjs';
-import { StockService } from "./api/stock.service";
 import { AuthenticationService } from "./auth/authentication.service";
+import { UserService } from "./api/user.service";
 import {NotifierService} from "./notification/notifier.service";
 
 import {
@@ -30,7 +30,8 @@ export class AppComponent {
   private revokeChoiceSubscription: Subscription;
   private noCookieLawSubscription: Subscription;
 
-  constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService, public themeService: NbThemeService, private cookieService: CookieService, private notifierService: NotifierService) { }
+  constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService, public themeService: NbThemeService, private cookieService: CookieService, private notifierService: NotifierService,
+    private userSerivce: UserService) { }
 
   logout() {
     this.logoutService.clearCookie();
@@ -45,6 +46,9 @@ export class AppComponent {
     this.themeService.changeTheme(mode);
     if (mode == "dark") {
       this.darkMode = true;
+    }
+    if(this.isAuthenticated()){
+      this.username = this.userSerivce.getUsername();
     }
     // subscribe to cookieconsent observables to react to main events
     this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(
@@ -115,6 +119,8 @@ export class AppComponent {
   isAuthenticated() {
     return this.authService.isAuthenticated();
   }
+
+  username;
 
   isAuthed = false;
   title = 'libra-frontend';

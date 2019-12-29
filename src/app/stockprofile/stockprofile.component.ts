@@ -121,11 +121,19 @@ export class StockprofileComponent implements OnInit {
       var state = data["state"];
       var message = data["message"];
       var title = data["title"];
+		var operation = data["operation"];
+		var value = data["transactionValue"];
+		console.log(value);
       switch (state) {
         case "Failed":
           this.notifierService.displayNotification(message, "warning", title);
           break;
         case "Success":
+			  var adjustment_value = parseFloat(value);
+			  if(operation == "-"){
+					adjustment_value *= -1; 
+			  }
+		this.userService.updateBalanceAndValue(adjustment_value);
           this.userService.purgeMetadata();
           this.notifierService.displayNotification(message, "success", title).onClose.subscribe(v => {
             location.reload();
