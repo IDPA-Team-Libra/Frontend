@@ -6,6 +6,7 @@
     <nb-card-body>
         <!-- accordion -->
         <nb-accordion>
+
             <!-- performance -->
             <nb-accordion-item>
                 <nb-accordion-item-header>Performance</nb-accordion-item-header>
@@ -16,7 +17,7 @@
                 </nb-accordion-item-body>
             </nb-accordion-item>
 
-            <!-- Cash -->
+            <!-- allocation -->
             <nb-accordion-item>
                 <nb-accordion-item-header>Allocation</nb-accordion-item-header>
                 <nb-accordion-item-body>
@@ -26,15 +27,15 @@
                 </nb-accordion-item-body>
             </nb-accordion-item>
 
-            <!-- Market Value -->
+            <!-- overview -->
             <nb-accordion-item>
                 <nb-accordion-item-header>Overview</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                    Cash Balance:
-                    Portfolio Value:
-                    Trades made:
-                    Overall return:
-                    
+                    <p>Cash Balance: {{ getCash() }}</p>
+                    <p>Portfolio Value: {{ getMarketValue() }}</p>
+                    <p>Trades made: {{ getTradesMade() }}</p>
+                    <p>Total Portfolio return: {{ getPortfolioReturn() }}</p>
+                    <p>Return on Investment (ROI): {{ getROI() }}</p>
                 </nb-accordion-item-body>
             </nb-accordion-item>
         </nb-accordion>
