@@ -1,0 +1,2 @@
+change ng serve to ng serve --host 0.0.0.0
+start with npm start --max-old-space-size 512 so the server doesn't use 1000000GB of ram
