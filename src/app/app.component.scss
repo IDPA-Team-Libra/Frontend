@@ -1,26 +1,26 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 .navigation_bar {
-    color: white;
+  color: white;
 }
 
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 li {
-    float: left;
+  float: left;
 }
 
 ul li {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .left_side_toggle {
-    margin-left: 50px;
+  margin-left: 50px;
 }
 
-.name_tag{
-    margin-left:80px;
+.name_tag {
+  margin-left: 80px;
 }

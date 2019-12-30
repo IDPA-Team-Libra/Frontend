@@ -1,19 +1,20 @@
 <nb-layout>
-    <nb-layout-header fixed>
+    <nb-layout-header responsive>
         <ul>
-            <li><button [nbContextMenu]="user_items" size="medium" nbButton hero status="primary">User</button>
+            <li><button [nbContextMenu]="user_items" class="menu-button" nbButton hero status="primary">User</button>
             </li>
-            <li><button [nbContextMenu]="market_items" size="medium" nbButton hero status="primary">Market</button>
+            <li><button [nbContextMenu]="market_items" class="menu-button" nbButton hero
+                    status="primary">Market</button>
             </li>
-            <li><button [nbContextMenu]="portfolio_items" size="medium" nbButton hero
+            <li><button [nbContextMenu]="portfolio_items" class="menu-button" nbButton hero
                     status="primary">Portfolio</button>
             </li>
             <ng-template [ngIf]="isAuthenticated()">
-                <li><button (click)="logout()" size="medium" nbButton hero status="primary">Logout</button></li>
+                <li><button (click)="logout()" class="menu-button" nbButton hero status="primary">Logout</button></li>
             </ng-template>
             <ng-template [ngIf]="!isAuthenticated()">
-                <li><a href="/login" size="medium" nbButton hero status="primary">Login</a></li>
-                <li><a href="/register" size="medium" nbButton hero status="primary">Register</a></li>
+                <li><a href="/login" nbButton hero class="menu-button" status="primary">Login</a></li>
+                <li><a href="/register" nbButton hero class="menu-button" status="primary">Register</a></li>
             </ng-template>
         </ul>
         <div class="left_side_toggle">
@@ -23,7 +24,6 @@
         <div class="name_tag">
             <ng-template [ngIf]="isAuthenticated()">
                 Wilkommen {{username}}
-
             </ng-template>
         </div>
     </nb-layout-header>
