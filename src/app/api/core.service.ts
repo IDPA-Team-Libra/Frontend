@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from "./user";
 import { CookieService } from "ngx-cookie-service";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoreService {
-  apiURL: string = 'http://localhost:3440/';
+  apiURL: string = environment.api_url;
   constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
 
 

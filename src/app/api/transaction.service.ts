@@ -1,11 +1,12 @@
 import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
-  apiURL: string = 'http://localhost:3440/';
+  apiURL: string = environment.api_url;
   constructor(private httpClient: HttpClient, private userService: UserService) { }
 
   public sendBuyTransaction(transaction) {

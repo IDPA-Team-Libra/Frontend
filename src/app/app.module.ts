@@ -17,7 +17,7 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { LZStringModule, LZStringService } from 'ng-lz-string';
 // ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbListModule,NbToastrModule,NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbListModule, NbToastrModule, NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -50,7 +50,7 @@ import { AllocationChartComponent } from './allocation-doughnut-chart/allocation
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
-    domain: 'localhost'// it is recommended to set your domain, for cookies to work properly
+    domain: '0.0.0.0'// it is recommended to set your domain, for cookies to work properly
   },
   palette: {
     popup: {
@@ -114,7 +114,7 @@ const cookieConfig: NgcCookieConsentConfig = {
   ],
   imports: [
     StorageServiceModule,
-	    NbToastrModule.forRoot(),
+    NbToastrModule.forRoot(),
     BrowserModule,
     NbListModule,
     AppRoutingModule,
