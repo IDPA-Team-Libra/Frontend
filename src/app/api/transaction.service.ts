@@ -25,6 +25,11 @@ export class TransactionService {
     return this.sendTransactionToServer(transactionRequestBody, "transaction/buy/delayed");
   }
 
+  public sendDelayedSellTransaction(transaction) {
+    transaction = this.buildRequestBody(transaction);
+    var transactionRequestBody = this.convertTransaction(transaction, "sell");
+    return this.sendTransactionToServer(transactionRequestBody, "transaction/sell/delayed");
+  }
   private buildRequestBody(transaction) {
     var username = this.userService.getUsername();
     var token = this.userService.getAuthToken();
@@ -49,7 +54,7 @@ export class TransactionService {
       expectedStockPrice: transaction.expectedStockPrice,
       amount: transaction.amount,
     };
-    if (transaction.date) {
+    if (transaction.date != null) {
       var date = transaction.date;
       var strDate = 'Y-m-d'
         .replace('Y', date.getFullYear())

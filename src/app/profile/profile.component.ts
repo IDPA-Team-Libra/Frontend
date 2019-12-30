@@ -42,7 +42,7 @@ interface TransactionEntry {
 export class ProfileComponent implements OnInit {
 
   constructor(private userService: UserService, private coreService: CoreService, private transactionService: TransactionService, private dialogService: NbDialogService, private sanitizer: DomSanitizer, private toastrService: NbToastrService) {
-  
+
   }
 
   defaultColumns = ['symbol', 'company', 'amount', 'totalValue'];
@@ -53,6 +53,10 @@ export class ProfileComponent implements OnInit {
 
 
   transactionData: TreeNode<TransactionEntry>[] = [
+  ];
+  
+  delayedTransactions: TreeNode<TransactionEntry>[] = [
+
   ];
 
   tabs;
@@ -68,7 +72,6 @@ export class ProfileComponent implements OnInit {
     this.currentValue = this.userService.getUserTotalStockValue();
     this.username = this.userService.getUsername();
     this.tabs = $("nb-tab");
-    console.log(this.tabs);
   }
 
   currentBalance;
@@ -113,8 +116,12 @@ export class ProfileComponent implements OnInit {
   loadTransactionData() {
     this.transactionData = [];
     var transactions = this.userService.GetUserTransactions();
+	transactions = transactions.reverse();
     var transactionArray = [];
     transactions.forEach(val => {
+      val.data.action = this.capitalizeFirstLetter(val.data.action);
+      val.data.value = parseFloat(val.data.value).toFixed(3).toString();
+      val.data.totalValue = parseFloat(val.data.totalValue).toFixed(3).toString();
       this.transactionData.push(val);
       transactionArray.push(val);
     });
@@ -164,6 +171,9 @@ export class ProfileComponent implements OnInit {
     return false;
   }
 
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
   changePassword() {
     var new_password_value = this.newPassword;
     if (this.ValidatePassword(new_password_value) == true) {
@@ -187,11 +197,24 @@ export class ProfileComponent implements OnInit {
     this.toastrService.show(title, message, { status, destroyByClick, preventDuplicates, duration });
   }
 
-
   username;
 
   defaultTransactionColumns = ["action", "date", "value", "description", "totalValue", "amount"];
   allTransactionColumns = [...this.defaultTransactionColumns];
+
+
+  delayedTransCols = ["action","date","amount","description"]
+  allDelayedTransCol = [...this.delayedTransCols]
+
+  loadDelayedTransactions(){
+    this.transactionData = [];
+    var transactions = this.userService.GetUserTransactions();
+	transactions = transactions.reverse();
+    transactions.forEach(val => {
+      val.data.action = this.capitalizeFirstLetter(val.data.action);
+      this.transactionData.push(val);
+    });
+  }
 
   refreshData() {
     var element = $("#refreshButton");

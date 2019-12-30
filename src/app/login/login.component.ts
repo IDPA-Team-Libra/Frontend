@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
           var token = dat.token;
           var expires = dat.expires;
           this.cookieService.set(tokenName, token, expires);
+          console.log(this.cookieService.get(tokenName));
           this.cookieService.set("user", dat.user);
           this.userService.purgeMetadata();
           this.cookieService.set("authenticated", "true");

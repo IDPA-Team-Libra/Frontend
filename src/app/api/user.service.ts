@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { LZStringService } from 'ng-lz-string';
 import { LogoutService } from '../ut/logout.service';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -24,43 +23,44 @@ export class UserService {
   }
 
 
-	public updateBalanceAndValue(value){
-		var currentBalance = this.getUserBalance();
-		var currentValue = this.getUserTotalStockValue();
-		currentBalance -= value;
-		currentValue += value;
-		this.updateValues(currentBalance,currentValue);
-	}
+  public updateBalanceAndValue(value) {
+    value = parseFloat(value);
+    console.log(value);
+    var currentBalance = parseFloat(this.getUserBalance());
+    var currentValue = parseFloat(this.getUserTotalStockValue());
+    currentBalance -= (value);
+    currentValue += (value);
+    this.updateValues(currentBalance, currentValue);
+  }
 
-	updateValues(newBalance,newTotalValue){
-		var user = this.cookieService.get("user");
-		if (user.length < 1) {
-		  return null;
-		}
-		var obj = JSON.parse(user);
-		obj.portfolio.currentValue = newTotalValue;
-		obj.portfolio.currentBalance = newBalance;
-		this.cookieService.set("user",JSON.stringify(obj));
-	}
+  updateValues(newBalance, newTotalValue) {
+    var user = this.cookieService.get("user");
+    if (user.length < 1) {
+      return null;
+    }
+    var obj = JSON.parse(user);
+    obj.portfolio.currentValue = newTotalValue.toFixed(4);
+    obj.portfolio.currentBalance = newBalance.toFixed(4);
+    this.cookieService.set("user", JSON.stringify(obj));
+  }
 
-	public getUserBalance(){
-		var user = this.cookieService.get("user");
-		if (user.length < 1) {
-		  return null;
-		}
-		var obj = JSON.parse(user);
-		console.log(obj);
-		return obj.portfolio.currentBalance;
-	}
+  public getUserBalance() {
+    var user = this.cookieService.get("user");
+    if (user.length < 1) {
+      return null;
+    }
+    var obj = JSON.parse(user);
+    return obj.portfolio.currentBalance;
+  }
 
-	public getUserTotalStockValue(){
-		var user = this.cookieService.get("user");
-		if (user.length < 1) {
-		  return null;
-		}
-		var obj = JSON.parse(user);
-		return obj.portfolio.currentValue;
-	}
+  public getUserTotalStockValue() {
+    var user = this.cookieService.get("user");
+    if (user.length < 1) {
+      return null;
+    }
+    var obj = JSON.parse(user);
+    return obj.portfolio.currentValue;
+  }
 
   purging = false;
 
@@ -83,12 +83,28 @@ export class UserService {
     };
     var apiURL = 'http://localhost:3440/';
     this.httpClient.post(apiURL + "portfolio/get", body).toPromise().then((val: any) => {
-		console.log(val);
-      if (val.message == "Invalid Token") {
+      if (val == null) {
+        return;
+      }
+      if (val.response == "Invalid Token") {
         this.setErrorTokenAndClear();
       }
       this.storageService.set("portfolio", this.compressionService.compress(val.items));
       this.storageService.set("transactions", this.compressionService.compress(val.transactions));
+    });
+
+    var sec_body = {
+      username: this.getUsername(),
+      authToken: this.getAuthToken(),
+    };
+    this.httpClient.post(apiURL + "transaction/get/delayed", sec_body).toPromise().then((val: any) => {
+      if (val == null) {
+        return;
+      }
+      if (val.response == "Invalid Token") {
+        this.setErrorTokenAndClear();
+      }
+      this.storageService.set("delayed_transactions", this.compressionService.compress(val.items));
     });
   }
 
@@ -111,7 +127,6 @@ export class UserService {
 
   getNews(symbol, accessToken) {
     var url = "https://newsapi.org/v2/everything?q=" + symbol + "&sortBy=popularity&apiKey=" + accessToken;
-	  console.log(url);
     return this.httpClient.get(url).toPromise();
   }
 
@@ -126,6 +141,13 @@ export class UserService {
   }
 
   public GetUserTransactions() {
+    var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
+    var portObj;
+    portObj = JSON.parse(transactionData);
+    return this.buildTransactions(portObj);
+  }
+
+  public GetDelayedTransactions() {
     var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
     var portObj;
     portObj = JSON.parse(transactionData);
