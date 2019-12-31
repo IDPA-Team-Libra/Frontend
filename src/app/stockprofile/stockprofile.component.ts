@@ -49,9 +49,10 @@ export class StockprofileComponent implements OnInit {
 
   toggle(checked: boolean) {
     this.checked = checked;
-    if (checked == true) {
+    if (checked === true) {
       this.totalTransactionValue += 50;
     } else {
+      this.date_set = false;
       this.totalTransactionValue -= 50;
     }
   }
@@ -98,7 +99,7 @@ export class StockprofileComponent implements OnInit {
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice, this.stockCount);
     if (this.date_set) {
       trans.date = this.date;
-		console.log(trans);
+      console.log(trans);
       this.handleDelayedTransaction(trans);
     } else {
       this.handleBuyTransaction(trans);
@@ -114,12 +115,12 @@ export class StockprofileComponent implements OnInit {
       this.notifierService.displayNotification("Sie können nicht mehr Aktien verkaufen als sie haben", "warning", "Verkauf fehlgeschlagen");
     }
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice.toString(), this.stockCount);
-	if(this.date_set == true) {
-		trans.date = this.date;
-		this.handleTransactionResponse(this.transactionService.sendDelayedSellTransaction(trans));
-	}else{
-		this.handleTransactionResponse(this.transactionService.sendSellTransaction(trans));
-	}
+    if (this.date_set == true) {
+      trans.date = this.date;
+      this.handleTransactionResponse(this.transactionService.sendDelayedSellTransaction(trans));
+    } else {
+      this.handleTransactionResponse(this.transactionService.sendSellTransaction(trans));
+    }
   }
 
   handleTransactionResponse(response) {
@@ -127,24 +128,24 @@ export class StockprofileComponent implements OnInit {
       var state = data["state"];
       var message = data["message"];
       var title = data["title"];
-		var operation = data["operation"];
-		var value = data["transactionValue"];
-		console.log(value);
+      var operation = data["operation"];
+      var value = data["transactionValue"];
+      console.log(value);
       switch (state) {
         case "Failed":
           this.notifierService.displayNotification(message, "warning", title);
           break;
         case "Success":
-			  if (operation == "*"){
+          if (operation == "*") {
 
-			  }else{
-			  var adjustment_value = parseFloat(value);
-			  if(operation == "-"){
-					adjustment_value *= -1;
-			  }
-					this.userService.updateBalanceAndValue(adjustment_value);
-				  this.userService.purgeMetadata();
-			  }
+          } else {
+            var adjustment_value = parseFloat(value);
+            if (operation == "-") {
+              adjustment_value *= -1;
+            }
+            this.userService.updateBalanceAndValue(adjustment_value);
+            this.userService.purgeMetadata();
+          }
           this.notifierService.displayNotification(message, "success", title).onClose.subscribe(v => {
             location.reload();
           });

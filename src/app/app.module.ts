@@ -17,7 +17,11 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { LZStringModule, LZStringService } from 'ng-lz-string';
 // ...
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { NbThemeModule, NbListModule, NbToastrModule, NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule, NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule, NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule } from '@nebular/theme';
+import {
+  NbThemeModule, NbListModule, NbSidebarModule, NbToastrModule, NbToggleModule, NbTooltipModule, NbAccordionModule, NbCalendarModule, NbThemeService, NbCheckboxModule,
+  NbTreeGridModule, NbCardModule, NbActionsModule, NbIconModule, NbTabsetModule, NbInputModule, NbLayoutModule,
+  NbAlertModule, NbMenuModule, NbDialogModule, NbContextMenuModule, NbButtonModule
+} from '@nebular/theme';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -42,15 +46,15 @@ import { CookieService } from "ngx-cookie-service";
 import { MessageComponent } from './message/message.component';
 import { StockprofileComponent } from './stockprofile/stockprofile.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { ChartsComponent } from './charts/charts.component';
 import { PerformanceLineChartComponent } from './performance-line-chart/performance-line-chart.component';
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { ChartsModule } from 'ng2-charts';
 import { AllocationChartComponent } from './allocation-doughnut-chart/allocation-doughnut-chart.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
-    domain: '0.0.0.0'// it is recommended to set your domain, for cookies to work properly
+    domain: 'localhost'// it is recommended to set your domain, for cookies to work properly
   },
   palette: {
     popup: {
@@ -108,13 +112,13 @@ const cookieConfig: NgcCookieConsentConfig = {
     MessageComponent,
     StockprofileComponent,
     StatisticsComponent,
-    ChartsComponent,
     PerformanceLineChartComponent,
     AllocationChartComponent,
+    LogoutComponent,
   ],
   imports: [
-    StorageServiceModule,
     NbToastrModule.forRoot(),
+    NbSidebarModule.forRoot(),
     BrowserModule,
     NbListModule,
     AppRoutingModule,

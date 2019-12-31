@@ -1,19 +1,10 @@
-<script>
-    getHref = () => {
-        var value = "{{stockSymbol}}";
-        var href = "";
-        console.log(href);
-        return href;
-    }
-</script>
-
-<nb-card>
+<nb-card class="market_card">
     <nb-card-header>
         <div>
             {{stockSymbol}} | {{stockName}}
         </div>
     </nb-card-header>
-    <nb-card-body class="market_card">
+    <nb-card-body>
         <nb-tabset>
             <nb-tab tabTitle="Information">
                 <iframe frameBorder='0' scrolling='no' width='800' height='420' [src]="stockAPIString">
