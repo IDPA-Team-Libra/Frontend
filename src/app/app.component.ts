@@ -35,7 +35,7 @@ export class AppComponent {
 
   constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService, public themeService: NbThemeService, private cookieService: CookieService, private notifierService: NotifierService,
     private userSerivce: UserService, private sidebarService: NbSidebarService, private router: Router, public zone: NgZone) {
-    router.events.subscribe((event: Event) => {
+    router.events.subscribe(() => {
       if (event instanceof NavigationStart) {
         this.toggleOnMenuItemClicked();
       }
