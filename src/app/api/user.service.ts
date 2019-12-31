@@ -105,7 +105,7 @@ export class UserService {
       if (val.response == "Invalid Token") {
         this.setErrorTokenAndClear();
       }
-      this.storageService.set("delayed_transactions", this.compressionService.compress(val.items));
+      this.storageService.set("delayed_transactions", this.compressionService.compress(val.transactions));
     });
   }
 
@@ -144,12 +144,13 @@ export class UserService {
   public GetUserTransactions() {
     var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
     var portObj;
+    console.log(transactionData);
     portObj = JSON.parse(transactionData);
     return this.buildTransactions(portObj);
   }
 
   public GetDelayedTransactions() {
-    var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
+    var transactionData = this.compressionService.decompress(this.storageService.get("delayed_transactions"));
     var portObj;
     portObj = JSON.parse(transactionData);
     return this.buildTransactions(portObj);

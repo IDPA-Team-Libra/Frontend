@@ -67,6 +67,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadPortfolio();
+    this.loadDelayedTransactions();
     this.loadTransactionData();
     this.currentBalance = this.userService.getUserBalance();
     this.currentValue = this.userService.getUserTotalStockValue();
@@ -130,9 +131,6 @@ export class ProfileComponent implements OnInit {
     this.transactionHistoryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
 
-  getNumberOfTrades() {
-    return
-  }
 
   summarizePortfolio(portfolioItems) {
     var stockArray = [];
@@ -207,11 +205,11 @@ export class ProfileComponent implements OnInit {
 
   loadDelayedTransactions() {
     this.transactionData = [];
-    var transactions = this.userService.GetUserTransactions();
+    var transactions = this.userService.GetDelayedTransactions();
     transactions = transactions.reverse();
     transactions.forEach(val => {
       val.data.action = this.capitalizeFirstLetter(val.data.action);
-      this.transactionData.push(val);
+      this.delayedTransactions.push(val);
     });
   }
 
