@@ -1,0 +1,641 @@
+{
+  "id": "b6900aab-3578-4293-9f5c-61173dc37a8d",
+  "version": "2.0",
+  "name": "libra",
+  "url": "http://localhost:4200/",
+  "tests": [{
+    "id": "f20ff3ce-47dd-4269-afa4-588a20ed0428",
+    "name": "Login",
+    "commands": [{
+      "id": "4fdbdc21-06ad-491b-8bdf-655cddae097d",
+      "comment": "",
+      "command": "open",
+      "target": "/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "391dfabc-db80-4807-abd7-2366eb31a789",
+      "comment": "Defaul User Username",
+      "command": "sendKeys",
+      "target": "id=username",
+      "targets": [
+        ["id=username", "id"],
+        ["css=#username", "css:finder"],
+        ["xpath=//input[@id='username']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "N.Flueckiger@stud.bbbaden.ch16"
+    }, {
+      "id": "1e5e0892-656e-49cf-88a2-ef40709dd6d9",
+      "comment": "Default User Password",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Super_Secret_101!"
+    }, {
+      "id": "a98fe960-3f49-4b76-880b-414a046b4532",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(4)",
+      "targets": [
+        ["css=input:nth-child(4)", "css:finder"],
+        ["xpath=//input[@value='Log in']", "xpath:attributes"],
+        ["xpath=//app-login/div/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "97714c25-0211-4376-8095-9f8cf18c0cf9",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=nb-card-body",
+      "targets": [
+        ["css=nb-card-body", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-message/nb-card/nb-card-body", "xpath:idRelative"],
+        ["xpath=//nb-card-body", "xpath:position"],
+        ["xpath=//nb-card-body[contains(.,'Sie wurden erfolgreich eingeloggt')]", "xpath:innerText"]
+      ],
+      "value": "Sie wurden erfolgreich eingeloggt"
+    }, {
+      "id": "9a54e455-846e-482c-8e07-1899e60ef1d5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.appearance-filled",
+      "targets": [
+        ["css=.appearance-filled", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-message/nb-card/nb-card-footer/button", "xpath:idRelative"],
+        ["xpath=//nb-card-footer/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "92a8adad-d11a-4bf2-ac4c-2e7d214199c5",
+    "name": "Registration",
+    "commands": [{
+      "id": "57d3eeb1-236a-444a-9a9d-2baf438ebfa8",
+      "comment": "",
+      "command": "open",
+      "target": "/register",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "097efd37-426e-45d3-94e3-9b8927530bef",
+      "comment": "Set 16 because others may be used for other testing",
+      "command": "sendKeys",
+      "target": "id=username",
+      "targets": [
+        ["id=username", "id"],
+        ["css=#username", "css:finder"],
+        ["xpath=//input[@id='username']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "N.Flueckiger@stud.bbbaden.ch16"
+    }, {
+      "id": "e4d5e379-7827-44b4-a62f-302008cd654c",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "N.Flueckiger@stud.bbbaden.ch"
+    }, {
+      "id": "316a179b-98da-4494-8d53-fe3906ecda9a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "Super_Secret_101!"
+    }, {
+      "id": "ba98b842-f2b6-4ead-b727-9e9d3a8bf171",
+      "comment": "Set a lot of money for testing",
+      "command": "sendKeys",
+      "target": "id=accountStartBalance",
+      "targets": [
+        ["id=accountStartBalance", "id"],
+        ["css=#accountStartBalance", "css:finder"],
+        ["xpath=//input[@id='accountStartBalance']", "xpath:attributes"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "10000000"
+    }, {
+      "id": "50b310cd-c366-474f-8f38-4a9561d6ab36",
+      "comment": "Click on the button",
+      "command": "click",
+      "target": "css=input:nth-child(9)",
+      "targets": [
+        ["css=input:nth-child(9)", "css:finder"],
+        ["xpath=//input[@value='Register']", "xpath:attributes"],
+        ["xpath=//nb-card-body/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea512842-3969-4c57-bafe-7830caf1ad5b",
+      "comment": "Accept AGBS",
+      "command": "click",
+      "target": "css=.appearance-filled:nth-child(2)",
+      "targets": [
+        ["css=.appearance-filled:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-terms/nb-card/button", "xpath:idRelative"],
+        ["xpath=//nb-card/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "258b3c47-de10-43a7-9317-80f118988e55",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=nb-card-body:nth-child(2)",
+      "targets": [
+        ["css=nb-card-body:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-3']/nb-dialog-container/app-message/nb-card/nb-card-body", "xpath:idRelative"],
+        ["xpath=//nb-card/nb-card-body", "xpath:position"],
+        ["xpath=//nb-card-body[contains(.,'Ihr Konto wurde erstellt')]", "xpath:innerText"]
+      ],
+      "value": "Ihr Konto wurde erstellt"
+    }, {
+      "id": "33d6b742-dbe0-409c-ade1-7b4b906c8ae5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.appearance-filled",
+      "targets": [
+        ["css=.appearance-filled", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-3']/nb-dialog-container/app-message/nb-card/nb-card-footer/button", "xpath:idRelative"],
+        ["xpath=//nb-card-footer/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "39720bcf-4bc0-4352-a419-ba4631066b9d",
+    "name": "Buy",
+    "commands": [{
+      "id": "c637cab4-cf7f-4c28-87ed-2a65ff2aa64e",
+      "comment": "",
+      "command": "open",
+      "target": "/market",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eccf7f6a-28f5-41cc-99c9-234d970ffacf",
+      "comment": "Click first row of market table",
+      "command": "click",
+      "target": "css=.nb-tree-grid-row:nth-child(1) > .cdk-column-symbol",
+      "targets": [
+        ["css=.nb-tree-grid-row:nth-child(1) > .cdk-column-symbol", "css:finder"],
+        ["xpath=//table[@id='market_table']/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'AMZN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e6fdfabd-59ee-445c-afa4-a0917c609216",
+      "comment": "",
+      "command": "click",
+      "target": "id=stock_selection",
+      "targets": [
+        ["id=stock_selection", "id"],
+        ["css=.nb-tree-grid-row:nth-child(1) #stock_selection", "css:finder"],
+        ["xpath=//div[@id='stock_selection']", "xpath:attributes"],
+        ["xpath=//table[@id='market_table']/tbody/tr/td/div", "xpath:idRelative"],
+        ["xpath=//td/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ec9c9a0e-14b0-4701-8765-11d971b6b7e2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.tab:nth-child(4) .tab-text",
+      "targets": [
+        ["css=.tab:nth-child(4) .tab-text", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/ul/li[4]/a/span", "xpath:idRelative"],
+        ["xpath=//nb-tabset/ul/li[4]/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "299db847-923e-48f4-b4f5-3dcf211f644e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.buy_button",
+      "targets": [
+        ["css=.buy_button", "css:finder"],
+        ["xpath=//input[@value='Kaufen']", "xpath:attributes"],
+        ["xpath=//div[@id='cdk-overlay-1']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/nb-tab[4]/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6fe941c7-de98-4c19-9571-e54300df90ea",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.input-full-width",
+      "targets": [
+        ["css=.input-full-width", "css:finder"],
+        ["xpath=//input[@type='number']", "xpath:attributes"],
+        ["xpath=//div[@id='cdk-overlay-1']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/nb-tab[4]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "95f34905-7515-4900-91b0-947091e7ba65",
+      "comment": "",
+      "command": "click",
+      "target": "id=submit",
+      "targets": [
+        ["id=submit", "id"],
+        ["css=#submit", "css:finder"],
+        ["xpath=//input[@id='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/nb-tab[4]/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e66cbaa0-c321-4a70-9efa-99e200d7ebf9",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.status-success > nb-card-body",
+      "targets": [
+        ["css=.status-success > nb-card-body", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-2']/nb-dialog-container/app-message/nb-card/nb-card-body", "xpath:idRelative"],
+        ["xpath=//app-message/nb-card/nb-card-body", "xpath:position"],
+        ["xpath=//nb-card-body[contains(.,'Kauf wird abgewickelt.. Dies kann je nach Auslastung einige Minuten dauern')]", "xpath:innerText"]
+      ],
+      "value": "Kauf wird abgewickelt.. Dies kann je nach Auslastung einige Minuten dauern"
+    }, {
+      "id": "0f01a99c-133a-4cf2-b50c-6686732bc1d6",
+      "comment": "Close Dialog",
+      "command": "click",
+      "target": "css=.appearance-filled:nth-child(1)",
+      "targets": [
+        ["css=.appearance-filled:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-2']/nb-dialog-container/app-message/nb-card/nb-card-footer/button", "xpath:idRelative"],
+        ["xpath=//nb-card-footer/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c746149d-d88c-4bef-ad98-a56b546e3940",
+      "comment": "Check if user is on the \"market\" page again",
+      "command": "assertText",
+      "target": "css=.search-label",
+      "targets": [
+        ["css=.search-label", "css:finder"],
+        ["xpath=//nb-card-body/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Search:')]", "xpath:innerText"]
+      ],
+      "value": "Search:"
+    }]
+  }, {
+    "id": "59847ff8-680c-431b-a64b-89c1522ab45c",
+    "name": "Sell",
+    "commands": [{
+      "id": "b087d83b-cac9-4d2b-b7e1-2baf9e3b95b3",
+      "comment": "",
+      "command": "open",
+      "target": "/profile",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "49a78654-5afa-41fd-bbe8-83608ce88acf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.tab:nth-child(2) .tab-text",
+      "targets": [
+        ["css=.tab:nth-child(2) .tab-text", "css:finder"],
+        ["xpath=//nb-tabset/ul/li[2]/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "72149e71-183c-4104-aa28-674e80d9f68f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cdk-column-symbol > .ng-star-inserted",
+      "targets": [
+        ["css=.cdk-column-symbol > .ng-star-inserted", "css:finder"],
+        ["xpath=//td/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cc1e9c48-9d33-4e9f-bce6-4fa7b7a244fd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.nb-tree-grid-row:nth-child(2) > .cdk-column-symbol > .ng-star-inserted",
+      "targets": [
+        ["css=.nb-tree-grid-row:nth-child(2) > .cdk-column-symbol > .ng-star-inserted", "css:finder"],
+        ["xpath=//tr[2]/td/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "174c0b11-a539-4ba6-be56-0c85bd852900",
+      "comment": "",
+      "command": "click",
+      "target": "css=nb-card-body:nth-child(2) .tab:nth-child(4) .tab-text",
+      "targets": [
+        ["css=nb-card-body:nth-child(2) .tab:nth-child(4) .tab-text", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/ul/li[4]/a/span", "xpath:idRelative"],
+        ["xpath=//app-stockprofile/nb-card/nb-card-body/nb-tabset/ul/li[4]/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3b2fa1b4-c9e6-4fc0-8073-5d9af3c55b3c",
+      "comment": "",
+      "command": "click",
+      "target": "id=submit",
+      "targets": [
+        ["id=submit", "id"],
+        ["css=#submit", "css:finder"],
+        ["xpath=//input[@id='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/nb-tab[4]/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "59a5b960-32d8-4da6-bc2d-de3d97cbcf19",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.input-full-width",
+      "targets": [],
+      "value": "1"
+    }, {
+      "id": "7d5c0dcc-c302-4809-91ae-9f61fc84d051",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.status-success > nb-card-body",
+      "targets": [
+        ["css=.status-success > nb-card-body", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-2']/nb-dialog-container/app-message/nb-card/nb-card-body", "xpath:idRelative"],
+        ["xpath=//app-message/nb-card/nb-card-body", "xpath:position"],
+        ["xpath=//nb-card-body[contains(.,'Verkauf wurde getätigt')]", "xpath:innerText"]
+      ],
+      "value": "Verkauf wurde getätigt"
+    }, {
+      "id": "72b623e7-8e1e-4ee8-b37b-e7a59f6f03d0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.appearance-filled:nth-child(1)",
+      "targets": [
+        ["css=.appearance-filled:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-2']/nb-dialog-container/app-message/nb-card/nb-card-footer/button", "xpath:idRelative"],
+        ["xpath=//nb-card-footer/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "fbd73941-2e17-414d-86d3-8b2b71fdc202",
+    "name": "Dark-Mode",
+    "commands": [{
+      "id": "6ec85f36-3d4e-40b5-baa0-388194f67014",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7dd9bc9b-b68b-4e7a-89e8-f254ab1a38ab",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toggle",
+      "targets": [
+        ["css=.toggle", "css:finder"],
+        ["xpath=//label/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "31748077-fe8f-47f9-87d8-bb7ac968bccb",
+    "name": "Change Password",
+    "commands": [{
+      "id": "5a63042d-c385-4a96-8562-2779dd3dd774",
+      "comment": "",
+      "command": "open",
+      "target": "/profile",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9a3aec47-78d3-4006-a961-f4762e3ec09b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Super_super_secret_password_101!"
+    }, {
+      "id": "e70eed8f-e410-43d3-9c87-6bc54925baa3",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(4)",
+      "targets": [
+        ["css=input:nth-child(4)", "css:finder"],
+        ["xpath=//input[@type='submit']", "xpath:attributes"],
+        ["xpath=//nb-tab/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9d69d403-e4fd-4392-a61b-c5d9c79b7f5e",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.title",
+      "targets": [
+        ["css=.title", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-1']/nb-toastr-container/nb-toast/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Das Passwort wurde geändert')]", "xpath:innerText"]
+      ],
+      "value": "Das Passwort wurde geändert"
+    }]
+  }, {
+    "id": "ce827349-5b56-4424-81f5-12d303b1fef7",
+    "name": "NegativePasswordChange",
+    "commands": [{
+      "id": "1d966bd7-75cc-4bc0-bf81-335d8af01941",
+      "comment": "",
+      "command": "open",
+      "target": "/profile",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1b7434ec-9dbc-4faf-9292-6bca2ddea7eb",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "1234"
+    }, {
+      "id": "ebf54c58-7457-4d6d-a464-8abe31d4bde3",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(4)",
+      "targets": [
+        ["css=input:nth-child(4)", "css:finder"],
+        ["xpath=//input[@type='submit']", "xpath:attributes"],
+        ["xpath=//nb-tab/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "92fbfbe0-1054-4b0c-b1f6-32abb965a6fa",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.status-danger .message",
+      "targets": [
+        ["css=.status-danger .message", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-1']/nb-toastr-container/nb-toast/div[2]/div", "xpath:idRelative"],
+        ["xpath=//nb-toast/div[2]/div", "xpath:position"]
+      ],
+      "value": "Ungültiges Passwort"
+    }]
+  }, {
+    "id": "f21a475d-fe38-4740-945d-d0d064252fcb",
+    "name": "Logout",
+    "commands": [{
+      "id": "56d1c5b5-6314-4cb6-8a2c-ab083087047e",
+      "comment": "",
+      "command": "open",
+      "target": "/logout",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ca32c1ff-9283-43b9-96ab-9e84ec36098c",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Libra",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "9e318359-7542-4628-9be6-ca8f370f31f8",
+    "name": "Check authentication validation",
+    "commands": [{
+      "id": "ed55e88f-5592-47d4-98d7-de2953959215",
+      "comment": "",
+      "command": "open",
+      "target": "/profile",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "20f9169c-9eaf-49ef-84a3-7c59fd6da925",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=nb-card-body",
+      "targets": [
+        ["css=nb-card-body", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-message/nb-card/nb-card-body", "xpath:idRelative"],
+        ["xpath=//nb-card-body", "xpath:position"],
+        ["xpath=//nb-card-body[contains(.,'Bitte loggen Sie sich für diese Aktion ein')]", "xpath:innerText"]
+      ],
+      "value": "Bitte loggen Sie sich für diese Aktion ein"
+    }, {
+      "id": "df2e914e-c5e7-464e-8251-c8cda0e92141",
+      "comment": "",
+      "command": "open",
+      "target": "/market",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "25cbf8c2-012f-452b-940b-6025e124d25e",
+      "comment": "",
+      "command": "click",
+      "target": "id=stock_selection",
+      "targets": [
+        ["id=stock_selection", "id"],
+        ["css=.nb-tree-grid-row:nth-child(1) #stock_selection", "css:finder"],
+        ["xpath=//div[@id='stock_selection']", "xpath:attributes"],
+        ["xpath=//table[@id='market_table']/tbody/tr/td/div", "xpath:idRelative"],
+        ["xpath=//td/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "49357a8a-5cad-45d5-ab00-991b13574eba",
+      "comment": "",
+      "command": "click",
+      "target": "css=.tab:nth-child(4) .tab-text",
+      "targets": [
+        ["css=.tab:nth-child(4) .tab-text", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-4']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/ul/li[4]/a/span", "xpath:idRelative"],
+        ["xpath=//nb-tabset/ul/li[4]/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dd4eb3a4-04ea-4c09-bcc9-bb6a833d8df1",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=b",
+      "targets": [
+        ["css=b", "css:finder"],
+        ["xpath=//div[@id='cdk-overlay-4']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/nb-tab[4]/div/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'Sie sollten sich zuerst einloggen oder einen Account erstellen.')]", "xpath:innerText"]
+      ],
+      "value": "Sie sollten sich zuerst einloggen oder einen Account erstellen."
+    }, {
+      "id": "21978f8f-3c7a-4ceb-87e4-91b24f1a38f0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Login",
+      "targets": [
+        ["linkText=Login", "linkText"],
+        ["css=.ng-star-inserted > a:nth-child(3)", "css:finder"],
+        ["xpath=(//a[contains(text(),'Login')])[2]", "xpath:link"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/nb-tab[4]/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/login')])[3]", "xpath:href"],
+        ["xpath=//nb-tab[4]/div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a4057b5-ee80-4f7b-b40a-3a8a8fe16e56",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.login-header",
+      "targets": [
+        ["css=.login-header", "css:finder"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "LOG IN"
+    }]
+  }, {
+    "id": "fbadaa78-53a0-47c1-a914-b7e2e45598ec",
+    "name": "Logout (1)",
+    "commands": [{
+      "id": "f8c8130e-30bc-4f78-bc72-b7df3c3f69cd",
+      "comment": "",
+      "command": "open",
+      "target": "/logout",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9352e9df-21a7-4bbe-9cdc-566128ea3355",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Libra",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "56f4fc99-ec00-4baa-a46e-1d0c1c290c41",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["9e318359-7542-4628-9be6-ca8f370f31f8", "92a8adad-d11a-4bf2-ac4c-2e7d214199c5", "f21a475d-fe38-4740-945d-d0d064252fcb", "f20ff3ce-47dd-4269-afa4-588a20ed0428", "39720bcf-4bc0-4352-a419-ba4631066b9d", "59847ff8-680c-431b-a64b-89c1522ab45c", "31748077-fe8f-47f9-87d8-bb7ac968bccb", "ce827349-5b56-4424-81f5-12d303b1fef7", "fbd73941-2e17-414d-86d3-8b2b71fdc202", "fbadaa78-53a0-47c1-a914-b7e2e45598ec"]
+  }],
+  "urls": ["http://localhost:4200/"],
+  "plugins": []
+}

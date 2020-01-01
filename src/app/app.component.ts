@@ -11,6 +11,8 @@ import { UserService } from "./api/user.service";
 import { NotifierService } from "./notification/notifier.service";
 import { HostListener } from "@angular/core";
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import {Title} from "@angular/platform-browser";
+
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -34,12 +36,23 @@ export class AppComponent {
   private noCookieLawSubscription: Subscription;
 
   constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService, public themeService: NbThemeService, private cookieService: CookieService, private notifierService: NotifierService,
-    private userSerivce: UserService, private sidebarService: NbSidebarService, private router: Router, public zone: NgZone) {
+    private userSerivce: UserService, private sidebarService: NbSidebarService, private router: Router, public zone: NgZone,private titleService:Title) {
     router.events.subscribe(() => {
       if (event instanceof NavigationStart) {
         this.toggleOnMenuItemClicked();
       }
     });
+    this.setTitelString(); 
+  }
+
+  setTitelString(){
+    var location = window.location.href;
+    var locationParts = location.split("/");
+    if(locationParts.length <= 4 && locationParts[locationParts.length - 1] === ""){
+      this.titleService.setTitle("Libra");
+    }else{
+      this.titleService.setTitle("Libra - "+ this.capitalizeFirstLetter(locationParts[locationParts.length -1]));
+    }
   }
 
   logout() {
@@ -63,7 +76,9 @@ export class AppComponent {
   rotate(element, degree) {
     return element.css('transform', 'rotate(' + degree + ')').delay(300);
   }
-
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   renderSideBarMenu() {
     if (this.screenWidth < 1000) {
       return true;
