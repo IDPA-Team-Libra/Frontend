@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { LZStringService } from 'ng-lz-string';
 import { LogoutService } from '../ut/logout.service';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -81,7 +82,7 @@ export class UserService {
       username: this.getUsername(),
       accessToken: this.getAuthToken(),
     };
-    var apiURL = 'http://localhost:3440/';
+    var apiURL: string = environment.api_url;
     this.httpClient.post(apiURL + "portfolio/get", body).toPromise().then((val: any) => {
       if (val == null) {
         return;
@@ -104,7 +105,7 @@ export class UserService {
       if (val.response == "Invalid Token") {
         this.setErrorTokenAndClear();
       }
-      this.storageService.set("delayed_transactions", this.compressionService.compress(val.items));
+      this.storageService.set("delayed_transactions", this.compressionService.compress(val.transactions));
     });
   }
 
@@ -114,7 +115,7 @@ export class UserService {
       username: this.getUsername(),
       newPassword: new_password,
     };
-    var apiURL = 'http://localhost:3440/';
+    var apiURL: string = environment.api_url;
     return this.httpClient.post(apiURL + "user/changePassword", body).toPromise();
   }
 
@@ -143,12 +144,13 @@ export class UserService {
   public GetUserTransactions() {
     var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
     var portObj;
+    console.log(transactionData);
     portObj = JSON.parse(transactionData);
     return this.buildTransactions(portObj);
   }
 
   public GetDelayedTransactions() {
-    var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
+    var transactionData = this.compressionService.decompress(this.storageService.get("delayed_transactions"));
     var portObj;
     portObj = JSON.parse(transactionData);
     return this.buildTransactions(portObj);

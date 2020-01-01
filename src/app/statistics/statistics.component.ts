@@ -47,6 +47,9 @@ export class StatisticsComponent implements OnInit {
     // return balance from cookie
     getCash() {
         var currentBalance = this.userdata['portfolio']['currentBalance']
+        if (currentBalance == null) {
+            return;
+        }
         var decimalStr = currentBalance.toString().split(".")[1]
         var newFirstDigit = (parseInt(decimalStr[1]) >= 5) ? "5" : "0"
         currentBalance = currentBalance.toString().split(".")[0] + '.' + decimalStr[0] + newFirstDigit

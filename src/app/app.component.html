@@ -1,36 +1,48 @@
 <nb-layout>
-    <nb-layout-header fixed>
-        <ul>
-            <li><button [nbContextMenu]="user_items" size="medium" nbButton hero status="primary">User</button>
-            </li>
-            <li><button [nbContextMenu]="market_items" size="medium" nbButton hero status="primary">Market</button>
-            </li>
-            <li><button [nbContextMenu]="portfolio_items" size="medium" nbButton hero
-                    status="primary">Portfolio</button>
-            </li>
-            <ng-template [ngIf]="isAuthenticated()">
-                <li><button (click)="logout()" size="medium" nbButton hero status="primary">Logout</button></li>
-            </ng-template>
-            <ng-template [ngIf]="!isAuthenticated()">
-                <li><a href="/login" size="medium" nbButton hero status="primary">Login</a></li>
-                <li><a href="/register" size="medium" nbButton hero status="primary">Register</a></li>
-            </ng-template>
-        </ul>
+    <nb-layout-header responsive>
+        <ng-template [ngIf]="renderSideBarMenu()">
+            <nb-icon id="menu_select" icon="menu" (click)="openSideMenu()"></nb-icon>
+        </ng-template>
+        <ng-template [ngIf]="!renderSideBarMenu()">
+            <ul>
+                <li><button [nbContextMenu]="user_items" class="menu-button" nbButton hero
+                        status="primary">User</button>
+                </li>
+                <li><button [nbContextMenu]="market_items" class="menu-button" nbButton hero
+                        status="primary">Market</button>
+                </li>
+                <li><button [nbContextMenu]="portfolio_items" class="menu-button" nbButton hero
+                        status="primary">Portfolio</button>
+                </li>
+                <ng-template [ngIf]="isAuthenticated()">
+                    <li><button (click)="logout()" class="menu-button" nbButton hero status="primary">Logout</button>
+                    </li>
+                </ng-template>
+                <ng-template [ngIf]="!isAuthenticated()">
+                    <li><a href="/login" nbButton hero class="menu-button" status="primary">Login</a></li>
+                    <li><a href="/register" nbButton hero class="menu-button" status="primary">Register</a></li>
+                </ng-template>
+            </ul>
+            <br />
+        </ng-template>
         <div class="left_side_toggle">
             <nb-toggle [(ngModel)]="darkMode" (click)="changeColorMode()">Dark-Mode</nb-toggle>
         </div>
-        <br />
         <div class="name_tag">
             <ng-template [ngIf]="isAuthenticated()">
                 Wilkommen {{username}}
-
             </ng-template>
         </div>
     </nb-layout-header>
+
     <nb-layout-column>
         <router-outlet>
         </router-outlet>
     </nb-layout-column>
+    <nb-sidebar state="compacted" responsive>
+        <nb-menu autoCollapse="true" [items]="sideMenu">
+        </nb-menu>
+    </nb-sidebar>
     <nb-layout-footer fixed>
         <!-- Insert footer here -->
     </nb-layout-footer>

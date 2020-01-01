@@ -1,73 +1,74 @@
 button[nbTreeGridRowToggle] {
-    background: transparent;
-    border: none;
-    padding: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .nb-column-symbol {
-    width: 100%;
+  width: 100%;
 }
 
-@media screen and (min-width: 400px) {
-    .nb-column-symbol,
-    .nb-column-company {
-        width: 50%;
-    }
+.nb-card {
+  width: 100% !important;
+}
+.nb-card-body {
+  width: 100% !important;
 }
 
-@media screen and (min-width: 500px) {
-    .nb-column-symbol,
-    .nb-column-company,
-    .nb-column-amount {
-        width: 33.333%;
-    }
+.nb-tree-grid-header-cell {
+  font-size: 1.3vw !important;
 }
 
-@media screen and (min-width: 600px) {
-    .nb-column-symbol {
-        width: 31%;
-    }
-    .nb-column-company,
-    .nb-column-amount,
-    .nb-column-totalValue {
-        width: 23%;
-    }
+@media screen and (max-width: 600px) {
+  .nb-tree-grid-header-cell {
+    font-size: 2vw !important;
+  }
 }
 
+@media screen and (max-width: 500px) {
+  .nb-tree-grid-header-cell {
+    font-size: 2.2vw !important;
+  }
+}
 path.slice {
-    stroke-width: 2px;
+  stroke-width: 2px;
+}
+
+.nb-card {
+  width: 100% !important;
 }
 
 polyline {
-    opacity: .3;
-    stroke: black;
-    stroke-width: 2px;
-    fill: none;
+  opacity: 0.3;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
 }
 
 div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 80px;
-    height: 40px;
-    padding: 5px;
-    font: 12px sans-serif;
-    background: black;
-    color: white;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
-    vertical-align: middle;
-    z-index: 10;
+  position: absolute;
+  text-align: center;
+  width: 80px;
+  height: 40px;
+  padding: 5px;
+  font: 12px sans-serif;
+  background: black;
+  color: white;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  vertical-align: middle;
+  z-index: 10;
 }
 
 #refreshButton {
-    -moz-transition: all 1s linear;
-    -webkit-transition: all 1s linear;
-    transition: all 1s linear;
+  -moz-transition: all 1s linear;
+  -webkit-transition: all 1s linear;
+  transition: all 1s linear;
 }
+
 #refreshButton.full {
-    -moz-transform:rotate(360deg);
-    -webkit-transform:rotate(360deg);
-    transform:rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
 }

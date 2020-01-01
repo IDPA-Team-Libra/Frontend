@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from './guards/auth-guard.service';
-
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -16,21 +15,24 @@ import { CookiepolicyComponent } from './cookiepolicy/cookiepolicy.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { PerformanceLineChartComponent } from './performance-line-chart/performance-line-chart.component';
 import { AllocationChartComponent } from './allocation-doughnut-chart/allocation-doughnut-chart.component';
+import { AuthenticationBlockGuard } from './guards/authentication_block-guard.service';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
+  { path: 'login', component: LoginComponent, canActivate: [AuthenticationBlockGuard] },
   { path: 'market', component: MarketComponent },
   { path: 'history', component: HistoryComponent, canActivate: [AuthGuardService] },
   { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuardService] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthenticationBlockGuard] },
   { path: 'policy/cookie', component: CookiepolicyComponent },
   { path: 'policy/privacy', component: PrivacypolicyComponent },
   { path: 'policy/termsofservice', component: TermsofserviceComponent },
-  { path: 'statistics', component: StatisticsComponent },
-  { path: 'performance', component: PerformanceLineChartComponent},
-  { path: 'allocation', component: AllocationChartComponent},
+  { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuardService] },
+  { path: 'performance', component: PerformanceLineChartComponent, canActivate: [AuthGuardService] },
+  { path: 'allocation', component: AllocationChartComponent, canActivate: [AuthGuardService] },
   { path: '**', redirectTo: "" },
 ];
 

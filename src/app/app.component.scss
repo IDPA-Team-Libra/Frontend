@@ -1,26 +1,59 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 .navigation_bar {
-    color: white;
+  color: white;
 }
 
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 li {
-    float: left;
+  float: left;
 }
 
 ul li {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .left_side_toggle {
-    margin-left: 50px;
+  margin-left: 3vw;
 }
 
-.name_tag{
-    margin-left:80px;
+.name_tag {
+  margin-left: 5vw;
+  font-size: 1.5vw;
+}
+
+nb-layout {
+  .scrollable-container {
+    overflow-y: scroll !important;
+    overflow-x: scroll !important;
+  }
+}
+
+nb-dialog-container {
+  overflow: hidden scroll;
+}
+
+@media screen and (max-device-width: 700px) {
+  .name_tag {
+    margin-left: 5vw;
+    font-size: 3vw;
+  }
+}
+
+@media screen and (max-device-width: 1000px) {
+  .name_tag {
+    margin-left: 5vw;
+    font-size: 2vw;
+  }
+}
+
+#menu_select.rot {
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
 }

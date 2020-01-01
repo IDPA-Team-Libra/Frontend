@@ -48,7 +48,7 @@ export class MarketComponent implements OnInit {
 
 
   getShowOn(index: number) {
-    const minWithForMultipleColumns = 400;
+    const minWithForMultipleColumns = 0;
     const nextColumnStep = 100;
     return minWithForMultipleColumns + (nextColumnStep * index);
   }

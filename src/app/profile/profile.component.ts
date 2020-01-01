@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
 
   transactionData: TreeNode<TransactionEntry>[] = [
   ];
-  
+
   delayedTransactions: TreeNode<TransactionEntry>[] = [
 
   ];
@@ -67,6 +67,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadPortfolio();
+    this.loadDelayedTransactions();
     this.loadTransactionData();
     this.currentBalance = this.userService.getUserBalance();
     this.currentValue = this.userService.getUserTotalStockValue();
@@ -116,7 +117,7 @@ export class ProfileComponent implements OnInit {
   loadTransactionData() {
     this.transactionData = [];
     var transactions = this.userService.GetUserTransactions();
-	transactions = transactions.reverse();
+    transactions = transactions.reverse();
     var transactionArray = [];
     transactions.forEach(val => {
       val.data.action = this.capitalizeFirstLetter(val.data.action);
@@ -130,9 +131,6 @@ export class ProfileComponent implements OnInit {
     this.transactionHistoryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
 
-  getNumberOfTrades() {
-    return
-  }
 
   summarizePortfolio(portfolioItems) {
     var stockArray = [];
@@ -173,7 +171,7 @@ export class ProfileComponent implements OnInit {
 
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
+  }
   changePassword() {
     var new_password_value = this.newPassword;
     if (this.ValidatePassword(new_password_value) == true) {
@@ -192,7 +190,6 @@ export class ProfileComponent implements OnInit {
   showDefaultIcon(message, status, title) {
     var destroyByClick = true
     var preventDuplicates = true
-    //doesn't destroy by time, but only by click
     var duration = 0;
     this.toastrService.show(title, message, { status, destroyByClick, preventDuplicates, duration });
   }
@@ -203,16 +200,16 @@ export class ProfileComponent implements OnInit {
   allTransactionColumns = [...this.defaultTransactionColumns];
 
 
-  delayedTransCols = ["action","date","amount","description"]
+  delayedTransCols = ["action", "date", "amount", "description"]
   allDelayedTransCol = [...this.delayedTransCols]
 
-  loadDelayedTransactions(){
+  loadDelayedTransactions() {
     this.transactionData = [];
-    var transactions = this.userService.GetUserTransactions();
-	transactions = transactions.reverse();
+    var transactions = this.userService.GetDelayedTransactions();
+    transactions = transactions.reverse();
     transactions.forEach(val => {
       val.data.action = this.capitalizeFirstLetter(val.data.action);
-      this.transactionData.push(val);
+      this.delayedTransactions.push(val);
     });
   }
 

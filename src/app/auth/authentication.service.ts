@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from "ngx-cookie-service";
 import { HttpClient } from '@angular/common/http';
 import { UserService } from "../api/user.service";
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,18 +25,18 @@ export class AuthenticationService {
       username: this.userService.getUsername(),
       accessToken: this.userService.getAuthToken()
     };
-    var apiURL = 'http://localhost:3440/';
+    var apiURL: string = environment.api_url;
     var val = await this.httpClient.post(apiURL + "authenticate/token", body).toPromise().then((val: any) => {
-		try{
-			  if (val.response == "Invalid Token") {
-				this.userService.setErrorTokenAndClear();
-				return false;
-			  } else {
-				return true;
-			  }
-		}catch(err){
-			console.log(err);
-		}
+      try {
+        if (val.response == "Invalid Token") {
+          this.userService.setErrorTokenAndClear();
+          return false;
+        } else {
+          return true;
+        }
+      } catch (err) {
+        console.log(err);
+      }
     });
     return val;
   }

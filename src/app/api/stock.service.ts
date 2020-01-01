@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Stock } from "./stock";
 import { element } from 'protractor';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 
 //TODO add localstorage and store market info for a time.
 export class StockService {
-  apiURL: string = 'http://localhost:3440/';
+  apiURL: string = environment.api_url;
   constructor(private httpClient: HttpClient) { }
   receivedData = undefined;
 
