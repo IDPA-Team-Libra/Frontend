@@ -55,8 +55,6 @@ export class AllocationChartComponent implements OnInit {
     for (i = 0; i < this.portfolio.length; i++) {
       currentSize = (this.portfolio[i]['CurrentPrice'] * this.portfolio[i]['Quantity']);
       currentID = this.portfolio[i]['StockID']
-      console.log(currentSize)
-
       if ((i == this.portfolio.length - 1) && (currentID != lastID)) {
         lastID = 0
         tempSize = currentSize
@@ -71,7 +69,6 @@ export class AllocationChartComponent implements OnInit {
           shouldPush = true
         }
       }
-
       if (shouldPush) {
         tempSize = Math.round((tempSize + Number.EPSILON) * 100) / 100
         positionsizes.push(tempSize)
@@ -82,8 +79,6 @@ export class AllocationChartComponent implements OnInit {
     }
 
     this.doughnutChartData = positionsizes
-    console.log("Position sizes:")
-    console.log(positionsizes)
   }
 
   private getSortedStocksInPortfolio() {
@@ -102,13 +97,9 @@ export class AllocationChartComponent implements OnInit {
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-    console.log('clicked chart')
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-    console.log('hovering over')
   }
 
 }

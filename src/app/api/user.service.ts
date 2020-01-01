@@ -26,7 +26,6 @@ export class UserService {
 
   public updateBalanceAndValue(value) {
     value = parseFloat(value);
-    console.log(value);
     var currentBalance = parseFloat(this.getUserBalance());
     var currentValue = parseFloat(this.getUserTotalStockValue());
     currentBalance -= (value);
@@ -135,7 +134,7 @@ export class UserService {
     var array = [];
     for (const index in val) {
       var transaction = val[index];
-      var transaction_el = { data: { action: transaction.action, date: transaction.date, value: transaction.value, description: transaction.description, totalValue: Number(transaction.amount) * Number(transaction.value), amount: transaction.amount } };
+      var transaction_el = { data: { action: transaction.action, date: transaction.date, value: transaction.value, symbol: transaction.symbol, totalValue: Number(transaction.amount) * Number(transaction.value), amount: transaction.amount } };
       array.push(transaction_el);
     }
     return array;
@@ -144,7 +143,6 @@ export class UserService {
   public GetUserTransactions() {
     var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
     var portObj;
-    console.log(transactionData);
     portObj = JSON.parse(transactionData);
     return this.buildTransactions(portObj);
   }

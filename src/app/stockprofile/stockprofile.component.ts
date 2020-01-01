@@ -99,7 +99,6 @@ export class StockprofileComponent implements OnInit {
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice, this.stockCount);
     if (this.date_set) {
       trans.date = this.date;
-      console.log(trans);
       this.handleDelayedTransaction(trans);
     } else {
       this.handleBuyTransaction(trans);
@@ -130,7 +129,6 @@ export class StockprofileComponent implements OnInit {
       var title = data["title"];
       var operation = data["operation"];
       var value = data["transactionValue"];
-      console.log(value);
       switch (state) {
         case "Failed":
           this.notifierService.displayNotification(message, "warning", title);
@@ -154,7 +152,6 @@ export class StockprofileComponent implements OnInit {
           break;
       }
     }).catch(err => {
-      console.log(err);
     });
   }
 

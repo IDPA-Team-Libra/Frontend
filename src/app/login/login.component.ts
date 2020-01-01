@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
     var user = new User(this.username, this.password, "");
     this.coreService.loginUser(user).toPromise().then((data: any) => {
       var dat = data;
-      console.log(dat.user)
       if (dat != undefined) {
         var message = dat.response;
         if (message == "Success") {
@@ -33,7 +32,6 @@ export class LoginComponent implements OnInit {
           var token = dat.token;
           var expires = dat.expires;
           this.cookieService.set(tokenName, token, expires);
-          console.log(this.cookieService.get(tokenName));
           this.cookieService.set("user", dat.user);
           this.userService.purgeMetadata();
           this.cookieService.set("authenticated", "true");
@@ -46,7 +44,6 @@ export class LoginComponent implements OnInit {
         }
       }
     }).catch(err => {
-      console.log(err);
     });
   }
 }
