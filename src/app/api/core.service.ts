@@ -13,11 +13,14 @@ export class CoreService {
 
 
   public loginUser(user: User) {
+    
     var userPostData = {
       username: user.username,
       password: user.password,
     }
+    console.log(this.apiURL)
     return this.httpClient.post(this.apiURL + "user/login", userPostData);
+  
   }
   //TODO implement extraction of user from response
   //TODO check why Portfolio is empty

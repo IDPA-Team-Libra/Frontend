@@ -15,11 +15,12 @@ export class AllocationChartComponent implements OnInit {
 
   constructor(private userService: UserService, private coreService: CoreService) {
     this.portfolio = this.userService.getPortfolioItems();
+    console.log(this.portfolio)
   }
 
   public doughnutChartLabels: Label[] = [];
   public doughnutChartData: MultiDataSet = [
-    [5000, 15000],
+    [],
   ];
   public doughnutChartOptions = {
     responsive: true,
@@ -41,49 +42,40 @@ export class AllocationChartComponent implements OnInit {
   }
 
   private loadAllocation() {
-    console.log(this.userService.getPortfolioItems())
     var positionsizes = new Array()
     var i;
-    var currentID
-    var currentSize
-    var lastID = 0
+    var currentID = 0
+    var currentSize = 0
     var tempSize = 0
     var shouldPush = false
-    var moreThanOne = false
+    var nextID = 0
 
     // counts all portfolio entries with the same stock together
     for (i = 0; i < this.portfolio.length; i++) {
       currentSize = (this.portfolio[i]['CurrentPrice'] * this.portfolio[i]['Quantity']);
       currentID = this.portfolio[i]['StockID']
-      console.log(currentSize)
 
-      if ((i == this.portfolio.length - 1) && (currentID != lastID)) {
-        lastID = 0
-        tempSize = currentSize
+      if (i == this.portfolio.length - 1) {
+        nextID = nextID = -1
+      } else {
+        nextID = this.portfolio[i + 1]['StockID']
       }
 
-      if (currentID == lastID) {
-        tempSize += currentSize
+      if (currentID == nextID) {
+        tempSize = currentSize + (this.portfolio[i + 1]['CurrentPrice'] * this.portfolio[i + 1]['Quantity'])
       } else {
-        if (i == 0) {
-          tempSize = currentSize
-        } else {
-          shouldPush = true
-        }
+        shouldPush = true
       }
 
       if (shouldPush) {
         tempSize = Math.round((tempSize + Number.EPSILON) * 100) / 100
         positionsizes.push(tempSize)
-        tempSize = currentSize
+        tempSize = 0
         shouldPush = false
       }
-      lastID = currentID
     }
 
     this.doughnutChartData = positionsizes
-    console.log("Position sizes:")
-    console.log(positionsizes)
   }
 
   private getSortedStocksInPortfolio() {

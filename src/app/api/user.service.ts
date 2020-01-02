@@ -144,7 +144,6 @@ export class UserService {
   public GetUserTransactions() {
     var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
     var portObj;
-    console.log(transactionData);
     portObj = JSON.parse(transactionData);
     return this.buildTransactions(portObj);
   }

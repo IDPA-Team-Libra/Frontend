@@ -17,7 +17,7 @@ export class StatisticsComponent implements OnInit {
     userdata
 
     constructor(private userService: UserService, private coreService: CoreService) { this.userdata = this.coreService.getUserInformation(); }
-    ngOnInit() { }
+    ngOnInit() { console.log(this.userdata) }
 
 
     // return current portfolio return
@@ -35,6 +35,7 @@ export class StatisticsComponent implements OnInit {
 
         var transactions = this.userService.GetUserTransactions()
 
+        console.log(transactions)
         // sum of the $ paid for all stocks
         var totalPaid = 0
         var i;
@@ -47,9 +48,6 @@ export class StatisticsComponent implements OnInit {
     // return balance from cookie
     getCash() {
         var currentBalance = this.userdata['portfolio']['currentBalance']
-        if (currentBalance == null) {
-            return;
-        }
         var decimalStr = currentBalance.toString().split(".")[1]
         var newFirstDigit = (parseInt(decimalStr[1]) >= 5) ? "5" : "0"
         currentBalance = currentBalance.toString().split(".")[0] + '.' + decimalStr[0] + newFirstDigit
