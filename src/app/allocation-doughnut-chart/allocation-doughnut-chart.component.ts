@@ -59,6 +59,9 @@ export class AllocationChartComponent implements OnInit {
         nextID = nextID = -1
       } else {
         nextID = this.portfolio[i + 1]['StockID']
+      if ((i == this.portfolio.length - 1) && (currentID != lastID)) {
+        lastID = 0
+        tempSize = currentSize
       }
 
       if (currentID == nextID) {
@@ -66,7 +69,6 @@ export class AllocationChartComponent implements OnInit {
       } else {
         shouldPush = true
       }
-
       if (shouldPush) {
         tempSize = Math.round((tempSize + Number.EPSILON) * 100) / 100
         positionsizes.push(tempSize)
@@ -94,13 +96,9 @@ export class AllocationChartComponent implements OnInit {
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-    console.log('clicked chart')
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-    console.log('hovering over')
   }
 
 }

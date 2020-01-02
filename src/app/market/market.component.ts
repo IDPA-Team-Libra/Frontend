@@ -67,7 +67,6 @@ export class MarketComponent implements OnInit {
       }
       this.dataSource = this.dataSourceBuilder.create(this.data);
     }).catch(err => {
-      console.log(err);
     });
   }
 

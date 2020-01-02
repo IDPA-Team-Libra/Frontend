@@ -7,9 +7,7 @@ import { TransactionService } from './../api/transaction.service';
 import { NbDialogService } from '@nebular/theme';
 import { StockprofileComponent } from "../stockprofile/stockprofile.component";
 import { UserService } from "../api/user.service";
-import { symbol, map } from 'd3';
 import { setTimeout } from 'timers';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 interface TreeNode<T> {
   data: T;
   children?: TreeNode<T>[];
@@ -17,6 +15,7 @@ interface TreeNode<T> {
   type: string;
 }
 import $ from "jquery";
+
 interface PortfolioEntry {
   symbol: string;
   company: string;
@@ -28,7 +27,7 @@ interface TransactionEntry {
   action: string;
   date: string;
   value: string;
-  description: string;
+  symbol: string;
   totalValue?: number;
   amount: string;
 }
@@ -179,7 +178,6 @@ export class ProfileComponent implements OnInit {
         if (val == "Das Passwort wurde geändert") {
           this.showDefaultIcon("Das Passwort wurde geändert", "success", "Passwort geändert");
         } else if (val == null) {
-          //TODO: check if user was authenticated
         } else {
           this.showDefaultIcon(val, "warning", "Passwort wurde nicht");
         }
@@ -196,11 +194,10 @@ export class ProfileComponent implements OnInit {
 
   username;
 
-  defaultTransactionColumns = ["action", "date", "value", "description", "totalValue", "amount"];
+  defaultTransactionColumns = ["action", "date", "value", "symbol", "totalValue", "amount"];
   allTransactionColumns = [...this.defaultTransactionColumns];
 
-
-  delayedTransCols = ["action", "date", "amount", "description"]
+  delayedTransCols = ["action", "date", "amount", "symbol"]
   allDelayedTransCol = [...this.delayedTransCols]
 
   loadDelayedTransactions() {
