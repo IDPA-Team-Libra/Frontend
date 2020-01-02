@@ -366,6 +366,19 @@
       "targets": [],
       "value": "1"
     }, {
+      "id": "bd36423f-889c-4171-be2e-20576280ec90",
+      "comment": "",
+      "command": "click",
+      "target": "id=submit",
+      "targets": [
+        ["id=submit", "id"],
+        ["css=#submit", "css:finder"],
+        ["xpath=//input[@id='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='cdk-overlay-0']/nb-dialog-container/app-stockprofile/nb-card/nb-card-body/nb-tabset/nb-tab[4]/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
       "id": "7d5c0dcc-c302-4809-91ae-9f61fc84d051",
       "comment": "",
       "command": "assertText",
