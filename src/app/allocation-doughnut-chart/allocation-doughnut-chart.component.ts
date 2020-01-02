@@ -59,9 +59,6 @@ export class AllocationChartComponent implements OnInit {
         nextID = nextID = -1
       } else {
         nextID = this.portfolio[i + 1]['StockID']
-      if ((i == this.portfolio.length - 1) && (currentID != lastID)) {
-        lastID = 0
-        tempSize = currentSize
       }
 
       if (currentID == nextID) {
