@@ -31,6 +31,7 @@ export class TransactionService {
     var transactionRequestBody = this.convertTransaction(transaction, "sell");
     return this.sendTransactionToServer(transactionRequestBody, "transaction/sell/delayed");
   }
+  
   private buildRequestBody(transaction) {
     var username = this.userService.getUsername();
     var token = this.userService.getAuthToken();

@@ -124,7 +124,6 @@ export class UserService {
     window.location.href = "/"
   }
 
-
   getNews(symbol, accessToken) {
     var url = "https://newsapi.org/v2/everything?q=" + symbol + "&sortBy=popularity&apiKey=" + accessToken;
     return this.httpClient.get(url).toPromise();
@@ -140,11 +139,15 @@ export class UserService {
     return array;
   }
 
-  public GetUserTransactions() {
+  public GetRawUserTransactions(){
     var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
     var portObj;
     portObj = JSON.parse(transactionData);
-    return this.buildTransactions(portObj);
+    return portObj;
+  }
+
+  public GetUserTransactions() {
+    return this.buildTransactions(this.GetRawUserTransactions());
   }
 
   public GetDelayedTransactions() {

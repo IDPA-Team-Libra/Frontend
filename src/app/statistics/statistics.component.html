@@ -1,11 +1,9 @@
 <script src="node_modules/chart.js/dist/Chart.js"></script>
 <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
 
-
 <nb-card>
     <nb-card-body>
         <nb-accordion>
-
             <nb-accordion-item>
                 <nb-accordion-item-header>Performance</nb-accordion-item-header>
                 <nb-accordion-item-body>
@@ -14,7 +12,22 @@
                     </div>
                 </nb-accordion-item-body>
             </nb-accordion-item>
-
+            <nb-accordion-item>
+                <nb-accordion-item-header>Cash-Entwicklung</nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <div>
+                        <canvas
+                            baseChart
+                            [chartType]="chartType"
+                            [datasets]="chartData"
+                            [labels]="chartLabels"
+                            [options]="chartOptions"
+                            [legend]="true"
+                            (chartClick)="onChartClick($event)">
+                        </canvas>
+                      </div>
+                </nb-accordion-item-body>
+            </nb-accordion-item>
             <nb-accordion-item>
                 <nb-accordion-item-header>Allocation</nb-accordion-item-header>
                 <nb-accordion-item-body>
@@ -23,7 +36,6 @@
                             </div>
                 </nb-accordion-item-body>
             </nb-accordion-item>
-
             <nb-accordion-item>
                 <nb-accordion-item-header>Overview</nb-accordion-item-header>
                 <nb-accordion-item-body>

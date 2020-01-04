@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
 import { UserService } from "../api/user.service";
 import { CoreService } from "../api/core.service";
-import { ThrowStmt } from '@angular/compiler';
-
+import { ChartDataSets, ChartOptions } from 'chart.js';
 @Component({
     selector: 'app-statistics',
     templateUrl: './statistics.component.html',
@@ -17,8 +15,34 @@ export class StatisticsComponent implements OnInit {
     userdata
 
     constructor(private userService: UserService, private coreService: CoreService) { this.userdata = this.coreService.getUserInformation(); }
-    ngOnInit() { console.log(this.userdata) }
+    ngOnInit() { 
+        this.buildCashGraph();
+    }
 
+    buildCashGraph(){
+        var transactions = this.userService.GetRawUserTransactions();
+        var data = [];
+        var mapping = new Map();
+        transactions.forEach((val) =>{
+            mapping.set(val.date,val.currentBalance);
+        });
+        for (let [k, v] of mapping) {
+            data.push(v);
+            this.chartLabels.push(k);
+        }
+        this.chartData.push({data: data, label:"Chash"});
+        console.log(this.chartData);
+    }
+    public chartData: ChartDataSets[] = [
+    ];
+    public chartLabels = [];
+    public chartType = 'line';
+    public chartLegend = true;
+
+    public chartOptions = {
+        scaleShowVerticalLines: true,
+        responsive: true
+    };
 
     // return current portfolio return
     getPortfolioReturn() {
@@ -32,10 +56,7 @@ export class StatisticsComponent implements OnInit {
         // ROI = ((Cv - COI) / COI) * 100
         var netprofit = this.userdata['portfolio']['currentValue'] - this.userdata['portfolio']['startCapital']
         netprofit = Math.round((netprofit + Number.EPSILON) * 100) / 100
-
         var transactions = this.userService.GetUserTransactions()
-
-        console.log(transactions)
         // sum of the $ paid for all stocks
         var totalPaid = 0
         var i;

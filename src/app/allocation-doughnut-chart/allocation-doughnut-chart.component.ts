@@ -54,13 +54,11 @@ export class AllocationChartComponent implements OnInit {
     for (i = 0; i < this.portfolio.length; i++) {
       currentSize = (this.portfolio[i]['CurrentPrice'] * this.portfolio[i]['Quantity']);
       currentID = this.portfolio[i]['StockID']
-
       if (i == this.portfolio.length - 1) {
         nextID = nextID = -1
       } else {
         nextID = this.portfolio[i + 1]['StockID']
       }
-
       if (currentID == nextID) {
         tempSize = currentSize + (this.portfolio[i + 1]['CurrentPrice'] * this.portfolio[i + 1]['Quantity'])
       } else {
