@@ -7,7 +7,7 @@
     <nb-card-body>
         <nb-tabset>
             <nb-tab tabTitle="Information">
-                <iframe frameBorder='0' scrolling='no' width='800' height='420' [src]="stockAPIString">
+                <iframe frameBorder='0' scrolling='no' width='800' height='420' [src]="costumAPIString">
                 </iframe>
             </nb-tab>
             <nb-tab tabTitle="Analyse">
@@ -59,7 +59,8 @@
                         </div>
                         <br />
                         <br />
-                        <input type="submit" id="submit" class="buy_button" (click)="buyStock()" nbButton value="Kaufen" />
+                        <input type="submit" id="submit" class="buy_button" (click)="buyStock()" nbButton
+                            value="Kaufen" />
                     </div>
                 </div>
                 <div *ngIf="!isAuthenticated()">
@@ -101,7 +102,8 @@
                     </div>
                     <br />
                     <br />
-                    <input type="submit"  id="submit" class="buy_button" (click)="sellStock()" nbButton value="Verkaufen" />
+                    <input type="submit" id="submit" class="buy_button" (click)="sellStock()" nbButton
+                        value="Verkaufen" />
                 </div>
             </nb-tab>
         </nb-tabset>

@@ -24,6 +24,7 @@ export class StockprofileComponent implements OnInit {
   date_set = false;
   stockName = "";
   stockAPIString: any;
+  costumAPIString: any;
   operation;
 
   showContent(tab) {
@@ -63,6 +64,7 @@ export class StockprofileComponent implements OnInit {
 
   ngOnInit() {
     this.stockAPIString = this.getSafeUrl("http://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=71424F24416D49649D7155C2D04F7040&symbol=" + this.stockSymbol + "&days=365&width=800&height=420");
+    this.costumAPIString = this.getSafeUrl("172.104.159.187:8050/" + this.stockSymbol);
     this.queryNews();
   }
 
