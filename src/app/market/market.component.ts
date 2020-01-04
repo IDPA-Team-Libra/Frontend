@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StockService } from "../api/stock.service";
-import { Stock } from "../api/stock";
-import { element } from 'protractor';
-import { NbFocusKeyManagerFactoryService } from '@nebular/theme/components/cdk/a11y/focus-key-manager';
 import { StockprofileComponent } from "../stockprofile/stockprofile.component";
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { NbDialogService } from '@nebular/theme';
@@ -54,7 +51,14 @@ export class MarketComponent implements OnInit {
   }
 
   constructor(private stockService: StockService, private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>, private dialogService: NbDialogService) {
-    const returned_data = stockService.loadStockdData();
+    var returned_data;
+    console.log(this.stockService.getState());
+    if(this.stockService.getState() === "empty"){
+      returned_data = stockService.loadStockdData();
+    }else{
+      this.data.concat(this.stockService.getData());
+      return;
+    }
     returned_data.then((dat: any) => {
       if (dat != undefined) {
         dat['stocks'].forEach(element => {
@@ -66,6 +70,7 @@ export class MarketComponent implements OnInit {
         });
       }
       this.dataSource = this.dataSourceBuilder.create(this.data);
+      this.stockService.setState(this.data);
     }).catch(err => {
     });
   }

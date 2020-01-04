@@ -44,19 +44,16 @@ export class StatisticsComponent implements OnInit {
             this.chartLabels.push(k);
         }
         this.chartData.push({ data: data, label: "Chash" });
-        console.log(this.chartData);
     }
     public chartData: ChartDataSets[] = [
     ];
     public chartLabels = [];
     public chartType = 'line';
     public chartLegend = true;
-
     public chartOptions = {
         scaleShowVerticalLines: true,
         responsive: true
     };
-
     // return current portfolio return
     getPortfolioReturn() {
         return this.totalreturn

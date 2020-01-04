@@ -7,7 +7,6 @@ import { TransactionService } from './../api/transaction.service';
 import { NbDialogService } from '@nebular/theme';
 import { StockprofileComponent } from "../stockprofile/stockprofile.component";
 import { UserService } from "../api/user.service";
-import { setTimeout } from 'timers';
 interface TreeNode<T> {
   data: T;
   children?: TreeNode<T>[];
