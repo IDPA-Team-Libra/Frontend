@@ -4,6 +4,7 @@ import { NbDialogService } from '@nebular/theme';
 import { UserService } from "../api/user.service";
 import { CoreService } from "../api/core.service";
 import { ThrowStmt } from '@angular/compiler';
+import { start } from 'repl';
 
 @Component({
     selector: 'app-statistics',
@@ -15,34 +16,40 @@ import { ThrowStmt } from '@angular/compiler';
 export class StatisticsComponent implements OnInit {
 
     userdata
+    currentValue
+    currentBalance
+    startCapital
+    result
+    totalreturn
 
-    constructor(private userService: UserService, private coreService: CoreService) { this.userdata = this.coreService.getUserInformation(); }
-    ngOnInit() { console.log(this.userdata) }
+    constructor(private userService: UserService, private coreService: CoreService) {
+        this.userdata = this.coreService.getUserInformation();
+        this.currentValue = Math.round((parseFloat(this.userdata['portfolio']['currentValue']) + Number.EPSILON) * 100) / 100
+        this.currentBalance = Math.round((parseFloat(this.userdata['portfolio']['currentBalance']) + Number.EPSILON) * 100) / 100
+        this.startCapital = Math.round((parseFloat(this.userdata['portfolio']['startCapital']) + Number.EPSILON) * 100) / 100
+        this.result = (this.currentBalance + this.currentValue) - this.startCapital
+        this.totalreturn = Math.round(((this.result / this.userdata['portfolio']['startCapital']) * 100 + Number.EPSILON) * 100) / 100 + ' %'
+    }
+    ngOnInit() { }
 
 
     // return current portfolio return
     getPortfolioReturn() {
-        var netprofit = this.userdata['portfolio']['currentValue'] - this.userdata['portfolio']['startCapital']
-        netprofit = Math.round((netprofit + Number.EPSILON) * 100) / 100
-        return Math.round(((netprofit / this.userdata['portfolio']['startCapital']) * 100 + Number.EPSILON) * 100) / 100 + ' %'
+        return this.totalreturn
     }
 
     // return current return on investment
     getROI() {
         // ROI = ((Cv - COI) / COI) * 100
-        var netprofit = this.userdata['portfolio']['currentValue'] - this.userdata['portfolio']['startCapital']
-        netprofit = Math.round((netprofit + Number.EPSILON) * 100) / 100
-
         var transactions = this.userService.GetUserTransactions()
 
-        console.log(transactions)
         // sum of the $ paid for all stocks
         var totalPaid = 0
         var i;
         for (i = 0; i < transactions.length; i++) {
             totalPaid += Math.round((parseFloat(transactions[i]['data']['totalValue']) + Number.EPSILON) * 100) / 100
         }
-        return Math.round(((netprofit / (totalPaid)) * 100 + Number.EPSILON) * 100) / 100 + ' %'
+        return Math.round(((this.result / (totalPaid)) * 100 + Number.EPSILON) * 100) / 100 + ' %'
     }
 
     // return balance from cookie
@@ -54,9 +61,16 @@ export class StatisticsComponent implements OnInit {
         return this.formatToUSD(currentBalance);
     }
 
-    // return current value from cookie
-    getMarketValue() {
-        return this.formatToUSD(this.userdata['portfolio']['currentValue'])
+    // return long position from cookie
+    getLongValue() {
+        return this.formatToUSD(this.currentValue)
+    }
+
+    // return overall portfolio value
+    getPortfolioValue() {
+        var currentValue = Math.round((parseFloat(this.userdata['portfolio']['currentValue']) + Number.EPSILON) * 100) / 100
+        var currentBalance = Math.round((parseFloat(this.userdata['portfolio']['currentBalance']) + Number.EPSILON) * 100) / 100
+        return this.formatToUSD(currentBalance + currentValue)
     }
 
     getTradesMade() {

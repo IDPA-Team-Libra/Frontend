@@ -3,6 +3,7 @@ import { ChartType } from 'chart.js';
 import { MultiDataSet, Label } from 'ng2-charts';
 import { UserService } from "../api/user.service";
 import { CoreService } from "../api/core.service";
+import { templateJitUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-allocation-doughnut-chart',
@@ -15,7 +16,6 @@ export class AllocationChartComponent implements OnInit {
 
   constructor(private userService: UserService, private coreService: CoreService) {
     this.portfolio = this.userService.getPortfolioItems();
-    console.log(this.portfolio)
   }
 
   public doughnutChartLabels: Label[] = [];
@@ -24,9 +24,9 @@ export class AllocationChartComponent implements OnInit {
   ];
   public doughnutChartOptions = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     onClick: () => {
-      console.log('Hello')
+      console.log('Clicked me!')
     }
   }
 
@@ -41,42 +41,28 @@ export class AllocationChartComponent implements OnInit {
     this.doughnutChartLabels = this.getSortedStocksInPortfolio()
   }
 
+  // counts portfolio entry sizes with same ticker together -> total positionsize
   private loadAllocation() {
     var positionsizes = new Array()
     var i;
-    var currentID = 0
-    var currentSize = 0
     var tempSize = 0
-    var shouldPush = false
-    var nextID = 0
-
-    // counts all portfolio entries with the same stock together
-    for (i = 0; i < this.portfolio.length; i++) {
-      currentSize = (this.portfolio[i]['CurrentPrice'] * this.portfolio[i]['Quantity']);
-      currentID = this.portfolio[i]['StockID']
-
-      if (i == this.portfolio.length - 1) {
-        nextID = nextID = -1
-      } else {
-        nextID = this.portfolio[i + 1]['StockID']
+    var tickers = this.getSortedStocksInPortfolio()
+    var ticker = ""
+    for (ticker of tickers) {
+      tempSize = 0
+      for (i = 0; i < this.portfolio.length; i++) {
+        if (this.portfolio[i]['StockName'] == ticker) {
+          tempSize += (this.portfolio[i]['CurrentPrice'] * this.portfolio[i]['Quantity'])
+        }
       }
-
-      if (currentID == nextID) {
-        tempSize = currentSize + (this.portfolio[i + 1]['CurrentPrice'] * this.portfolio[i + 1]['Quantity'])
-      } else {
-        shouldPush = true
-      }
-      if (shouldPush) {
-        tempSize = Math.round((tempSize + Number.EPSILON) * 100) / 100
-        positionsizes.push(tempSize)
-        tempSize = 0
-        shouldPush = false
-      }
+      console.log(ticker + " with a size of: " + tempSize)
+      tempSize = Math.round((tempSize + Number.EPSILON) * 100) / 100
+      positionsizes.push(tempSize)
     }
-
     this.doughnutChartData = positionsizes
   }
 
+  // returns individual tickers
   private getSortedStocksInPortfolio() {
     var i;
     var ticker = ""
@@ -98,4 +84,9 @@ export class AllocationChartComponent implements OnInit {
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
   }
 
+  downloadCanvas(event) {
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[1].toDataURL();
+    anchor.download = "allocation.png";
+  }
 }

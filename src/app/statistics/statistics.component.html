@@ -18,20 +18,21 @@
             <nb-accordion-item>
                 <nb-accordion-item-header>Allocation</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                        <div class="chart-container" ng-show="graph.visible">
-                                <app-allocation-doughnut-chart></app-allocation-doughnut-chart>
-                            </div>
+                    <div class="chart-container" ng-show="graph.visible">
+                        <app-allocation-doughnut-chart></app-allocation-doughnut-chart>
+                    </div>
                 </nb-accordion-item-body>
             </nb-accordion-item>
 
             <nb-accordion-item>
                 <nb-accordion-item-header>Overview</nb-accordion-item-header>
                 <nb-accordion-item-body>
-					<p><b>Cash Balance:</b> {{ getCash() }}</p>
-					<p><b>Portfolio Value:</b> {{ getMarketValue() }}</p>
-					<p><b>Trades made:</b> {{ getTradesMade() }}</p>
-					<p><b>Total Portfolio return:</b>{{ getPortfolioReturn() }}</p>
-					<p><b>Return on Investment (ROI):</b>{{ getROI() }}</p>
+                    <p><b>Portfolio Value:</b> {{ getPortfolioValue() }}</p>
+                    <p><b>Current Long position:</b> {{ getLongValue() }}</p>
+                    <p><b>Cash Balance:</b> {{ getCash() }}</p>
+                    <p><b>Trades made:</b> {{ getTradesMade() }}</p>
+                    <p><b>Total Portfolio return:</b> {{ getPortfolioReturn() }}</p>
+                    <p><b>Return on Investment (ROI):</b> {{ getROI() }}</p>
                 </nb-accordion-item-body>
             </nb-accordion-item>
         </nb-accordion>
