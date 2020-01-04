@@ -13,24 +13,37 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 export class StatisticsComponent implements OnInit {
 
     userdata
+    currentValue
+    currentBalance
+    startCapital
+    result
+    totalreturn
 
-    constructor(private userService: UserService, private coreService: CoreService) { this.userdata = this.coreService.getUserInformation(); }
-    ngOnInit() { 
+    ngOnInit() {
         this.buildCashGraph();
     }
 
-    buildCashGraph(){
+    constructor(private userService: UserService, private coreService: CoreService) {
+        this.userdata = this.coreService.getUserInformation();
+        this.currentValue = Math.round((parseFloat(this.userdata['portfolio']['currentValue']) + Number.EPSILON) * 100) / 100
+        this.currentBalance = Math.round((parseFloat(this.userdata['portfolio']['currentBalance']) + Number.EPSILON) * 100) / 100
+        this.startCapital = Math.round((parseFloat(this.userdata['portfolio']['startCapital']) + Number.EPSILON) * 100) / 100
+        this.result = (this.currentBalance + this.currentValue) - this.startCapital
+        this.totalreturn = Math.round(((this.result / this.userdata['portfolio']['startCapital']) * 100 + Number.EPSILON) * 100) / 100 + ' %'
+    }
+
+    buildCashGraph() {
         var transactions = this.userService.GetRawUserTransactions();
         var data = [];
         var mapping = new Map();
-        transactions.forEach((val) =>{
-            mapping.set(val.date,val.currentBalance);
+        transactions.forEach((val) => {
+            mapping.set(val.date, val.currentBalance);
         });
         for (let [k, v] of mapping) {
             data.push(v);
             this.chartLabels.push(k);
         }
-        this.chartData.push({data: data, label:"Chash"});
+        this.chartData.push({ data: data, label: "Chash" });
         console.log(this.chartData);
     }
     public chartData: ChartDataSets[] = [
@@ -46,9 +59,7 @@ export class StatisticsComponent implements OnInit {
 
     // return current portfolio return
     getPortfolioReturn() {
-        var netprofit = this.userdata['portfolio']['currentValue'] - this.userdata['portfolio']['startCapital']
-        netprofit = Math.round((netprofit + Number.EPSILON) * 100) / 100
-        return Math.round(((netprofit / this.userdata['portfolio']['startCapital']) * 100 + Number.EPSILON) * 100) / 100 + ' %'
+        return this.totalreturn
     }
 
     // return current return on investment
@@ -63,7 +74,7 @@ export class StatisticsComponent implements OnInit {
         for (i = 0; i < transactions.length; i++) {
             totalPaid += Math.round((parseFloat(transactions[i]['data']['totalValue']) + Number.EPSILON) * 100) / 100
         }
-        return Math.round(((netprofit / (totalPaid)) * 100 + Number.EPSILON) * 100) / 100 + ' %'
+        return Math.round(((this.result / (totalPaid)) * 100 + Number.EPSILON) * 100) / 100 + ' %'
     }
 
     // return balance from cookie
@@ -75,9 +86,16 @@ export class StatisticsComponent implements OnInit {
         return this.formatToUSD(currentBalance);
     }
 
-    // return current value from cookie
-    getMarketValue() {
-        return this.formatToUSD(this.userdata['portfolio']['currentValue'])
+    // return long position from cookie
+    getLongValue() {
+        return this.formatToUSD(this.currentValue)
+    }
+
+    // return overall portfolio value
+    getPortfolioValue() {
+        var currentValue = Math.round((parseFloat(this.userdata['portfolio']['currentValue']) + Number.EPSILON) * 100) / 100
+        var currentBalance = Math.round((parseFloat(this.userdata['portfolio']['currentBalance']) + Number.EPSILON) * 100) / 100
+        return this.formatToUSD(currentBalance + currentValue)
     }
 
     getTradesMade() {
