@@ -9,7 +9,6 @@ import { LZStringService } from 'ng-lz-string';
   providedIn: 'root'
 })
 
-//TODO add localstorage and store market info for a time.
 export class StockService {
   apiURL: string = environment.api_url;
   constructor(private httpClient: HttpClient, @Inject(SESSION_STORAGE) private storageService: StorageService, private compressionService: LZStringService, private cookieService: CookieService) {
