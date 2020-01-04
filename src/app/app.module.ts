@@ -54,7 +54,7 @@ import { LogoutComponent } from './logout/logout.component';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
-    domain: 'localhost'// it is recommended to set your domain, for cookies to work properly
+    domain: 'we-go-libra.tech'// it is recommended to set your domain, for cookies to work properly
   },
   palette: {
     popup: {
