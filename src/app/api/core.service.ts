@@ -3,27 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { User } from "./user";
 import { CookieService } from "ngx-cookie-service";
 import { environment } from '../../environments/environment';
+import {PerformanceService} from "./performance.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoreService {
   apiURL: string = environment.api_url;
-  constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
-
-
+  constructor(private httpClient: HttpClient, private performanceService: PerformanceService,private cookieService: CookieService) { }
   public loginUser(user: User) {
-    
     var userPostData = {
       username: user.username,
       password: user.password,
     }
-    console.log(this.apiURL)
     return this.httpClient.post(this.apiURL + "user/login", userPostData);
-  
   }
-  //TODO implement extraction of user from response
-  //TODO check why Portfolio is empty
+
+  public success(){
+    this.performanceService.loadUserPerformance();
+  }
   public registerUser(user: User, account_balance) {
     var userPostData = {
       username: user.username,

@@ -26,34 +26,33 @@ export class PerformanceLineChartComponent implements OnInit {
     this.startCapital = Math.round((parseFloat(this.userdata['portfolio']['startCapital']) + Number.EPSILON) * 100) / 100
     this.result = (this.currentBalance + this.currentValue) - this.startCapital
     this.totalreturn = Math.round(((this.result / this.userdata['portfolio']['startCapital']) * 100 + Number.EPSILON) * 100) / 100 + ' %'
-    this.loadPerformance();
   }
 
   loadPerformance() {
     var prom = this.performanceService.loadUserPerformance();
     var data = [];
     prom.then((val: any) => {
+      console.log(val);
       if (val == undefined) {
-        return;
       }
-      try {
-        val.array.forEach(value => {
-          data.push(value.performance);
-          this.lineChartLabels.push(value.date);
-        });
-        this.lineChartData.push({ data: data, label: "Performance" });
-      } catch{
-        if (val.message == "Was not able to validate user") {
-          this.userService.setErrorTokenAndClear();
-        }
+      val.forEach(value => {
+        data.push(value.performance);
+        this.lineChartLabels.push(value.date);
+      });
+      this.lineChartData = [];
+      this.lineChartData.push({ data: data, label: "Performance" });
+      if (val.message == "Was not able to validate user") {
+        this.userService.setErrorTokenAndClear();
       }
     });
   }
 
   ngOnInit() {
+    this.loadPerformance();
   }
 
   lineChartData: ChartDataSets[] = [
+    { data: [1, 2, 3], label: "Val" }
   ];
 
   lineChartLabels: Label[] = [];
@@ -70,12 +69,5 @@ export class PerformanceLineChartComponent implements OnInit {
   lineChartLegend = true;
   lineChartPlugins = [];
   lineChartType = 'line';
-
-
-  downloadCanvas(event) {
-    var anchor = event.target;
-    anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
-    anchor.download = "performance.png";
-  }
 
 }
