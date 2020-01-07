@@ -26,7 +26,7 @@ export class AllocationChartComponent implements OnInit {
     responsive: true,
     maintainAspectRatio: true,
     onClick: () => {
-      console.log('Clicked me!')
+      console.log('Clicked me!');
     }
   }
 
@@ -38,7 +38,7 @@ export class AllocationChartComponent implements OnInit {
   }
 
   private loadTickers() {
-    this.doughnutChartLabels = this.getSortedStocksInPortfolio()
+    this.doughnutChartLabels = this.getSortedStocksInPortfolio();
   }
 
   // counts portfolio entry sizes with same ticker together -> total positionsize
@@ -68,6 +68,14 @@ export class AllocationChartComponent implements OnInit {
     var i;
     var ticker = ""
     var stocks = new Array()
+    if (this.portfolio == null) {
+      stocks.push("None");
+      return stocks;
+    }
+    if (this.portfolio.length == 0) {
+      stocks.push("None");
+      return stocks;
+    }
     for (i = 0; i < this.portfolio.length; i++) {
       ticker = this.portfolio[i]['StockName']
       if (!stocks.includes(ticker)) {

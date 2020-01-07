@@ -71,6 +71,7 @@ export class ProfileComponent implements OnInit {
     this.currentValue = this.userService.getUserTotalStockValue();
     this.username = this.userService.getUsername();
     this.tabs = $("nb-tab");
+    this.createCompleteDownloadFile();
   }
 
   currentBalance;
@@ -96,6 +97,9 @@ export class ProfileComponent implements OnInit {
     dialogRef.onClose.subscribe(_ => { });
   }
 
+
+
+  portfolioFileBody;
   loadPortfolio() {
     this.data = [];
     var stocks = this.userService.getPortfolioItems();
@@ -103,6 +107,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
     var json_stock_list_obj = JSON.stringify(stocks);
+    this.portfolioFileBody = json_stock_list_obj;
     const blob = new Blob([json_stock_list_obj], { type: 'application/octet-stream' });
     this.portfolioListUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     stocks = this.summarizePortfolio(stocks);
@@ -112,6 +117,13 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  entireProfileURL;
+  createCompleteDownloadFile() {
+    var fileContent = this.portfolioFileBody + this.transactionFileBody;
+    const blob = new Blob([fileContent], { type: 'application/octet-stream' });
+    this.entireProfileURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  }
+  transactionFileBody;
   loadTransactionData() {
     this.transactionData = [];
     var transactions = this.userService.GetUserTransactions();
@@ -125,6 +137,7 @@ export class ProfileComponent implements OnInit {
       transactionArray.push(val);
     });
     var json_transaction_string = JSON.stringify(transactionArray);
+    this.transactionFileBody = json_transaction_string;
     const blob = new Blob([json_transaction_string], { type: 'application/octet-stream' });
     this.transactionHistoryUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }

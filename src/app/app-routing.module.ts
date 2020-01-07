@@ -18,7 +18,7 @@ import { AuthenticationBlockGuard } from './guards/authentication_block-guard.se
 import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'login', component: LoginComponent, canActivate: [AuthenticationBlockGuard] },
   { path: 'market', component: MarketComponent },

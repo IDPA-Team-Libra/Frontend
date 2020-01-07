@@ -32,8 +32,19 @@ export class PerformanceLineChartComponent implements OnInit {
     var prom = this.performanceService.loadUserPerformance();
     var data = [];
     prom.then((val: any) => {
-      console.log(val);
-      if (val == undefined) {
+      if (val === undefined || val == null) {
+        data.push(0);
+        this.lineChartData = [];
+        this.lineChartData.push({ data: data, label: "Performance" });
+        this.lineChartLabels.push();
+        return;
+      }
+      if (val.length === 0) {
+        data.push(0);
+        this.lineChartData = [];
+        this.lineChartData.push({ data: data, label: "Performance" });
+        this.lineChartLabels.push();
+        return;
       }
       val.forEach(value => {
         data.push(value.performance);

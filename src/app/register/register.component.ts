@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     this.open(true);
   }
 
-  constructor(private userService: UserService, private dialogService: NbDialogService, private coreService: CoreService, private notifierService: NotifierService, private cookieService: CookieService,private toastrService: NbToastrService) { }
+  constructor(private userService: UserService, private dialogService: NbDialogService, private coreService: CoreService, private notifierService: NotifierService, private cookieService: CookieService, private toastrService: NbToastrService) { }
 
   ngOnInit() {
   }
@@ -36,50 +36,57 @@ export class RegisterComponent implements OnInit {
   openDialog() {
 
   }
-	index: number = 0;
+  index: number = 0;
 
-	ValidateEmail(mail)
-	{
-	 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-	  {
-		return (true)
-	  }
-		this.showDefaultIcon("Ihre Email-Adresse ist nicht gültig","danger","Ungültige Email")
-		return (false)
-	}
+  ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return (true)
+    }
+    this.showDefaultIcon("Ihre Email-Adresse ist nicht gültig", "danger", "Ungültige Email")
+    return (false)
+  }
 
-	ValidateUsername(username){
-		if(username.length >= 5){
-			return true;
-		}
-		this.showDefaultIcon("Der Nutzername muss mindestens 5 Zeichen lang sein","danger","Ungültiger Nutzername")
-		return false;
-	}
+  ValidateUsername(username) {
+    if (username.length >= 5) {
+      return true;
+    }
+    console.log("test");
+    this.showDefaultIcon("Der Nutzername muss mindestens 5 Zeichen lang sein", "danger", "Ungültiger Nutzername")
+    return false;
+  }
 
-	ValidatePassword(password){
-		var res = password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!_.@#\$%\^&\*])(?=.{8,})");
-		if(res != null){
-			return true;
-		}
-		this.showDefaultIcon("Ihr Passwort muss zwischen 7 und 500 Zeichen lang sein.\nEbenfalls muss eine Ziffer sowie ein Sondernzeichen [@#$%^&] enthalten sein","danger","Ungültiges Passwort")
-		return false;
-	}
+  ValidatePassword(password) {
+    if (password === undefined) {
+      this.showDefaultIcon("Ihr Passwort muss zwischen 7 und 500 Zeichen lang sein.\nEbenfalls muss eine Ziffer sowie ein Sondernzeichen [@#$%^&] enthalten sein", "danger", "Ungültiges Passwort")
+      return;
+    }
+    if (password.length == 0) {
+      this.showDefaultIcon("Ihr Passwort muss zwischen 7 und 500 Zeichen lang sein.\nEbenfalls muss eine Ziffer sowie ein Sondernzeichen [@#$%^&] enthalten sein", "danger", "Ungültiges Passwort")
+      return;
+    }
+    var res = password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!_.@#\$%\^&\*])(?=.{8,})");
+    if (res != null) {
+      return true;
+    }
+    this.showDefaultIcon("Ihr Passwort muss zwischen 7 und 500 Zeichen lang sein.\nEbenfalls muss eine Ziffer sowie ein Sondernzeichen [@#$%^&] enthalten sein", "danger", "Ungültiges Passwort")
+    return false;
+  }
 
-	showDefaultIcon(message, status, title) {
-		var destroyByClick = true
-		var preventDuplicates = true
-		//doesn't destroy by time, but only by click
-		var duration = 0;
-    	this.toastrService.show(title,message,{status,destroyByClick,preventDuplicates,duration});
-  	}
+  showDefaultIcon(message, status, title) {
+    var destroyByClick = true
+    var preventDuplicates = true
+    //doesn't destroy by time, but only by click
+    var duration = 0;
+    this.toastrService.show(title, message, { status, destroyByClick, preventDuplicates, duration });
+  }
 
   registerUser() {
-	  var valid_email = this.ValidateEmail(this.email);
-	  var valid_password = this.ValidatePassword(this.password);
-	  var valid_username = this.ValidateUsername(this.username);
-	  if(valid_email == false || valid_password == false || valid_username == false){
-		return;
-	  }
+    var valid_email = this.ValidateEmail(this.email);
+    var valid_password = this.ValidatePassword(this.password);
+    var valid_username = this.ValidateUsername(this.username);
+    if (valid_email === false || valid_password === false || valid_username === false) {
+      return;
+    }
     var user = new User(this.username, this.password, this.email);
     var promis = this.coreService.registerUser(user, this.account_start_balance);
     promis.then((data: any) => {

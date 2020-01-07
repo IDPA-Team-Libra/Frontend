@@ -28,14 +28,14 @@ export class StockprofileComponent implements OnInit {
   operation;
 
   showContent(tab) {
-    if (tab == "buy") {
-      if (this.operation == "buy") {
+    if (tab === "buy") {
+      if (this.operation === "buy") {
         return true;
       }
       return false;
     }
-    if (tab == "sell") {
-      if (this.operation == "sell") {
+    if (tab === "sell") {
+      if (this.operation === "sell") {
         return true;
       }
       return false;
@@ -51,10 +51,18 @@ export class StockprofileComponent implements OnInit {
   toggle(checked: boolean) {
     this.checked = checked;
     if (checked === true) {
-      this.totalTransactionValue += 50;
+      if (this.operation === "buy") {
+        this.totalTransactionValue += 50;
+      } else {
+        this.totalTransactionValue -= 50;
+      }
     } else {
       this.date_set = false;
-      this.totalTransactionValue -= 50;
+      if (this.operation === "buy") {
+        this.totalTransactionValue -= 50;
+      } else {
+        this.totalTransactionValue += 50;
+      }
     }
   }
 
@@ -78,7 +86,7 @@ export class StockprofileComponent implements OnInit {
 
   queryNews() {
     this.userService.getNews(this.stockSymbol, this.API_KEY).then((val: any) => {
-      if (val.status == "ok") {
+      if (val.status === "ok") {
         val.articles.forEach(article => {
           this.news_urls.push(article.url);
           this.news_titles.push(article.title);
@@ -137,7 +145,6 @@ export class StockprofileComponent implements OnInit {
           break;
         case "Success":
           if (operation == "*") {
-
           } else {
             var adjustment_value = parseFloat(value);
             if (operation == "-") {

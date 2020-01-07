@@ -36,6 +36,13 @@ export class StatisticsComponent implements OnInit {
         var transactions = this.userService.GetRawUserTransactions();
         var data = [];
         var mapping = new Map();
+        if (transactions == null) {
+            let today = new Date().toISOString().slice(0, 10);
+            this.chartLabels.push(today);
+            data.push(this.userService.getUserBalance());
+            this.chartData.push({ data: data, label: "Chash" });
+            return;
+        }
         transactions.forEach((val) => {
             mapping.set(val.date, val.currentBalance);
         });
@@ -46,6 +53,7 @@ export class StatisticsComponent implements OnInit {
         this.chartData.push({ data: data, label: "Chash" });
     }
     public chartData: ChartDataSets[] = [
+
     ];
     public chartLabels = [];
     public chartType = 'line';
@@ -103,13 +111,16 @@ export class StatisticsComponent implements OnInit {
     public performanceChartOption = {
         scaleShowVerticalLines: false,
         responsive: true
-    }
+    };
 
     formatToUSD = function (val) {
+        if (val === "") {
+            return "$0";
+        }
         var formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
         });
         return formatter.format(val);
-    }
+    };
 }
