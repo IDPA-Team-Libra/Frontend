@@ -9,7 +9,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MarketComponent } from './market/market.component';
 import { HistoryComponent } from './history/history.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,7 +36,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { TermsComponent } from './terms/terms.component';
-import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { FsIconComponent } from './fs-icon/fs-icon.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
@@ -101,10 +99,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     RegisterComponent,
     MarketComponent,
     HistoryComponent,
-    PortfolioComponent,
     ProfileComponent,
     TermsComponent,
-    PieChartComponent,
     FsIconComponent,
     PrivacypolicyComponent,
     TermsofserviceComponent,

@@ -11,7 +11,7 @@ import { UserService } from "./api/user.service";
 import { NotifierService } from "./notification/notifier.service";
 import { HostListener } from "@angular/core";
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 
 import {
   MatButtonModule,
@@ -36,22 +36,22 @@ export class AppComponent {
   private noCookieLawSubscription: Subscription;
 
   constructor(private ccService: NgcCookieConsentService, private authService: AuthenticationService, private logoutService: LogoutService, public themeService: NbThemeService, private cookieService: CookieService, private notifierService: NotifierService,
-    private userSerivce: UserService, private sidebarService: NbSidebarService, private router: Router, public zone: NgZone,private titleService:Title) {
+    private userSerivce: UserService, private sidebarService: NbSidebarService, private router: Router, public zone: NgZone, private titleService: Title) {
     router.events.subscribe(() => {
       if (event instanceof NavigationStart) {
         this.toggleOnMenuItemClicked();
       }
     });
-    this.setTitelString(); 
+    this.setTitelString();
   }
 
-  setTitelString(){
+  setTitelString() {
     var location = window.location.href;
     var locationParts = location.split("/");
-    if(locationParts.length <= 4 && locationParts[locationParts.length - 1] === ""){
+    if (locationParts.length <= 4 && locationParts[locationParts.length - 1] === "") {
       this.titleService.setTitle("Libra");
-    }else{
-      this.titleService.setTitle("Libra - "+ this.capitalizeFirstLetter(locationParts[locationParts.length -1]));
+    } else {
+      this.titleService.setTitle("Libra - " + this.capitalizeFirstLetter(locationParts[locationParts.length - 1]));
     }
   }
 

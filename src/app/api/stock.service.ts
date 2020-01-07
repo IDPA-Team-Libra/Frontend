@@ -11,6 +11,7 @@ import { LZStringService } from 'ng-lz-string';
 
 export class StockService {
   apiURL: string = environment.api_url;
+
   constructor(private httpClient: HttpClient, @Inject(SESSION_STORAGE) private storageService: StorageService, private compressionService: LZStringService, private cookieService: CookieService) {
     if (this.cookieService.get("stock_data_state") != "empty" || this.cookieService.get("stock_data_state") != "read") {
       this.cookieService.set("stock_data_state", "empty");
@@ -36,9 +37,5 @@ export class StockService {
   public loadStockdData() {
     var data = this.httpClient.get(this.apiURL + "stock/all").toPromise();
     return data;
-  }
-
-  public filter_stocks(stock) {
-    return false;
   }
 }

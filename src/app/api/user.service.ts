@@ -140,7 +140,7 @@ export class UserService {
     return array;
   }
 
-  public GetRawUserTransactions(){
+  public GetRawUserTransactions() {
     var transactionData = this.compressionService.decompress(this.storageService.get("transactions"));
     var portObj;
     portObj = JSON.parse(transactionData);

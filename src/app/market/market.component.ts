@@ -3,7 +3,7 @@ import { StockService } from "../api/stock.service";
 import { StockprofileComponent } from "../stockprofile/stockprofile.component";
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { NbDialogService } from '@nebular/theme';
-
+import * as pako from 'pako';
 interface TreeNode<T> {
   data: T;
   children?: TreeNode<T>[];
@@ -52,26 +52,23 @@ export class MarketComponent implements OnInit {
 
   constructor(private stockService: StockService, private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>, private dialogService: NbDialogService) {
     var returned_data;
-    console.log(this.stockService.getState());
-    if(this.stockService.getState() === "empty"){
-      returned_data = stockService.loadStockdData();
-    }else{
-      this.data.concat(this.stockService.getData());
-      return;
-    }
+    returned_data = stockService.loadStockdData();
     returned_data.then((dat: any) => {
       if (dat != undefined) {
-        dat['stocks'].forEach(element => {
+        var stocks = dat['stocks'];
+        stocks = atob(stocks);
+        var restored = JSON.parse(pako.inflate(stocks, { to: 'string' }));
+        restored.forEach(element => {
           var company = element['company'];
           var price = element['price'];
           var symbol = element['symbol'];
-          var data = element['data'];
           this.data.push({ data: { symbol: symbol, price: price, company: company }, });
         });
       }
       this.dataSource = this.dataSourceBuilder.create(this.data);
       this.stockService.setState(this.data);
     }).catch(err => {
+      console.log(err);
     });
   }
 

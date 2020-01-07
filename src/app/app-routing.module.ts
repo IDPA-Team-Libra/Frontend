@@ -7,7 +7,6 @@ import { RegisterComponent } from './register/register.component';
 
 import { MarketComponent } from './market/market.component';
 import { HistoryComponent } from './history/history.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
@@ -24,7 +23,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthenticationBlockGuard] },
   { path: 'market', component: MarketComponent },
   { path: 'history', component: HistoryComponent, canActivate: [AuthGuardService] },
-  { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuardService] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'register', component: RegisterComponent, canActivate: [AuthenticationBlockGuard] },
   { path: 'policy/cookie', component: CookiepolicyComponent },
