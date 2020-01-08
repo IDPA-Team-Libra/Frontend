@@ -19,7 +19,7 @@ export class AuthenticationService {
     return false;
   }
 
-  public authenticateUser(retries) {
+  public authenticateUser() {
     var body =
     {
       username: this.userService.getUsername(),

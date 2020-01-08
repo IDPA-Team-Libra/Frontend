@@ -105,6 +105,7 @@ export class StockprofileComponent implements OnInit {
   buyStock() {
     if (this.isAuthenticated() === false) {
       this.notifierService.displayNotification("Sie müssen sich zuerst einloggen", "warning", "Nicht Authentifiziert");
+      return;
     }
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice, this.stockCount);
     if (this.date_set) {
@@ -126,8 +127,11 @@ export class StockprofileComponent implements OnInit {
     if (this.isAuthenticated() === false) {
       this.notifierService.displayNotification("Sie müssen sich zuerst einloggen", "warning", "Nicht Authentifiziert");
     }
-    if (this.fixedStockCount < this.stockCount) {
-      this.notifierService.displayNotification("Sie können nicht mehr Aktien verkaufen als sie haben", "warning", "Verkauf fehlgeschlagen");
+    if (this.date_set === false) {
+      if (this.fixedStockCount < this.stockCount) {
+        this.notifierService.displayNotification("Sie können nicht mehr Aktien verkaufen als sie haben", "warning", "Verkauf fehlgeschlagen");
+        return;
+      }
     }
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice.toString(), this.stockCount);
     if (this.date_set === true) {
