@@ -27,13 +27,12 @@ export class LoginComponent implements OnInit {
       var dat = data;
       if (dat != undefined) {
         var message = dat.response;
-        if (message == "Success") {
+        if (message === "Success") {
           var tokenName = dat.tokenName;
           var token = dat.token;
           var expires = dat.expires;
           this.cookieService.set(tokenName, token, expires);
           this.cookieService.set("user", dat.user);
-          this.userService.purgeMetadata();
           this.cookieService.set("authenticated", "true");
           this.coreService.success();
           this.notifierService.displayNotification("Sie wurden erfolgreich eingeloggt", "success", "Login erfolgreich").onClose.subscribe(function () {

@@ -13,22 +13,22 @@ export class AuthenticationService {
 
   public isAuthenticated() {
     var authenticated = this.cookieService.get("authenticated");
-    if (authenticated == "true") {
+    if (authenticated === "true") {
       return true;
     }
     return false;
   }
 
-  public async authenticateUser() {
+  public authenticateUser(retries) {
     var body =
     {
       username: this.userService.getUsername(),
       accessToken: this.userService.getAuthToken()
     };
     var apiURL: string = environment.api_url;
-    var val = await this.httpClient.post(apiURL + "authenticate/token", body).toPromise().then((val: any) => {
+    var val = this.httpClient.post(apiURL + "authenticate/token", body).toPromise().then((val: any) => {
       try {
-        if (val.response == "Invalid Token") {
+        if (val.response === "Invalid Token") {
           this.userService.setErrorTokenAndClear();
           return false;
         } else {

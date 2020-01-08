@@ -12,10 +12,10 @@ export class AuthGuardService implements CanActivate {
   async canActivate() {
     var status = this.authService.isAuthenticated();
     var isAuthed = await this.authService.authenticateUser();
-   	if (status == true && isAuthed) {
+    if (status === true && isAuthed) {
       return true
     }
-    this.cookieService.set("error","Bitte loggen Sie sich für diese Aktion ein");
+    this.cookieService.set("error", "Bitte loggen Sie sich für diese Aktion ein");
     window.location.href = "/"
     return false
   }

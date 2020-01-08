@@ -20,6 +20,7 @@ export class StatisticsComponent implements OnInit {
     totalreturn
 
     ngOnInit() {
+        this.userService.purgeMetadata();
         this.buildCashGraph();
     }
 

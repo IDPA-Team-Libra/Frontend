@@ -103,7 +103,7 @@ export class StockprofileComponent implements OnInit {
   news_titles = [];
 
   buyStock() {
-    if (this.isAuthenticated() == false) {
+    if (this.isAuthenticated() === false) {
       this.notifierService.displayNotification("Sie müssen sich zuerst einloggen", "warning", "Nicht Authentifiziert");
     }
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice, this.stockCount);
@@ -117,14 +117,20 @@ export class StockprofileComponent implements OnInit {
   }
 
   sellStock() {
-    if (this.isAuthenticated() == false) {
+    if (this.stockCount == undefined) {
+      return;
+    }
+    if (this.stockCount == 0) {
+      return;
+    }
+    if (this.isAuthenticated() === false) {
       this.notifierService.displayNotification("Sie müssen sich zuerst einloggen", "warning", "Nicht Authentifiziert");
     }
     if (this.fixedStockCount < this.stockCount) {
       this.notifierService.displayNotification("Sie können nicht mehr Aktien verkaufen als sie haben", "warning", "Verkauf fehlgeschlagen");
     }
     var trans = new Transaction(this.stockSymbol, "EMPTY", this.symbolPrice.toString(), this.stockCount);
-    if (this.date_set == true) {
+    if (this.date_set === true) {
       trans.date = this.date;
       this.handleTransactionResponse(this.transactionService.sendDelayedSellTransaction(trans));
     } else {
@@ -144,10 +150,10 @@ export class StockprofileComponent implements OnInit {
           this.notifierService.displayNotification(message, "warning", title);
           break;
         case "Success":
-          if (operation == "*") {
+          if (operation === "*") {
           } else {
             var adjustment_value = parseFloat(value);
-            if (operation == "-") {
+            if (operation === "-") {
               adjustment_value *= -1;
             }
             this.userService.updateBalanceAndValue(adjustment_value);

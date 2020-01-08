@@ -80,10 +80,11 @@ export class UserService {
   reloadMetaData() {
     var body = {
       username: this.getUsername(),
-      accessToken: this.getAuthToken(),
+      authToken: this.getAuthToken(),
     };
     var apiURL: string = environment.api_url;
     this.httpClient.post(apiURL + "portfolio/get", body).toPromise().then((val: any) => {
+      console.log(val);
       if (val == null) {
         return;
       }
@@ -98,7 +99,9 @@ export class UserService {
       username: this.getUsername(),
       authToken: this.getAuthToken(),
     };
+    console.log(sec_body);
     this.httpClient.post(apiURL + "transaction/get/delayed", sec_body).toPromise().then((val: any) => {
+      console.log(val);
       if (val == null) {
         return;
       }
