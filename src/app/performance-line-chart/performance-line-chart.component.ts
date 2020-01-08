@@ -69,6 +69,17 @@ export class PerformanceLineChartComponent implements OnInit {
   lineChartLabels: Label[] = [];
   lineChartOptions = {
     responsive: true,
+    scales : {
+      yAxes: [{
+          ticks: {
+          beginAtZero: true,
+              stepValue: 10,
+              steps: 20,
+            max: 50,
+            min: -50 
+          }
+      }]
+    }
   };
 
   lineChartColors: Color[] = [
