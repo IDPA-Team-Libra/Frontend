@@ -73,6 +73,9 @@ export class UserService {
   public getPortfolioItems() {
     var portfolioData = this.compressionService.decompress(this.storageService.get("portfolio"));
     var portObj;
+    if (portfolioData == undefined) {
+
+    }
     portObj = JSON.parse(portfolioData);
     return portObj;
   }
