@@ -47,12 +47,13 @@ export class RegisterComponent implements OnInit {
   }
 
   ValidateUsername(username) {
-    if (username.length >= 5) {
+    if (username == undefined || username == "") {
+      this.showDefaultIcon("Der Nutzername muss mindestens 5 Zeichen lang sein", "danger", "Ungültiger Nutzername")
+      return false;
+    }
+    if (username.length > 5) {
       return true;
     }
-    console.log("test");
-    this.showDefaultIcon("Der Nutzername muss mindestens 5 Zeichen lang sein", "danger", "Ungültiger Nutzername")
-    return false;
   }
 
   ValidatePassword(password) {

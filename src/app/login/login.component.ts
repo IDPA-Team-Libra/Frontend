@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
           this.cookieService.set("user", dat.user);
           this.cookieService.set("authenticated", "true");
           this.coreService.success();
+          this.userService.purgeMetadata();
           this.notifierService.displayNotification("Sie wurden erfolgreich eingeloggt", "success", "Login erfolgreich").onClose.subscribe(function () {
             window.location.href = "/profile"
           });
