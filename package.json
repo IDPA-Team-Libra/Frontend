@@ -34,7 +34,7 @@
     "d3-shape": "^1.3.5",
     "eva-icons": "^1.1.1",
     "hammerjs": "^2.0.8",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "materialize-css": "^1.0.0-rc.2",
     "ng-lz-string": "^1.5.3",
     "ng2-charts": "^2.3.0",
